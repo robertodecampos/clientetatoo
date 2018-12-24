@@ -58,6 +58,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DAO\CidadeDAO.cs" />
+    <Compile Include="DAO\ClienteDAO.cs" />
+    <Compile Include="DAO\EnderecoDAO.cs" />
+    <Compile Include="DAO\EstadoDAO.cs" />
     <Compile Include="DAO\IDao.cs" />
     <Compile Include="DAO\TermoResponsabilidadeDAO.cs" />
     <Compile Include="DAO\UsuarioDAO.cs" />
@@ -79,6 +83,10 @@
     <Compile Include="frmLogin.Designer.cs">
       <DependentUpon>frmLogin.cs</DependentUpon>
     </Compile>
+    <Compile Include="Model\Cidade.cs" />
+    <Compile Include="Model\Cliente.cs" />
+    <Compile Include="Model\Endereco.cs" />
+    <Compile Include="Model\Estado.cs" />
     <Compile Include="Model\TermoResponsabilidade.cs" />
     <Compile Include="Model\Usuario.cs" />
     <Compile Include="Program.cs" />
