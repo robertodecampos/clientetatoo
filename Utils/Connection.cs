@@ -9,7 +9,7 @@ namespace ClienteTatoo.Utils
     {
         private readonly MySqlConnection _conn;
 
-        private string local = "Server=localhost;Database=cliente_tatoo;Uid=cliente_tatoo;Pwd=tatoocli@3409;SslMode=none;";
+        private string local = "Server=localhost;Database=cliente_tatoo;Uid=cliente_tatoo;Pwd=clitatoo@3409;SslMode=none;";
 
         public Connection()
         {
