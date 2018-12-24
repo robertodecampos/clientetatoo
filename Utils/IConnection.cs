@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Site.Utils
+namespace ClienteTatoo.Utils
 {
     public interface IConnection
     {

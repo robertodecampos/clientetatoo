@@ -6,7 +6,7 @@ using System.Data.Common;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Site.DAO
+namespace ClienteTatoo.DAO
 {
     interface IDao<in Object, in Transaction> : IDisposable
     {

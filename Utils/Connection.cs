@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using MySql.Data.MySqlClient;
 
-namespace Site.Utils
+namespace ClienteTatoo.Utils
 {
     public class Connection : IConnection, IDisposable
     {
