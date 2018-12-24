@@ -19,9 +19,12 @@ namespace ClienteTatoo
 
         private void termoDeResponsabilidadeToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            using (var frmLogin = new FormLogin())
             using (var frmConfigurarTermoResponsabilidade = new FormConfigurarTermoResponsabilidade())
             {
-                frmConfigurarTermoResponsabilidade.ShowDialog();
+                frmLogin.ShowDialog();
+                if (frmLogin.Logado)
+                    frmConfigurarTermoResponsabilidade.ShowDialog();
             }
         }
     }
