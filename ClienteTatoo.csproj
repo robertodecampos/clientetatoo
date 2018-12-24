@@ -58,16 +58,28 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DAO\IDao.cs" />
+    <Compile Include="DAO\TermoResponsabilidadeDAO.cs" />
+    <Compile Include="frmConfigurarTermoResponsabilidade.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmConfigurarTermoResponsabilidade.Designer.cs">
+      <DependentUpon>frmConfigurarTermoResponsabilidade.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmClientes.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="frmClientes.Designer.cs">
       <DependentUpon>frmClientes.cs</DependentUpon>
     </Compile>
+    <Compile Include="Model\TermoResponsabilidade.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utils\Connection.cs" />
     <Compile Include="Utils\IConnection.cs" />
+    <EmbeddedResource Include="frmConfigurarTermoResponsabilidade.resx">
+      <DependentUpon>frmConfigurarTermoResponsabilidade.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmClientes.resx">
       <DependentUpon>frmClientes.cs</DependentUpon>
     </EmbeddedResource>
