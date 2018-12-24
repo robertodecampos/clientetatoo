@@ -30,7 +30,14 @@ namespace ClienteTatoo.DAO
 
             parameters.Add(new MySqlParameter("@termo", MySqlDbType.String) { Value = model.Termo });
 
-            return _conn.Execute(sql, parameters, transaction);
+            int linhasAfetadas = _conn.Execute(sql, parameters, transaction);
+
+            if (linhasAfetadas != 1)
+                return linhasAfetadas;
+
+            model.Id = _conn.UltimoIdInserido();
+
+            return linhasAfetadas;
         }
 
         public int Remove(TermoResponsabilidade model, MySqlTransaction transaction) => throw new NotImplementedException();
