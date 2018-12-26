@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace ClienteTatoo.Model
 {
-    class TermoResponsabilidade
+    class TermoResponsabilidade : IDisposable
     {
         public int Id { get; set; }
         public string Termo { get; set; }
@@ -45,5 +45,7 @@ namespace ClienteTatoo.Model
                 return dao.Exists(transaction);
             }
         }
+
+        public void Dispose() { }
     }
 }

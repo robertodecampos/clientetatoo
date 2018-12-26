@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace ClienteTatoo.Model
 {
-    class Cliente
+    class Cliente : IDisposable
     {
         public int Id { get; set; }
         public string Nome { get; set; }
@@ -58,5 +58,7 @@ namespace ClienteTatoo.Model
                     dao.Update(this, transaction);
             }
         }
+
+        public void Dispose() { }
     }
 }

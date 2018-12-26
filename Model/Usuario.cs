@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace ClienteTatoo.Model
 {
-    class Usuario
+    class Usuario: IDisposable
     {
         public static bool Login(string login, string senha, Connection conn, MySqlTransaction transaction)
         {
@@ -18,5 +18,7 @@ namespace ClienteTatoo.Model
                 return dao.Login(login, senha, transaction);
             }
         }
+
+        public void Dispose() { }
     }
 }
