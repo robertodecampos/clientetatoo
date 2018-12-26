@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace ClienteTatoo.Model
 {
-    class Usuario: IDisposable
+    public class Usuario: IDisposable
     {
         public static bool Login(string login, string senha, Connection conn, MySqlTransaction transaction)
         {

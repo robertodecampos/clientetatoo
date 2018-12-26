@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace ClienteTatoo.Model
 {
-    class Cliente : IDisposable
+    public class Cliente : IDisposable
     {
         public int Id { get; set; }
         public string Nome { get; set; }

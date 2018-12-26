@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace ClienteTatoo.Model
 {
-    class TermoResponsabilidade : IDisposable
+    public class TermoResponsabilidade : IDisposable
     {
         public int Id { get; set; }
         public string Termo { get; set; }
