@@ -38,6 +38,14 @@ namespace ClienteTatoo.Model
             }
         }
 
+        public void SetById(int id, Connection conn, MySqlTransaction transaction)
+        {
+            using (var dao = new TermoResponsabilidadeDAO(conn))
+            {
+                dao.SetById(id, this, transaction);
+            }
+        }
+
         public static bool Exists(Connection conn, MySqlTransaction transaction)
         {
             using (var dao = new TermoResponsabilidadeDAO(conn))

@@ -61,6 +61,27 @@ namespace ClienteTatoo.DAO
                 throw new Exception($"Não existe nenhum termo de responsabilidade cadastrado!");
         }
 
+        public void SetById(int id, TermoResponsabilidade model, MySqlTransaction transaction)
+        {
+            string sql = "SELECT *" +
+                         " FROM termo_responsabilidade a" +
+                         " WHERE a.id = @id";
+
+            var parameters = new List<MySqlParameter>();
+            parameters.Add(new MySqlParameter("@id", MySqlDbType.Int32) { Value = id });
+
+            DataTable dt = _conn.ExecuteReader(sql, parameters, transaction);
+
+            if (dt.Rows.Count == 1)
+            {
+                PreencherModel(model, dt.Rows[0]);
+            }
+            else if (dt.Rows.Count == 0)
+                throw new Exception("Não existe nenhum termo de responsabilidade cadastrado!");
+            else
+                throw new Exception($"Existem {dt.Rows.Count} termos de responsabilidade cadastrados com o id {id}!");
+        }
+
         public bool Exists(MySqlTransaction transaction)
         {
             string sql = "SELECT COUNT(a.id) qtde" +
