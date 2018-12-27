@@ -31,6 +31,7 @@
             this.msPricipal = new System.Windows.Forms.MenuStrip();
             this.configurarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.termoDeResponsabilidadeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.txtCadastrar = new System.Windows.Forms.Button();
             this.msPricipal.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -59,11 +60,22 @@
             this.termoDeResponsabilidadeToolStripMenuItem.Text = "Termo de Responsabilidade";
             this.termoDeResponsabilidadeToolStripMenuItem.Click += new System.EventHandler(this.termoDeResponsabilidadeToolStripMenuItem_Click);
             // 
+            // txtCadastrar
+            // 
+            this.txtCadastrar.Location = new System.Drawing.Point(693, 423);
+            this.txtCadastrar.Name = "txtCadastrar";
+            this.txtCadastrar.Size = new System.Drawing.Size(102, 23);
+            this.txtCadastrar.TabIndex = 1;
+            this.txtCadastrar.Text = "Cadastrar Cliente";
+            this.txtCadastrar.UseVisualStyleBackColor = true;
+            this.txtCadastrar.Click += new System.EventHandler(this.txtCadastrar_Click);
+            // 
             // FormClientes
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(807, 458);
+            this.Controls.Add(this.txtCadastrar);
             this.Controls.Add(this.msPricipal);
             this.MainMenuStrip = this.msPricipal;
             this.Name = "FormClientes";
@@ -80,6 +92,7 @@
         private System.Windows.Forms.MenuStrip msPricipal;
         private System.Windows.Forms.ToolStripMenuItem configurarToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem termoDeResponsabilidadeToolStripMenuItem;
+        private System.Windows.Forms.Button txtCadastrar;
     }
 }
 

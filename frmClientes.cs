@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ClienteTatoo.Model;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,6 +13,8 @@ namespace ClienteTatoo
 {
     public partial class FormClientes : Form
     {
+        private enum PassoCadastroCliente { pccTermoResponsabilidade, pccDadosPessoais };
+
         public FormClientes()
         {
             InitializeComponent();
@@ -25,6 +28,42 @@ namespace ClienteTatoo
                 frmLogin.ShowDialog();
                 if (frmLogin.Logado)
                     frmConfigurarTermoResponsabilidade.ShowDialog();
+            }
+        }
+
+        private void txtCadastrar_Click(object sender, EventArgs e)
+        {
+
+            using (var cliente = new Cliente())
+            using (var frmDadosPessoais = new FormDadosPessoaisCliente(TipoFormulario.tfCadastro, cliente))
+            using (var frmTermoResponsabilidade = new FormTermoResponsabilidade())
+            {
+                PassoCadastroCliente passo = PassoCadastroCliente.pccTermoResponsabilidade;
+                bool cadastroFinalizado = false;
+
+                while (!cadastroFinalizado)
+                {
+                    switch (passo)
+                    {
+                        case PassoCadastroCliente.pccTermoResponsabilidade:
+                            frmTermoResponsabilidade.ShowDialog();
+                            if (frmTermoResponsabilidade.DialogResult == DialogResult.OK)
+                                passo = PassoCadastroCliente.pccDadosPessoais;
+                            else
+                                return;
+                            break;
+
+                        case PassoCadastroCliente.pccDadosPessoais:
+                            frmDadosPessoais.ShowDialog();
+                            if (frmDadosPessoais.DialogResult == DialogResult.OK)
+                                cadastroFinalizado = true;
+                            else if (frmDadosPessoais.DialogResult == DialogResult.Abort)
+                                passo = PassoCadastroCliente.pccTermoResponsabilidade;
+                            else
+                                return;
+                            break;
+                    }
+                }
             }
         }
     }

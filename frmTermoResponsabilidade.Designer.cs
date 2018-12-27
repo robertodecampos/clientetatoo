@@ -61,6 +61,7 @@
             // btnAvancar
             // 
             this.btnAvancar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnAvancar.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.btnAvancar.Enabled = false;
             this.btnAvancar.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAvancar.Location = new System.Drawing.Point(713, 410);
@@ -80,6 +81,7 @@
             this.Controls.Add(this.rtbTermoResponsabilidade);
             this.Name = "FormTermoResponsabilidade";
             this.Text = "Termo de Responsabilidade";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormTermoResponsabilidade_FormClosing);
             this.ResumeLayout(false);
             this.PerformLayout();
 
