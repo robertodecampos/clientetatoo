@@ -16,6 +16,8 @@ namespace ClienteTatoo
 
     public partial class FormDadosPessoaisCliente : Form
     {
+        private IList<Estado> Estados { get; set; }
+        private IList<Cidade> Cidades { get; set; }
         private TipoFormulario TipoFormulario { get; set; }
         public Cliente Cliente { get; set; }
 
@@ -47,7 +49,9 @@ namespace ClienteTatoo
                 cmbEstado.Items.Clear();
                 cmbEstado.Items.Add("Selecione o Estado...");
 
-                foreach (Estado estado in Estado.GetAll(conn, null))
+                Estados = Estado.GetAll(conn, null);
+
+                foreach (Estado estado in Estados)
                     cmbEstado.Items.Add(estado.Nome);
 
                 cmbEstado.SelectedIndex = 0;
@@ -66,6 +70,39 @@ namespace ClienteTatoo
 
             if (MessageBox.Show("Deseja realmente cancelar o cadastro do cliente?\nAs informações não serão salvas!", "Confirmação", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
                 e.Cancel = true;
+        }
+
+        private void cmbEstado_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            int index = ((ComboBox)sender).SelectedIndex - 1;
+
+            if (index >= 0)
+                CarregarCidades(Estados[((ComboBox)sender).SelectedIndex - 1].Uf);
+            else
+            {
+                cmbCidade.Items.Clear();
+                cmbCidade.Items.Add("Primeiro Selecione a Cidade");
+                cmbCidade.SelectedIndex = 0;
+                cmbCidade.Enabled = false;
+            }
+        }
+
+        private void CarregarCidades(string uf)
+        {
+            using (var conn = new Connection())
+            {
+                cmbCidade.Items.Clear();
+                cmbCidade.Items.Add("Selecione a Cidade...");
+
+                Cidades = Cidade.GetByUf(uf, conn, null);
+
+                foreach (Cidade cidade in Cidades)
+                    cmbCidade.Items.Add(cidade.Nome);
+
+                cmbCidade.SelectedIndex = 0;
+
+                cmbCidade.Enabled = true;
+            }
         }
     }
 }
