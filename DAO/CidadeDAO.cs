@@ -50,7 +50,7 @@ namespace ClienteTatoo.DAO
             return true;
         }
 
-        public IList<Cidade> GetCidades(MySqlTransaction transaction = null)
+        public List<Cidade> GetCidades(MySqlTransaction transaction = null)
         {
             string sql = "SELECT a.`loc_nu_sequencial` idCidade, a.`loc_no` cidade" +
                          " FROM `endereco`.`log_localidade` a";
@@ -71,7 +71,7 @@ namespace ClienteTatoo.DAO
             return cidades;
         }
 
-        public IList<Cidade> GetByUf(string uf, MySqlTransaction transaction = null)
+        public List<Cidade> GetByUf(string uf, MySqlTransaction transaction = null)
         {
             string sql = "SELECT a.`loc_nu_sequencial` idCidade, a.`loc_no` cidade" +
                          " FROM `endereco`.`log_localidade` a" +

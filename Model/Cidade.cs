@@ -19,7 +19,7 @@ namespace ClienteTatoo.Model
             }
         }
 
-        public static IList<Cidade> GetAll(Connection conn, MySqlTransaction transaction = null)
+        public static List<Cidade> GetAll(Connection conn, MySqlTransaction transaction = null)
         {
             using (var dao = new CidadeDAO(conn))
             {
@@ -27,7 +27,7 @@ namespace ClienteTatoo.Model
             }
         }
 
-        public static IList<Cidade> GetByUf(string uf, Connection conn, MySqlTransaction transaction = null)
+        public static List<Cidade> GetByUf(string uf, Connection conn, MySqlTransaction transaction = null)
         {
             using (var dao = new CidadeDAO(conn))
             {

@@ -13,7 +13,7 @@ namespace ClienteTatoo.Model
     {
         public string Nome { get; set; }
 
-        public static IList<TipoLogradouro> GetAll(Connection connection, MySqlTransaction transaction)
+        public static List<TipoLogradouro> GetAll(Connection connection, MySqlTransaction transaction)
         {
             using (var dao = new TipoLogradouroDAO(connection))
             {

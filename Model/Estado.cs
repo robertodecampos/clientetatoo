@@ -18,7 +18,7 @@ namespace ClienteTatoo.Model
             }
         }
 
-        public static IList<Estado> GetAll(Connection conn, MySqlTransaction transaction = null)
+        public static List<Estado> GetAll(Connection conn, MySqlTransaction transaction = null)
         {
             using (var dao = new EstadoDAO(conn))
             {

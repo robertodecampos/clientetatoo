@@ -22,7 +22,7 @@ namespace ClienteTatoo.DAO
 
         public int Update(TipoLogradouro model, MySqlTransaction transaction) => throw new NotImplementedException();
 
-        public IList<TipoLogradouro> GetAll(MySqlTransaction transaction)
+        public List<TipoLogradouro> GetAll(MySqlTransaction transaction)
         {
             string sql = "SELECT  a.`tipologradouro`" +
                          " FROM `endereco`.`log_tipo_logr` a";

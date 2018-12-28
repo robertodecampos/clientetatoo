@@ -56,7 +56,7 @@ namespace ClienteTatoo.DAO
             return true;
         }
 
-        public IList<Estado> GetEstados(MySqlTransaction transaction = null)
+        public List<Estado> GetEstados(MySqlTransaction transaction = null)
         {
             string sql = "SELECT  a.`ufe_sg`, a.`ufe_no`" +
                          " FROM `endereco`.`log_faixa_uf` a";
