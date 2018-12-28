@@ -64,6 +64,7 @@
     <Compile Include="DAO\EstadoDAO.cs" />
     <Compile Include="DAO\IDao.cs" />
     <Compile Include="DAO\TermoResponsabilidadeDAO.cs" />
+    <Compile Include="DAO\TipoLogradouroDAO.cs" />
     <Compile Include="DAO\UsuarioDAO.cs" />
     <Compile Include="frmConfigurarTermoResponsabilidade.cs">
       <SubType>Form</SubType>
@@ -100,6 +101,7 @@
     <Compile Include="Model\Endereco.cs" />
     <Compile Include="Model\Estado.cs" />
     <Compile Include="Model\TermoResponsabilidade.cs" />
+    <Compile Include="Model\TipoLogradouro.cs" />
     <Compile Include="Model\Usuario.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
