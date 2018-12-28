@@ -76,8 +76,8 @@ namespace ClienteTatoo.DAO
                    " FROM `endereco`.`log_faixa_localidade` a" +
                    " INNER JOIN `endereco`.`log_localidade` b ON a.`loc_nu_sequencial` = b.`loc_nu_sequencial`" +
                    " INNER JOIN `endereco`.`log_faixa_uf` c ON b.`ufe_sg` = c.`ufe_sg`" +
-                   " WHERE(@part1 BETWEEN a.`loc_rad1_ini` AND a.`loc_rad1_fim` AND@ part2 BETWEEN a.`loc_suf1_ini` AND a.`loc_suf1_fim`)" +
-                   " OR (@part1 BETWEEN a.`loc_rad2_ini` AND a.`loc_rad2_fim` AND@ part2 BETWEEN a.`loc_suf2_ini` AND a.`loc_suf2_fim`)";
+                   " WHERE(@part1 BETWEEN a.`loc_rad1_ini` AND a.`loc_rad1_fim` AND @part2 BETWEEN a.`loc_suf1_ini` AND a.`loc_suf1_fim`)" +
+                   " OR (@part1 BETWEEN a.`loc_rad2_ini` AND a.`loc_rad2_fim` AND @part2 BETWEEN a.`loc_suf2_ini` AND a.`loc_suf2_fim`)";
 
             parameters = new List<MySqlParameter>();
             parameters.Add(new MySqlParameter("@part1", MySqlDbType.String) { Value = cep.Substring(0, 5) });
