@@ -192,5 +192,36 @@ namespace ClienteTatoo
                 }
             }
         }
+
+        private void btnOk_Click(object sender, EventArgs e)
+        {
+            Cliente = new Cliente();
+
+            Cliente.Nome = txtNome.Text.Trim();
+            Cliente.DataNascimento = dtpDataNascimento.Value;
+            Cliente.Cpf = txtCpf.Text.Replace(" ", "").Replace(".", "").Replace("-", "");
+            Cliente.Email = txtEmail.Text.Trim();
+            Cliente.Telefone = txtTelefone.Text.Replace(" ", "").Replace("(", "").Replace(")", "").Replace("-", "");
+            Cliente.Celular = txtCelular.Text.Replace(" ", "").Replace("(", "").Replace(")", "").Replace(".", "").Replace("-", "");
+            Cliente.Cep = txtCep.Text.Replace(" ", "").Replace("-", "");
+            Cliente.Uf = "";
+            if (cmbEstado.SelectedIndex > 0)
+                Cliente.Uf = Estados[cmbEstado.SelectedIndex - 1].Uf;
+            Cliente.IdCidade = 0;
+            if (cmbCidade.SelectedIndex > 0)
+                Cliente.IdCidade = Cidades[cmbCidade.SelectedIndex - 1].Id;
+            Cliente.TipoLogradouro = cmbTipoLogradouro.Text;
+            Cliente.Logradouro = txtLogradouro.Text;
+            Cliente.Complemento = txtComplemento.Text;
+            Cliente.Bairro = txtBairro.Text;
+            Cliente.Numero = txtNumero.Text;
+
+            string mensagem = null;
+            if (!Cliente.IsValid(out mensagem))
+            {
+                MessageBox.Show(mensagem, "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                DialogResult = DialogResult.None;
+            }
+        }
     }
 }
