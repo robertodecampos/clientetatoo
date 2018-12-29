@@ -43,6 +43,7 @@
             this.rtbTermoResponsabilidade.ReadOnly = true;
             this.rtbTermoResponsabilidade.Size = new System.Drawing.Size(776, 392);
             this.rtbTermoResponsabilidade.TabIndex = 0;
+            this.rtbTermoResponsabilidade.TabStop = false;
             this.rtbTermoResponsabilidade.Text = "";
             // 
             // cbxConcordo
@@ -53,7 +54,7 @@
             this.cbxConcordo.Location = new System.Drawing.Point(12, 413);
             this.cbxConcordo.Name = "cbxConcordo";
             this.cbxConcordo.Size = new System.Drawing.Size(407, 24);
-            this.cbxConcordo.TabIndex = 1;
+            this.cbxConcordo.TabIndex = 0;
             this.cbxConcordo.Text = "Li e concordo com o termo de responsabilidade acima";
             this.cbxConcordo.UseVisualStyleBackColor = true;
             this.cbxConcordo.CheckedChanged += new System.EventHandler(this.cbxConcordo_CheckedChanged);
@@ -67,7 +68,7 @@
             this.btnAvancar.Location = new System.Drawing.Point(713, 410);
             this.btnAvancar.Name = "btnAvancar";
             this.btnAvancar.Size = new System.Drawing.Size(75, 28);
-            this.btnAvancar.TabIndex = 2;
+            this.btnAvancar.TabIndex = 1;
             this.btnAvancar.Text = "Avançar";
             this.btnAvancar.UseVisualStyleBackColor = true;
             // 
@@ -79,8 +80,13 @@
             this.Controls.Add(this.btnAvancar);
             this.Controls.Add(this.cbxConcordo);
             this.Controls.Add(this.rtbTermoResponsabilidade);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "FormTermoResponsabilidade";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Termo de Responsabilidade";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormTermoResponsabilidade_FormClosing);
             this.ResumeLayout(false);
             this.PerformLayout();
