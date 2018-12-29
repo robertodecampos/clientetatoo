@@ -30,7 +30,7 @@ namespace ClienteTatoo.DAO
             string sql;
             List<MySqlParameter> parameters;
 
-            sql = "SELECT a.`log_nome` logradouro, b.`bai_no` bairro, c.`loc_nu_sequencial` idCidade, d.`ufe_sg` ufEstado" +
+            sql = "SELECT a.`log_tipo_logradouro` tipoLogradouro, a.`log_no` logradouro, b.`bai_no` bairro, c.`loc_nu_sequencial` idCidade, d.`ufe_sg` ufEstado" +
                   " FROM `endereco`.`log_logradouro` a" +
                   " INNER JOIN `endereco`.`log_bairro` b ON b.`bai_nu_sequencial` IN(a.`bai_nu_sequencial_ini`, a.`bai_nu_sequencial_fim`)" +
                   " INNER JOIN `endereco`.`log_localidade` c ON b.`loc_nu_sequencial` = c.`loc_nu_sequencial`" +
@@ -45,6 +45,7 @@ namespace ClienteTatoo.DAO
             if (dt.Rows.Count == 1)
             {
                 model.Cep = cep;
+                model.TipoLogradouro = dt.Rows[0]["tipoLogradouro"].ToString();
                 model.Logradouro = dt.Rows[0]["logradouro"].ToString();
                 model.Bairro = dt.Rows[0]["bairro"].ToString();
                 model.IdCidade = int.Parse(dt.Rows[0]["idCidade"].ToString());
