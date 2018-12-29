@@ -66,6 +66,8 @@ namespace ClienteTatoo.Utils
             using (var rows = ExecuteReader(sql, null, null)) { return int.Parse(rows.Rows[0]["id"].ToString()); }
         }
 
+        public MySqlTransaction BeginTransaction() => _conn.BeginTransaction();
+
         public void Dispose()
         {
             _conn.Dispose();

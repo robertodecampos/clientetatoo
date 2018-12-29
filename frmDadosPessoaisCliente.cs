@@ -16,8 +16,8 @@ namespace ClienteTatoo
 
     public partial class FormDadosPessoaisCliente : Form
     {
-        private IList<Estado> Estados { get; set; }
-        private IList<Cidade> Cidades { get; set; }
+        private List<Estado> Estados { get; set; }
+        private List<Cidade> Cidades { get; set; }
         private TipoFormulario TipoFormulario { get; set; }
         public Cliente Cliente { get; set; }
 
@@ -27,6 +27,7 @@ namespace ClienteTatoo
 
             txtCpf.Clear();
             dtpDataNascimento.Value = DateTime.Now;
+            dtpDataNascimento.MaxDate = DateTime.Now;
             txtTelefone.Clear();
             txtCelular.Clear();
             txtCep.Clear();
@@ -55,10 +56,39 @@ namespace ClienteTatoo
                     cmbEstado.Items.Add(estado.Nome);
 
                 cmbEstado.SelectedIndex = 0;
+
+                cmbTipoLogradouro.Items.Clear();
+
+                IList<TipoLogradouro> tiposLogradouro = TipoLogradouro.GetAll(conn, null);
+
+                foreach (TipoLogradouro tipoLogradouro in tiposLogradouro)
+                    cmbTipoLogradouro.Items.Add(tipoLogradouro.Nome);
+
+                cmbTipoLogradouro.Text = "";
+
             }
         }
 
-        public FormDadosPessoaisCliente(TipoFormulario tipoFormulario, Cliente cliente) : this(tipoFormulario) => Cliente = cliente;
+        public FormDadosPessoaisCliente(TipoFormulario tipoFormulario, Cliente cliente) : this(tipoFormulario)
+        {
+            if (cliente == null)
+                throw new NullReferenceException("O parâmetro cliente não pode ser nulo!");
+
+            txtNome.Text = cliente.Nome;
+            txtCpf.Text = cliente.Cpf;
+            dtpDataNascimento.Value = cliente.DataNascimento;
+            txtTelefone.Text = cliente.Telefone;
+            txtCelular.Text = cliente.Celular;
+            txtEmail.Text = cliente.Email;
+            try
+            {
+                //txtCep.Changed
+            }
+            finally
+            {
+
+            }
+        }
 
         private void FormDadosPessoaisCliente_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -102,6 +132,64 @@ namespace ClienteTatoo
                 cmbCidade.SelectedIndex = 0;
 
                 cmbCidade.Enabled = true;
+            }
+        }
+
+        private void txtCep_TextChanged(object sender, EventArgs e)
+        {
+            string cep = ((MaskedTextBox)sender).Text.Replace("-", "").Trim();
+
+            if (cep.Length != 8)
+                return;
+
+            using (var conexao = new Connection())
+            {
+                var endereco = new Endereco();
+                if (!endereco.SearchByCep(cep, conexao, null))
+                {
+                    cmbEstado.Focus();
+                    return;
+                }
+
+                if (!string.IsNullOrEmpty(endereco.Uf))
+                {
+                    try
+                    {
+                        cmbEstado.SelectedIndexChanged -= cmbEstado_SelectedIndexChanged;
+                        cmbEstado.SelectedIndex = Estados.FindIndex(estado => estado.Uf == endereco.Uf) + 1;
+                        CarregarCidades(endereco.Uf);
+                        if (endereco.IdCidade != 0)
+                            cmbCidade.SelectedIndex = Cidades.FindIndex(cidade => cidade.Id == endereco.IdCidade) + 1;
+                    }
+                    finally
+                    {
+                        cmbEstado.SelectedIndexChanged += cmbEstado_SelectedIndexChanged;
+                    }
+                }
+
+                if (!string.IsNullOrEmpty(endereco.TipoLogradouro))
+                {
+                    cmbTipoLogradouro.Text = endereco.TipoLogradouro;
+                    txtLogradouro.Focus();
+                }
+
+                if (!string.IsNullOrEmpty(endereco.Logradouro))
+                {
+                    txtLogradouro.Text = endereco.Logradouro;
+                    txtComplemento.Focus();
+                }
+
+                if (!string.IsNullOrEmpty(endereco.Complemento))
+                {
+                    txtComplemento.Text = endereco.Complemento;
+                    txtBairro.Focus();
+                }
+
+                if (!string.IsNullOrEmpty(endereco.Bairro))
+                {
+                    txtBairro.Text = endereco.Bairro;
+                    txtNumero.Focus();
+                }
             }
         }
     }

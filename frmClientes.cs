@@ -33,10 +33,9 @@ namespace ClienteTatoo
 
         private void txtCadastrar_Click(object sender, EventArgs e)
         {
-
-            using (var cliente = new Cliente())
-            using (var frmDadosPessoais = new FormDadosPessoaisCliente(TipoFormulario.tfCadastro, cliente))
+            using (var frmDadosPessoais = new FormDadosPessoaisCliente(TipoFormulario.tfCadastro))
             using (var frmTermoResponsabilidade = new FormTermoResponsabilidade())
+            using (var cliente = new Cliente())
             {
                 PassoCadastroCliente passo = PassoCadastroCliente.pccTermoResponsabilidade;
                 bool cadastroFinalizado = false;
