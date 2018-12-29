@@ -20,7 +20,7 @@ namespace ClienteTatoo.DAO
             if (model.Id != 0)
                 throw new Exception("Não é possível inserir um registro que já possuí identificador");
 
-            if (model.IsValid())
+            if (!model.IsValid())
                 throw new Exception("Existem informações inconsistentes!");
 
             string sql = "INSERT INTO clientes (" +
@@ -55,7 +55,7 @@ namespace ClienteTatoo.DAO
                          " nome = @nome, cpf = @cpf, dataNascimento = @dataNascimento, cep = @cep, tipoLogradouro = @tipoLogradouro," +
                          " logradouro = @logradouro, numero = @numero, bairro = @bairro, complemento = @complemento, idCidade = @idCidade," +
                          " uf = @uf, telefone = @telefone, celular = @celular, email = @email, idTermoResponsabilidade = @idTermoResponsabilidade" +
-                         " WHERE id = @id" ;
+                         " WHERE id = @id";
 
             List<MySqlParameter> parameters = GetParameters(model);
             parameters.Add(new MySqlParameter("@id", MySqlDbType.Int32) { Value = model.Id });
@@ -85,6 +85,6 @@ namespace ClienteTatoo.DAO
             return parameters;
         }
 
-        public void Dispose() => throw new NotImplementedException();
+        public void Dispose() { }
     }
 }
