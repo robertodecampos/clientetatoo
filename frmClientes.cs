@@ -1,4 +1,5 @@
 ﻿using ClienteTatoo.Model;
+using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -61,6 +62,37 @@ namespace ClienteTatoo
                             else
                                 return;
                             break;
+                    }
+                }
+
+                using (var conn = new Utils.Connection())
+                using (MySqlTransaction transaction = conn.BeginTransaction())
+                {
+                    cliente.IdTermoResponsabilidade = frmTermoResponsabilidade.IdTermoResponsabilidade;
+                    cliente.Nome = frmDadosPessoais.Cliente.Nome;
+                    cliente.DataNascimento = frmDadosPessoais.Cliente.DataNascimento;
+                    cliente.Cpf = frmDadosPessoais.Cliente.Cpf;
+                    cliente.Email = frmDadosPessoais.Cliente.Email;
+                    cliente.Telefone = frmDadosPessoais.Cliente.Telefone;
+                    cliente.Celular = frmDadosPessoais.Cliente.Celular;
+                    cliente.Cep = frmDadosPessoais.Cliente.Cep;
+                    cliente.Uf = frmDadosPessoais.Cliente.Uf;
+                    cliente.IdCidade = frmDadosPessoais.Cliente.IdCidade;
+                    cliente.TipoLogradouro = frmDadosPessoais.Cliente.TipoLogradouro;
+                    cliente.Logradouro = frmDadosPessoais.Cliente.Logradouro;
+                    cliente.Complemento = frmDadosPessoais.Cliente.Complemento;
+                    cliente.Bairro = frmDadosPessoais.Cliente.Bairro;
+                    cliente.Numero = frmDadosPessoais.Cliente.Numero;
+
+                    try
+                    {
+                        cliente.Salvar(conn, transaction);
+                        transaction.Commit();
+                    }
+                    catch (Exception erro)
+                    {
+                        MessageBox.Show("Ocorreu um erro ao salvar o cliente:\n" + erro.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        transaction.Rollback();
                     }
                 }
             }
