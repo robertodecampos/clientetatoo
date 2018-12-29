@@ -68,7 +68,10 @@ namespace ClienteTatoo.DAO
             var parameters = new List<MySqlParameter>();
             parameters.Add(new MySqlParameter("@nome", MySqlDbType.String) { Value = model.Nome });
             parameters.Add(new MySqlParameter("@cpf", MySqlDbType.String) { Value = model.Cpf });
-            parameters.Add(new MySqlParameter("@dataNascimento", MySqlDbType.Date) { Value = model.DataNascimento });
+            if (model.DataNascimento.Date == DateTime.Now.Date)
+                parameters.Add(new MySqlParameter("@dataNascimento", MySqlDbType.Date) { Value = null });
+            else
+                parameters.Add(new MySqlParameter("@dataNascimento", MySqlDbType.Date) { Value = model.DataNascimento });
             parameters.Add(new MySqlParameter("@cep", MySqlDbType.String) { Value = model.Cep });
             parameters.Add(new MySqlParameter("@tipoLogradouro", MySqlDbType.String) { Value = model.TipoLogradouro });
             parameters.Add(new MySqlParameter("@logradouro", MySqlDbType.String) { Value = model.Logradouro });
