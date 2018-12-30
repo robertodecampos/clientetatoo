@@ -1,4 +1,7 @@
 ﻿using ClienteTatoo.Model;
+using ClienteTatoo.Model.Filter;
+using ClienteTatoo.Model.Ordenation;
+using ClienteTatoo.Utils;
 using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
@@ -16,9 +19,36 @@ namespace ClienteTatoo
     {
         private enum PassoCadastroCliente { pccTermoResponsabilidade, pccDadosPessoais };
 
+        private List<Cliente> Clientes { get; set; }
+
         public FormClientes()
         {
             InitializeComponent();
+            CarregarClientes();
+        }
+
+        private void CarregarClientes()
+        {
+            using (var conn = new Connection())
+            {
+                Clientes = Cliente.GetAll(new List<ClienteFilter>(), new List<ClienteOrdenation>(), conn, null);
+            }
+
+            lsvClientes.Items.Clear();
+
+            foreach (Cliente cliente in Clientes)
+            {
+                var item = new ListViewItem();
+
+                item.Text = cliente.Id.ToString();
+                item.SubItems.Add(cliente.Nome);
+                item.SubItems.Add(cliente.DataNascimento.ToString("dd/MM/yyyy"));
+                item.SubItems.Add(cliente.Cpf);
+                item.SubItems.Add(cliente.Telefone);
+                item.SubItems.Add(cliente.Celular);
+
+                lsvClientes.Items.Add(item);
+            }
         }
 
         private void termoDeResponsabilidadeToolStripMenuItem_Click(object sender, EventArgs e)
