@@ -160,8 +160,8 @@ namespace ClienteTatoo.DAO
                         parameters.Add(new MySqlParameter("@nome", MySqlDbType.String) { Value = $"%{(string)filtros[i].Value}%" });
                         break;
                     case FieldFilterCliente.ffcCpf:
-                        filtro += $"{aliasCliente}.`cpf` LIKE @cpf";
-                        parameters.Add(new MySqlParameter("@cpf", MySqlDbType.String) { Value = $"%{(string)filtros[i].Value}%" });
+                        filtro += $"{aliasCliente}.`cpf` = @cpf";
+                        parameters.Add(new MySqlParameter("@cpf", MySqlDbType.String) { Value = $"{(string)filtros[i].Value}" });
                         break;
                     case FieldFilterCliente.ffcEmail:
                         filtro += $"{aliasCliente}.`email` LIKE @email";

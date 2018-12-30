@@ -1,4 +1,5 @@
 ﻿using ClienteTatoo.Model.Filter;
+using ClienteTatoo.Utils;
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
@@ -22,8 +23,17 @@ namespace ClienteTatoo
 
         private void btnFiltrar_Click(object sender, EventArgs e)
         {
+            string cpf = txtCpf.Text.Replace(".", string.Empty).Replace("-", string.Empty).Replace(" ", string.Empty);
+
+            if ((cpf != string.Empty) && !Validation.IsCpf(cpf))
+            {
+                MessageBox.Show("Este CPF é inválido!\nDigite um CPF válido ou deixe o campo vazio!", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                DialogResult = DialogResult.None;
+                return;
+            }
+
             Nome = txtNome.Text.Trim();
-            Cpf = txtCpf.Text.Replace(".", string.Empty).Replace("-", string.Empty).Replace(" ", string.Empty); ;
+            Cpf = cpf;
             Email = txtEmail.Text.Trim();
             Telefone = txtTelefone.Text.Replace("(", string.Empty).Replace(")", string.Empty).Replace("-", string.Empty).Replace(" ", string.Empty);
             Celular = txtTelefone.Text.Replace("(", string.Empty).Replace(")", string.Empty).Replace(".", string.Empty).Replace("-", string.Empty).Replace(" ", string.Empty);
