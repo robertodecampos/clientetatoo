@@ -19,11 +19,14 @@ namespace ClienteTatoo
     {
         private enum PassoCadastroCliente { pccTermoResponsabilidade, pccDadosPessoais };
 
-        private List<Cliente> Clientes { get; set; }
+        private List<Cliente> clientes;
+        private List<ClienteFilter> filtros;
 
         public FormClientes()
         {
             InitializeComponent();
+
+            filtros = new List<ClienteFilter>();
             CarregarClientes();
         }
 
@@ -31,12 +34,12 @@ namespace ClienteTatoo
         {
             using (var conn = new Connection())
             {
-                Clientes = Cliente.GetAll(new List<ClienteFilter>(), new List<ClienteOrdenation>(), conn, null);
+                clientes = Cliente.GetAll(filtros, new List<ClienteOrdenation>(), conn, null);
             }
 
             lsvClientes.Items.Clear();
 
-            foreach (Cliente cliente in Clientes)
+            foreach (Cliente cliente in clientes)
             {
                 var item = new ListViewItem();
 
@@ -129,6 +132,18 @@ namespace ClienteTatoo
                         transaction.Rollback();
                     }
                 }
+            }
+        }
+
+        private void btnFiltrar_Click(object sender, EventArgs e)
+        {
+            using (var frmFiltro = new FormFiltroCliente())
+            {
+                if (frmFiltro.ShowDialog() != DialogResult.OK)
+                    return;
+
+                filtros = frmFiltro.Filtro;
+                CarregarClientes();
             }
         }
     }
