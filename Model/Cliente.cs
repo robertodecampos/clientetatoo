@@ -16,7 +16,7 @@ namespace ClienteTatoo.Model
         public int Id { get; set; }
         public string Nome { get; set; }
         public string Cpf { get; set; }
-        public DateTime DataNascimento { get; set; }
+        public DateTime? DataNascimento { get; set; }
         public string Cep { get; set; }
         public string TipoLogradouro { get; set; }
         public string Logradouro { get; set; }

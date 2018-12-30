@@ -100,6 +100,8 @@ namespace ClienteTatoo.DAO
             DateTime dataNascimento;
             if (DateTime.TryParse(dr["dataNascimento"].ToString(), out dataNascimento))
                 model.DataNascimento = dataNascimento;
+            else
+                model.DataNascimento = null;
             model.Cep = dr["cep"].ToString();
             model.TipoLogradouro = dr["tipoLogradouro"].ToString();
             model.Logradouro = dr["logradouro"].ToString();
@@ -119,10 +121,7 @@ namespace ClienteTatoo.DAO
             var parameters = new List<MySqlParameter>();
             parameters.Add(new MySqlParameter("@nome", MySqlDbType.String) { Value = model.Nome });
             parameters.Add(new MySqlParameter("@cpf", MySqlDbType.String) { Value = model.Cpf });
-            if (model.DataNascimento.Date == DateTime.Now.Date)
-                parameters.Add(new MySqlParameter("@dataNascimento", MySqlDbType.Date) { Value = null });
-            else
-                parameters.Add(new MySqlParameter("@dataNascimento", MySqlDbType.Date) { Value = model.DataNascimento });
+            parameters.Add(new MySqlParameter("@dataNascimento", MySqlDbType.Date) { Value = model.DataNascimento });
             parameters.Add(new MySqlParameter("@cep", MySqlDbType.String) { Value = model.Cep });
             parameters.Add(new MySqlParameter("@tipoLogradouro", MySqlDbType.String) { Value = model.TipoLogradouro });
             parameters.Add(new MySqlParameter("@logradouro", MySqlDbType.String) { Value = model.Logradouro });

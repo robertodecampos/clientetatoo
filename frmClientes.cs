@@ -42,7 +42,10 @@ namespace ClienteTatoo
 
                 item.Text = cliente.Id.ToString();
                 item.SubItems.Add(cliente.Nome);
-                item.SubItems.Add(cliente.DataNascimento.ToString("dd/MM/yyyy"));
+                if (cliente.DataNascimento != null)
+                    item.SubItems.Add(((DateTime)cliente.DataNascimento).ToString("dd/MM/yyyy"));
+                else
+                    item.SubItems.Add("Não informada");
                 item.SubItems.Add(cliente.Cpf);
                 item.SubItems.Add(cliente.Telefone);
                 item.SubItems.Add(cliente.Celular);

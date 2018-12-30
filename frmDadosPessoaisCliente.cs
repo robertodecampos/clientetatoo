@@ -76,7 +76,8 @@ namespace ClienteTatoo
 
             txtNome.Text = cliente.Nome;
             txtCpf.Text = cliente.Cpf;
-            dtpDataNascimento.Value = cliente.DataNascimento;
+            if (cliente.DataNascimento != null)
+                dtpDataNascimento.Value = (DateTime)cliente.DataNascimento;
             txtTelefone.Text = cliente.Telefone;
             txtCelular.Text = cliente.Celular;
             txtEmail.Text = cliente.Email;
@@ -198,7 +199,10 @@ namespace ClienteTatoo
             Cliente = new Cliente();
 
             Cliente.Nome = txtNome.Text.Trim();
-            Cliente.DataNascimento = dtpDataNascimento.Value;
+            if (dtpDataNascimento.Value.Date == DateTime.Now.Date)
+                Cliente.DataNascimento = null;
+            else
+                Cliente.DataNascimento = dtpDataNascimento.Value;
             Cliente.Cpf = txtCpf.Text.Replace(" ", "").Replace(".", "").Replace("-", "");
             Cliente.Email = txtEmail.Text.Trim();
             Cliente.Telefone = txtTelefone.Text.Replace(" ", "").Replace("(", "").Replace(")", "").Replace("-", "");
