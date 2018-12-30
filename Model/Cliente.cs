@@ -69,6 +69,14 @@ namespace ClienteTatoo.Model
             }
         }
 
+        public static bool ExistsByCpf(string cpf, Connection conn, MySqlTransaction transaction)
+        {
+            using (var dao = new ClienteDAO(conn))
+            {
+                return dao.ExistsByCpf(cpf, transaction);
+            }
+        }
+
         public void Dispose() { }
     }
 }

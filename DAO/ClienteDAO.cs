@@ -92,6 +92,20 @@ namespace ClienteTatoo.DAO
             return clientes;
         }
 
+        public bool ExistsByCpf(string cpf, MySqlTransaction transaction)
+        {
+            string sql = "SELECT COUNT(a.`id`) qtde" +
+                         " FROM `clientes` a" +
+                         " WHERE a.`removido` = 0 AND a.`cpf` = @cpf";
+
+            var parameters = new List<MySqlParameter>();
+            parameters.Add(new MySqlParameter("@cpf", MySqlDbType.String) { Value = cpf });
+
+            DataTable dt = _conn.ExecuteReader(sql, parameters, transaction);
+
+            return int.Parse(dt.Rows[0]["qtde"].ToString()) > 0;
+        }
+
         private void PreencherModel(Cliente model, DataRow dr)
         {
             model.Id = int.Parse(dr["id"].ToString());
