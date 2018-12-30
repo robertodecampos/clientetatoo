@@ -1,4 +1,6 @@
 ﻿using ClienteTatoo.DAO;
+using ClienteTatoo.Model.Filter;
+using ClienteTatoo.Model.Ordenation;
 using ClienteTatoo.Utils;
 using MySql.Data.MySqlClient;
 using System;
@@ -56,6 +58,14 @@ namespace ClienteTatoo.Model
                     dao.Insert(this, transaction);
                 else
                     dao.Update(this, transaction);
+            }
+        }
+
+        public static List<Cliente> GetAll(List<ClienteFilter> filtros, List<ClienteOrdenation> ordenacoes, Connection conn, MySqlTransaction transaction)
+        {
+            using (var dao = new ClienteDAO(conn))
+            {
+                return dao.GetAll(filtros, ordenacoes, transaction);
             }
         }
 

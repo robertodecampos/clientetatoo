@@ -1,8 +1,11 @@
 ﻿using ClienteTatoo.Model;
+using ClienteTatoo.Model.Filter;
+using ClienteTatoo.Model.Ordenation;
 using ClienteTatoo.Utils;
 using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -63,6 +66,54 @@ namespace ClienteTatoo.DAO
             return _conn.Execute(sql, parameters, transaction);
         }
 
+        public List<Cliente> GetAll(List<ClienteFilter> filtros, List<ClienteOrdenation> ordenacoes, MySqlTransaction transaction)
+        {
+            var parameters = new List<MySqlParameter>();
+
+            string filtro = Filtrar(filtros, "a", parameters);
+            string ordem = Ordenar(ordenacoes, "a");
+
+            string sql = "SELECT *" +
+                         " FROM clientes a" +
+                         " WHERE a.`removido` = 0" + (filtro != "" ? $" AND {filtro}" : "") +
+                         (ordem != "" ? $" ORDER BY {ordem}" : "");
+
+            DataTable dt = _conn.ExecuteReader(sql, parameters, transaction);
+
+            var clientes = new List<Cliente>(dt.Rows.Count);
+
+            foreach (DataRow dr in dt.Rows)
+            {
+                var cliente = new Cliente();
+                PreencherModel(cliente, dr);
+                clientes.Add(cliente);
+            }
+
+            return clientes;
+        }
+
+        private void PreencherModel(Cliente model, DataRow dr)
+        {
+            model.Id = int.Parse(dr["id"].ToString());
+            model.Nome = dr["nome"].ToString();
+            model.Cpf = dr["cpf"].ToString();
+            DateTime dataNascimento;
+            if (DateTime.TryParse(dr["dataNascimento"].ToString(), out dataNascimento))
+                model.DataNascimento = dataNascimento;
+            model.Cep = dr["cep"].ToString();
+            model.TipoLogradouro = dr["tipoLogradouro"].ToString();
+            model.Logradouro = dr["logradouro"].ToString();
+            model.Numero = dr["numero"].ToString();
+            model.Bairro = dr["bairro"].ToString();
+            model.Complemento = dr["complemento"].ToString();
+            model.IdCidade = int.Parse(dr["idCidade"].ToString());
+            model.Uf = dr["uf"].ToString();
+            model.Telefone = dr["telefone"].ToString();
+            model.Celular = dr["celular"].ToString();
+            model.Email = dr["email"].ToString();
+            model.IdTermoResponsabilidade = int.Parse(dr["idTermoResponsabilidade"].ToString());
+        }
+
         private List<MySqlParameter> GetParameters(Cliente model)
         {
             var parameters = new List<MySqlParameter>();
@@ -86,6 +137,81 @@ namespace ClienteTatoo.DAO
             parameters.Add(new MySqlParameter("@idTermoResponsabilidade", MySqlDbType.Int32) { Value = model.IdTermoResponsabilidade });
 
             return parameters;
+        }
+
+        private string Filtrar(List<ClienteFilter> filtros, string aliasCliente, List<MySqlParameter> parameters)
+        {
+            if (filtros == null)
+                throw new NullReferenceException("O parâmetros `filtros` não pode ser nulo!");
+
+            if (filtros.Count == 0)
+                return "";
+
+            string filtro = "";
+
+            for (int i = 0; i < filtros.Count; i++)
+            {
+                if (i > 0)
+                    filtro += " AND ";
+
+                switch (filtros[i].Field)
+                {
+                    case FieldFilterCliente.ffcNome:
+                        filtro += $"{aliasCliente}.`nome` LIKE '%@nome%'";
+                        parameters.Add(new MySqlParameter("@nome", MySqlDbType.String) { Value = $"%{(string)filtros[i].Value}%" });
+                        break;
+                    case FieldFilterCliente.ffcCpf:
+                        filtro += $"{aliasCliente}.`cpf` LIKE '%@cpf%'";
+                        parameters.Add(new MySqlParameter("@cpf", MySqlDbType.String) { Value = $"%{(string)filtros[i].Value}%" });
+                        break;
+                    case FieldFilterCliente.ffcEmail:
+                        filtro += $"{aliasCliente}.`email` LIKE '%@email%'";
+                        parameters.Add(new MySqlParameter("@email", MySqlDbType.String) { Value = $"%{(string)filtros[i].Value}%" });
+                        break;
+                    case FieldFilterCliente.ffcTelefone:
+                        filtro += $"{aliasCliente}.`telefone` LIKE '%@telefone%'";
+                        parameters.Add(new MySqlParameter("@telefone", MySqlDbType.String) { Value = $"%{(string)filtros[i].Value}%" });
+                        break;
+                    case FieldFilterCliente.ffcCelular:
+                        filtro += $"{aliasCliente}.`celular` LIKE '%celular%'";
+                        parameters.Add(new MySqlParameter("@celular", MySqlDbType.String) { Value = $"%{(string)filtros[i].Value}%" });
+                        break;
+                }
+            }
+
+            return filtro;
+        }
+
+        private string Ordenar(List<ClienteOrdenation> ordering, string aliasCliente)
+        {
+            if (ordering == null)
+                throw new NullReferenceException("O parâmetro `ordering` não pode ser nulo!");
+
+            if (ordering.Count == 0)
+                return "";
+
+            string order = "";
+
+            for (int i = 0; i < ordering.Count; i++)
+            {
+                if (i > 0)
+                    order += ", ";
+
+                switch (ordering[i].Field)
+                {
+                    case FieldOrdenationCliente.focNome:
+                        order += $"{aliasCliente}.`nome`";
+                        break;
+                    case FieldOrdenationCliente.focDataNascimento:
+                        order += $"{aliasCliente}.`dataNascimento`";
+                        break;
+                }
+
+                if (ordering[i].Type == TypeOrder.toDesc)
+                    order += " DESC";
+            }
+
+            return order;
         }
 
         public void Dispose() { }
