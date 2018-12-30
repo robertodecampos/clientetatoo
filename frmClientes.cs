@@ -65,7 +65,7 @@ namespace ClienteTatoo
             }
         }
 
-        private void txtCadastrar_Click(object sender, EventArgs e)
+        private void btnCadastrar_Click(object sender, EventArgs e)
         {
             using (var frmDadosPessoais = new FormDadosPessoaisCliente(TipoFormulario.tfCadastro))
             using (var frmTermoResponsabilidade = new FormTermoResponsabilidade())
@@ -121,6 +121,7 @@ namespace ClienteTatoo
                     {
                         cliente.Salvar(conn, transaction);
                         transaction.Commit();
+                        CarregarClientes();
                     }
                     catch (Exception erro)
                     {

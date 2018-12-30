@@ -31,7 +31,7 @@
             this.msPricipal = new System.Windows.Forms.MenuStrip();
             this.configurarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.termoDeResponsabilidadeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.txtCadastrar = new System.Windows.Forms.Button();
+            this.btnCadastrar = new System.Windows.Forms.Button();
             this.lsvClientes = new System.Windows.Forms.ListView();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -39,6 +39,7 @@
             this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.btnFiltrar = new System.Windows.Forms.Button();
             this.msPricipal.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -67,16 +68,16 @@
             this.termoDeResponsabilidadeToolStripMenuItem.Text = "Termo de Responsabilidade";
             this.termoDeResponsabilidadeToolStripMenuItem.Click += new System.EventHandler(this.termoDeResponsabilidadeToolStripMenuItem_Click);
             // 
-            // txtCadastrar
+            // btnCadastrar
             // 
-            this.txtCadastrar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtCadastrar.Location = new System.Drawing.Point(693, 423);
-            this.txtCadastrar.Name = "txtCadastrar";
-            this.txtCadastrar.Size = new System.Drawing.Size(102, 23);
-            this.txtCadastrar.TabIndex = 1;
-            this.txtCadastrar.Text = "Cadastrar Cliente";
-            this.txtCadastrar.UseVisualStyleBackColor = true;
-            this.txtCadastrar.Click += new System.EventHandler(this.txtCadastrar_Click);
+            this.btnCadastrar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnCadastrar.Location = new System.Drawing.Point(693, 423);
+            this.btnCadastrar.Name = "btnCadastrar";
+            this.btnCadastrar.Size = new System.Drawing.Size(102, 23);
+            this.btnCadastrar.TabIndex = 1;
+            this.btnCadastrar.Text = "Cadastrar Cliente";
+            this.btnCadastrar.UseVisualStyleBackColor = true;
+            this.btnCadastrar.Click += new System.EventHandler(this.btnCadastrar_Click);
             // 
             // lsvClientes
             // 
@@ -127,13 +128,23 @@
             this.columnHeader6.Text = "Celular";
             this.columnHeader6.Width = 120;
             // 
+            // btnFiltrar
+            // 
+            this.btnFiltrar.Location = new System.Drawing.Point(612, 423);
+            this.btnFiltrar.Name = "btnFiltrar";
+            this.btnFiltrar.Size = new System.Drawing.Size(75, 23);
+            this.btnFiltrar.TabIndex = 3;
+            this.btnFiltrar.Text = "Filtrar";
+            this.btnFiltrar.UseVisualStyleBackColor = true;
+            // 
             // FormClientes
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(807, 458);
+            this.Controls.Add(this.btnFiltrar);
             this.Controls.Add(this.lsvClientes);
-            this.Controls.Add(this.txtCadastrar);
+            this.Controls.Add(this.btnCadastrar);
             this.Controls.Add(this.msPricipal);
             this.MainMenuStrip = this.msPricipal;
             this.Name = "FormClientes";
@@ -150,7 +161,7 @@
         private System.Windows.Forms.MenuStrip msPricipal;
         private System.Windows.Forms.ToolStripMenuItem configurarToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem termoDeResponsabilidadeToolStripMenuItem;
-        private System.Windows.Forms.Button txtCadastrar;
+        private System.Windows.Forms.Button btnCadastrar;
         private System.Windows.Forms.ListView lsvClientes;
         private System.Windows.Forms.ColumnHeader columnHeader1;
         private System.Windows.Forms.ColumnHeader columnHeader2;
@@ -158,6 +169,7 @@
         private System.Windows.Forms.ColumnHeader columnHeader4;
         private System.Windows.Forms.ColumnHeader columnHeader5;
         private System.Windows.Forms.ColumnHeader columnHeader6;
+        private System.Windows.Forms.Button btnFiltrar;
     }
 }
 
