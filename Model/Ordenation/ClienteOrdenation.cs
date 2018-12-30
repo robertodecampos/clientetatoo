@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ClienteTatoo.Model.Ordenation
 {
-    public enum FieldOrdenationCliente {focNome, focDataNascimento}
+    public enum FieldOrdenationCliente {Codigo, Nome, DataNascimento}
 
     public class ClienteOrdenation : Ordenation<FieldOrdenationCliente>
     {

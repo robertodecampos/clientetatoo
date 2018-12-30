@@ -198,10 +198,13 @@ namespace ClienteTatoo.DAO
 
                 switch (ordering[i].Field)
                 {
-                    case FieldOrdenationCliente.focNome:
+                    case FieldOrdenationCliente.Codigo:
+                        order += $"{aliasCliente}.`id`";
+                        break;
+                    case FieldOrdenationCliente.Nome:
                         order += $"{aliasCliente}.`nome`";
                         break;
-                    case FieldOrdenationCliente.focDataNascimento:
+                    case FieldOrdenationCliente.DataNascimento:
                         order += $"{aliasCliente}.`dataNascimento`";
                         break;
                 }
