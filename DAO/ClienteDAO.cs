@@ -156,23 +156,23 @@ namespace ClienteTatoo.DAO
                 switch (filtros[i].Field)
                 {
                     case FieldFilterCliente.ffcNome:
-                        filtro += $"{aliasCliente}.`nome` LIKE '%@nome%'";
+                        filtro += $"{aliasCliente}.`nome` LIKE @nome";
                         parameters.Add(new MySqlParameter("@nome", MySqlDbType.String) { Value = $"%{(string)filtros[i].Value}%" });
                         break;
                     case FieldFilterCliente.ffcCpf:
-                        filtro += $"{aliasCliente}.`cpf` LIKE '%@cpf%'";
+                        filtro += $"{aliasCliente}.`cpf` LIKE @cpf";
                         parameters.Add(new MySqlParameter("@cpf", MySqlDbType.String) { Value = $"%{(string)filtros[i].Value}%" });
                         break;
                     case FieldFilterCliente.ffcEmail:
-                        filtro += $"{aliasCliente}.`email` LIKE '%@email%'";
+                        filtro += $"{aliasCliente}.`email` LIKE @email";
                         parameters.Add(new MySqlParameter("@email", MySqlDbType.String) { Value = $"%{(string)filtros[i].Value}%" });
                         break;
                     case FieldFilterCliente.ffcTelefone:
-                        filtro += $"{aliasCliente}.`telefone` LIKE '%@telefone%'";
+                        filtro += $"{aliasCliente}.`telefone` LIKE @telefone";
                         parameters.Add(new MySqlParameter("@telefone", MySqlDbType.String) { Value = $"%{(string)filtros[i].Value}%" });
                         break;
                     case FieldFilterCliente.ffcCelular:
-                        filtro += $"{aliasCliente}.`celular` LIKE '%celular%'";
+                        filtro += $"{aliasCliente}.`celular` LIKE @celular";
                         parameters.Add(new MySqlParameter("@celular", MySqlDbType.String) { Value = $"%{(string)filtros[i].Value}%" });
                         break;
                 }
