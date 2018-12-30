@@ -21,12 +21,14 @@ namespace ClienteTatoo
 
         private List<Cliente> clientes;
         private List<ClienteFilter> filtros;
+        private FormFiltroCliente frmFiltro = new FormFiltroCliente();
 
         public FormClientes()
         {
             InitializeComponent();
 
             filtros = new List<ClienteFilter>();
+            cmbOrdenacao.SelectedIndex = 0;
             CarregarClientes();
         }
 
@@ -34,7 +36,22 @@ namespace ClienteTatoo
         {
             using (var conn = new Connection())
             {
-                clientes = Cliente.GetAll(filtros, new List<ClienteOrdenation>(), conn, null);
+                var ordenacao = new List<ClienteOrdenation>();
+
+                switch (cmbOrdenacao.SelectedIndex)
+                {
+                    case 0:
+                        ordenacao.Add(new ClienteOrdenation(FieldOrdenationCliente.Codigo, TypeOrder.toAsc));
+                        break;
+                    case 1:
+                        ordenacao.Add(new ClienteOrdenation(FieldOrdenationCliente.Nome, TypeOrder.toAsc));
+                        break;
+                    case 2:
+                        ordenacao.Add(new ClienteOrdenation(FieldOrdenationCliente.DataNascimento, TypeOrder.toAsc));
+                        break;
+                }
+
+                clientes = Cliente.GetAll(filtros, ordenacao, conn, null);
             }
 
             lsvClientes.Items.Clear();
@@ -137,14 +154,22 @@ namespace ClienteTatoo
 
         private void btnFiltrar_Click(object sender, EventArgs e)
         {
-            using (var frmFiltro = new FormFiltroCliente())
-            {
-                if (frmFiltro.ShowDialog() != DialogResult.OK)
-                    return;
+            if (frmFiltro.ShowDialog() != DialogResult.OK)
+                return;
 
-                filtros = frmFiltro.Filtro;
-                CarregarClientes();
-            }
+            filtros = frmFiltro.Filtro;
+            CarregarClientes();
+        }
+
+        private void cmbOrdenacao_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            CarregarClientes();
+        }
+
+        private new void Dispose()
+        {
+            frmFiltro.Dispose();
+            base.Dispose();
         }
     }
 }

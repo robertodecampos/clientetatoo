@@ -40,6 +40,8 @@
             this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.btnFiltrar = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
+            this.cmbOrdenacao = new System.Windows.Forms.ComboBox();
             this.msPricipal.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -139,11 +141,36 @@
             this.btnFiltrar.UseVisualStyleBackColor = true;
             this.btnFiltrar.Click += new System.EventHandler(this.btnFiltrar_Click);
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(419, 428);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(60, 13);
+            this.label1.TabIndex = 4;
+            this.label1.Text = "Ordenação";
+            // 
+            // cmbOrdenacao
+            // 
+            this.cmbOrdenacao.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbOrdenacao.FormattingEnabled = true;
+            this.cmbOrdenacao.Items.AddRange(new object[] {
+            "Código",
+            "Nome",
+            "Data de Nascimento"});
+            this.cmbOrdenacao.Location = new System.Drawing.Point(485, 425);
+            this.cmbOrdenacao.Name = "cmbOrdenacao";
+            this.cmbOrdenacao.Size = new System.Drawing.Size(121, 21);
+            this.cmbOrdenacao.TabIndex = 5;
+            this.cmbOrdenacao.SelectedIndexChanged += new System.EventHandler(this.cmbOrdenacao_SelectedIndexChanged);
+            // 
             // FormClientes
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(807, 458);
+            this.Controls.Add(this.cmbOrdenacao);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.btnFiltrar);
             this.Controls.Add(this.lsvClientes);
             this.Controls.Add(this.btnCadastrar);
@@ -172,6 +199,8 @@
         private System.Windows.Forms.ColumnHeader columnHeader5;
         private System.Windows.Forms.ColumnHeader columnHeader6;
         private System.Windows.Forms.Button btnFiltrar;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.ComboBox cmbOrdenacao;
     }
 }
 
