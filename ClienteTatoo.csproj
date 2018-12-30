@@ -117,6 +117,7 @@
     <Compile Include="Utils\Filter.cs" />
     <Compile Include="Utils\IConnection.cs" />
     <Compile Include="Utils\Ordenation.cs" />
+    <Compile Include="Utils\Validation.cs" />
     <EmbeddedResource Include="frmConfigurarTermoResponsabilidade.resx">
       <DependentUpon>frmConfigurarTermoResponsabilidade.cs</DependentUpon>
     </EmbeddedResource>
