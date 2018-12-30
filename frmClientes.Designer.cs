@@ -132,7 +132,7 @@
             // 
             // btnFiltrar
             // 
-            this.btnFiltrar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnFiltrar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnFiltrar.Location = new System.Drawing.Point(612, 423);
             this.btnFiltrar.Name = "btnFiltrar";
             this.btnFiltrar.Size = new System.Drawing.Size(75, 23);
@@ -143,6 +143,7 @@
             // 
             // label1
             // 
+            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(419, 428);
             this.label1.Name = "label1";
@@ -152,6 +153,7 @@
             // 
             // cmbOrdenacao
             // 
+            this.cmbOrdenacao.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmbOrdenacao.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbOrdenacao.FormattingEnabled = true;
             this.cmbOrdenacao.Items.AddRange(new object[] {
@@ -177,7 +179,9 @@
             this.Controls.Add(this.msPricipal);
             this.MainMenuStrip = this.msPricipal;
             this.Name = "FormClientes";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Clientes";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.msPricipal.ResumeLayout(false);
             this.msPricipal.PerformLayout();
             this.ResumeLayout(false);
