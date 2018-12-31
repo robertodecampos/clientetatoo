@@ -30,24 +30,78 @@ namespace ClienteTatoo.Model
         public string Email { get; set; }
         public int IdTermoResponsabilidade { get; set; }
 
-        public bool IsValid(out string mensagem)
+        public bool IsValid(Connection conn, MySqlTransaction transaction, out string mensagem)
         {
             mensagem = "";
 
-            if (String.IsNullOrEmpty(Nome))
+            if (string.IsNullOrEmpty(Nome))
             {
-                mensagem = "O campo nome é obrigatório!";
+                mensagem = "O campo `Nome` é obrigatório!";
+                return false;
+            }
+
+            if (string.IsNullOrEmpty(Cpf))
+            {
+                mensagem = "O campo `CPF` é obrigatório!";
+                return false;
+            }
+
+            if (!Validation.IsCpf(Cpf))
+            {
+                mensagem = "O campo `CPF` não contém um CPF válido!";
+                return false;
+            }
+
+            if (ExistsByCpf(Cpf, Id, conn, transaction))
+            {
+                mensagem = "Este CPF já existe no sistema!";
+                return false;
+            }
+
+            if (string.IsNullOrEmpty(Telefone))
+            {
+                mensagem = "O campo `Telefone` é obrigatório!";
+                return false;
+            }
+
+            if (Telefone.Length != 10)
+            {
+                mensagem = "O campo `Telefone` deve conter 10 dígitos!";
+                return false;
+            }
+
+            if (!Validation.IsNumeric(Telefone))
+            {
+                mensagem = "O campos `Telefone` deve conter somente números!";
+                return false;
+            }
+
+            if (string.IsNullOrEmpty(Celular))
+            {
+                mensagem = "O campo `Celular` é obrigatório!";
+                return false;
+            }
+
+            if (Celular.Length != 11)
+            {
+                mensagem = "O campo `Celular` deve conter 11 dígitos!";
+                return false;
+            }
+
+            if (!Validation.IsNumeric(Celular))
+            {
+                mensagem = "O campos `Celular` deve conter somente números!";
                 return false;
             }
 
             return true;
         }
 
-        public bool IsValid()
+        public bool IsValid(Connection conn, MySqlTransaction transaction)
         {
             string mensagem;
 
-            return IsValid(out mensagem);
+            return IsValid(conn, transaction, out mensagem);
         }
 
         public void Salvar(Connection conn, MySqlTransaction transaction)
@@ -69,11 +123,11 @@ namespace ClienteTatoo.Model
             }
         }
 
-        public static bool ExistsByCpf(string cpf, Connection conn, MySqlTransaction transaction)
+        public static bool ExistsByCpf(string cpf, int id, Connection conn, MySqlTransaction transaction)
         {
             using (var dao = new ClienteDAO(conn))
             {
-                return dao.ExistsByCpf(cpf, transaction);
+                return dao.ExistsByCpf(cpf, id, transaction);
             }
         }
 

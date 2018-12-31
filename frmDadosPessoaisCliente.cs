@@ -221,10 +221,13 @@ namespace ClienteTatoo
             Cliente.Numero = txtNumero.Text;
 
             string mensagem = null;
-            if (!Cliente.IsValid(out mensagem))
+            using (var conn = new Connection())
             {
-                MessageBox.Show(mensagem, "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                DialogResult = DialogResult.None;
+                if (!Cliente.IsValid(conn, null, out mensagem))
+                {
+                    MessageBox.Show(mensagem, "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    DialogResult = DialogResult.None;
+                }
             }
         }
     }

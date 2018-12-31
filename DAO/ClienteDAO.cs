@@ -23,7 +23,7 @@ namespace ClienteTatoo.DAO
             if (model.Id != 0)
                 throw new Exception("Não é possível inserir um registro que já possuí identificador");
 
-            if (!model.IsValid())
+            if (!model.IsValid(_conn, transaction))
                 throw new Exception("Existem informações inconsistentes!");
 
             string sql = "INSERT INTO clientes (" +
@@ -51,7 +51,7 @@ namespace ClienteTatoo.DAO
             if (model.Id == 0)
                 throw new Exception("Não é possível alterar um registro que não possuí identificador");
 
-            if (model.IsValid())
+            if (model.IsValid(_conn, transaction))
                 throw new Exception("Existem informações inconsistentes!");
 
             string sql = "UPDATE clientes SET" +
@@ -92,14 +92,15 @@ namespace ClienteTatoo.DAO
             return clientes;
         }
 
-        public bool ExistsByCpf(string cpf, MySqlTransaction transaction)
+        public bool ExistsByCpf(string cpf, int id, MySqlTransaction transaction)
         {
             string sql = "SELECT COUNT(a.`id`) qtde" +
                          " FROM `clientes` a" +
-                         " WHERE a.`removido` = 0 AND a.`cpf` = @cpf";
+                         " WHERE a.`id` <> @id AND a.`removido` = 0 AND a.`cpf` = @cpf";
 
             var parameters = new List<MySqlParameter>();
             parameters.Add(new MySqlParameter("@cpf", MySqlDbType.String) { Value = cpf });
+            parameters.Add(new MySqlParameter("@id", MySqlDbType.Int32) { Value = id });
 
             DataTable dt = _conn.ExecuteReader(sql, parameters, transaction);
 
