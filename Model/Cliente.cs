@@ -115,6 +115,14 @@ namespace ClienteTatoo.Model
             }
         }
 
+        public void Remover(Connection conn, MySqlTransaction transaction)
+        {
+            using (var dao = new ClienteDAO(conn))
+            {
+                dao.Remove(this, transaction);
+            }
+        }
+
         public bool SetById(int id, Connection conn, MySqlTransaction transaction)
         {
             using (var dao = new ClienteDAO(conn))

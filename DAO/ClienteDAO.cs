@@ -44,7 +44,20 @@ namespace ClienteTatoo.DAO
             return linhasAfetadas;
         }
 
-        public int Remove(Cliente model, MySqlTransaction transaction) => throw new NotImplementedException();
+        public int Remove(Cliente model, MySqlTransaction transaction)
+        {
+            if (model.Id == 0)
+                throw new Exception("Não é possível remover um registro que não possuí identificador");
+
+            string sql = "UPDATE clientes SET" +
+                         " removido = 1" +
+                         " WHERE id = @id";
+
+            List<MySqlParameter> parameters = GetParameters(model);
+            parameters.Add(new MySqlParameter("@id", MySqlDbType.Int32) { Value = model.Id });
+
+            return _conn.Execute(sql, parameters, transaction);
+        }
 
         public int Update(Cliente model, MySqlTransaction transaction)
         {
