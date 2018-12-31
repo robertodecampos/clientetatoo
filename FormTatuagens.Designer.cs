@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.lsvTatuagem = new System.Windows.Forms.ListView();
+            this.lsvTatuagens = new System.Windows.Forms.ListView();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -38,21 +38,23 @@
             this.button1 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // lsvTatuagem
+            // lsvTatuagens
             // 
-            this.lsvTatuagem.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.lsvTatuagens.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader1,
             this.columnHeader2,
             this.columnHeader3,
             this.columnHeader4,
             this.columnHeader5,
             this.columnHeader7});
-            this.lsvTatuagem.Location = new System.Drawing.Point(12, 12);
-            this.lsvTatuagem.Name = "lsvTatuagem";
-            this.lsvTatuagem.Size = new System.Drawing.Size(703, 341);
-            this.lsvTatuagem.TabIndex = 0;
-            this.lsvTatuagem.UseCompatibleStateImageBehavior = false;
-            this.lsvTatuagem.View = System.Windows.Forms.View.Details;
+            this.lsvTatuagens.FullRowSelect = true;
+            this.lsvTatuagens.Location = new System.Drawing.Point(12, 12);
+            this.lsvTatuagens.MultiSelect = false;
+            this.lsvTatuagens.Name = "lsvTatuagens";
+            this.lsvTatuagens.Size = new System.Drawing.Size(703, 341);
+            this.lsvTatuagens.TabIndex = 0;
+            this.lsvTatuagens.UseCompatibleStateImageBehavior = false;
+            this.lsvTatuagens.View = System.Windows.Forms.View.Details;
             // 
             // columnHeader1
             // 
@@ -97,16 +99,20 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(727, 394);
             this.Controls.Add(this.button1);
-            this.Controls.Add(this.lsvTatuagem);
+            this.Controls.Add(this.lsvTatuagens);
+            this.MinimizeBox = false;
             this.Name = "FormTatuagens";
+            this.ShowInTaskbar = false;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "FormTatuagens";
+            this.Resize += new System.EventHandler(this.FormTatuagens_Resize);
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.ListView lsvTatuagem;
+        private System.Windows.Forms.ListView lsvTatuagens;
         private System.Windows.Forms.ColumnHeader columnHeader1;
         private System.Windows.Forms.ColumnHeader columnHeader2;
         private System.Windows.Forms.ColumnHeader columnHeader3;
