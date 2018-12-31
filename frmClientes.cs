@@ -161,7 +161,9 @@ namespace ClienteTatoo
 
         private void lsvClientes_SelectedIndexChanged(object sender, EventArgs e)
         {
-            btnAlterarInformacoesPessoais.Visible = (lsvClientes.SelectedIndices.Count == 1);
+            int qtdeSelecionado = lsvClientes.SelectedIndices.Count;
+            btnAlterarInformacoesPessoais.Visible = (qtdeSelecionado == 1);
+            btnRemover.Visible = (qtdeSelecionado > 0);
         }
 
         private void btnAlterarInformacoesPessoais_Click(object sender, EventArgs e)
@@ -211,5 +213,35 @@ namespace ClienteTatoo
         }
 
         private void lsvClientes_Resize(object sender, EventArgs e) => OrganizarColunas();
+
+        private void btnRemover_Click(object sender, EventArgs e)
+        {
+            // Verificando se o usuário deseja realmente remover os clientes selecionados
+            if (MessageBox.Show($"Deseja realmente remover os {lsvClientes.SelectedIndices.Count} clientes selecionados?\nEssa ação não poderá ser revertida!", "", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
+                return;
+
+            using (var conn = new Connection())
+            using (MySqlTransaction transaction = conn.BeginTransaction())
+            {
+                try
+                {
+                    for (int i = 0; i < lsvClientes.SelectedIndices.Count; i++)
+                    {
+                        clientes[lsvClientes.SelectedIndices[i]].Remover(conn, transaction);
+                    }
+
+                    transaction.Commit();
+
+                    MessageBox.Show($"{lsvClientes.SelectedIndices.Count} cliente(s) foi(ram) removido(s) com sucesso!", "Informação", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                    CarregarClientes();
+                }
+                catch (Exception erro)
+                {
+                    transaction.Rollback();
+                    MessageBox.Show($"Ocorreu um erro ao remover os clientes, a ação foi canacelada!\n{erro.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
     }
 }
