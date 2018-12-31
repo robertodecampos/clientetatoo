@@ -63,6 +63,7 @@
     <Compile Include="DAO\EnderecoDAO.cs" />
     <Compile Include="DAO\EstadoDAO.cs" />
     <Compile Include="DAO\IDao.cs" />
+    <Compile Include="DAO\TatuagemDAO.cs" />
     <Compile Include="DAO\TermoResponsabilidadeDAO.cs" />
     <Compile Include="DAO\TipoLogradouroDAO.cs" />
     <Compile Include="DAO\UsuarioDAO.cs" />
@@ -114,6 +115,7 @@
     <Compile Include="Model\Estado.cs" />
     <Compile Include="Model\Filter\ClienteFilter.cs" />
     <Compile Include="Model\Ordenation\ClienteOrdenation.cs" />
+    <Compile Include="Model\Tatuagem.cs" />
     <Compile Include="Model\TermoResponsabilidade.cs" />
     <Compile Include="Model\TipoLogradouro.cs" />
     <Compile Include="Model\Usuario.cs" />
