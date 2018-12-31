@@ -115,6 +115,14 @@ namespace ClienteTatoo.Model
             }
         }
 
+        public bool SetById(int id, Connection conn, MySqlTransaction transaction)
+        {
+            using (var dao = new ClienteDAO(conn))
+            {
+                return dao.SetById(this, id, transaction);
+            }
+        }
+
         public static List<Cliente> GetAll(List<ClienteFilter> filtros, List<ClienteOrdenation> ordenacoes, Connection conn, MySqlTransaction transaction)
         {
             using (var dao = new ClienteDAO(conn))

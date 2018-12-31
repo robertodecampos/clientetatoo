@@ -66,6 +66,27 @@ namespace ClienteTatoo.DAO
             return _conn.Execute(sql, parameters, transaction);
         }
 
+        public bool SetById(Cliente model, int id, MySqlTransaction transaction)
+        {
+            string sql = "SELECT *" +
+                         " FROM clientes a" +
+                         " WHERE a.`id` = @id a.`removido` = 0";
+
+            var parameters = new List<MySqlParameter>();
+            parameters.Add(new MySqlParameter("@id", MySqlDbType.Int32) { Value = id });
+
+            DataTable dt = _conn.ExecuteReader(sql, parameters, transaction);
+
+            if (dt.Rows.Count == 0)
+                return false;
+            else if (dt.Rows.Count > 1)
+                throw new Exception($"Existem {dt.Rows.Count} clientes com o id `{id}`!");
+
+            PreencherModel(model, dt.Rows[0]);
+
+            return true;
+        }
+
         public List<Cliente> GetAll(List<ClienteFilter> filtros, List<ClienteOrdenation> ordenacoes, MySqlTransaction transaction)
         {
             var parameters = new List<MySqlParameter>();
