@@ -74,20 +74,33 @@ namespace ClienteTatoo
             if (cliente == null)
                 throw new NullReferenceException("O parâmetro cliente não pode ser nulo!");
 
-            txtNome.Text = cliente.Nome;
-            txtCpf.Text = cliente.Cpf;
-            if (cliente.DataNascimento != null)
-                dtpDataNascimento.Value = (DateTime)cliente.DataNascimento;
-            txtTelefone.Text = cliente.Telefone;
-            txtCelular.Text = cliente.Celular;
-            txtEmail.Text = cliente.Email;
             try
             {
-                //txtCep.Changed
+                txtCep.TextChanged -= txtCep_TextChanged;
+
+                txtNome.Text = cliente.Nome;
+                txtCpf.Text = cliente.Cpf;
+                if (cliente.DataNascimento != null)
+                    dtpDataNascimento.Value = (DateTime)cliente.DataNascimento;
+                txtTelefone.Text = cliente.Telefone;
+                txtCelular.Text = cliente.Celular;
+                txtEmail.Text = cliente.Email;
+                txtCep.Text = cliente.Cep;
+                if (!string.IsNullOrEmpty(cliente.Uf))
+                {
+                    cmbEstado.SelectedIndex = Estados.FindIndex(estado => estado.Uf == cliente.Uf) + 1;
+                    if (cliente.IdCidade != 0)
+                        cmbCidade.SelectedIndex = Cidades.FindIndex(cidade => cidade.Id == cliente.IdCidade) + 1;
+                }
+                cmbTipoLogradouro.Text = cliente.TipoLogradouro;
+                txtLogradouro.Text = cliente.Logradouro;
+                txtComplemento.Text = cliente.Complemento;
+                txtBairro.Text = cliente.Bairro;
+                txtNumero.Text = cliente.Numero;
             }
             finally
             {
-
+                txtCep.TextChanged += txtCep_TextChanged;
             }
         }
 
