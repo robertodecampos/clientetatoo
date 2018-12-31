@@ -19,7 +19,7 @@ namespace ClienteTatoo
         private List<Estado> Estados { get; set; }
         private List<Cidade> Cidades { get; set; }
         private TipoFormulario TipoFormulario { get; set; }
-        public Cliente Cliente { get; set; }
+        private Cliente Cliente { get; set; }
 
         public FormDadosPessoaisCliente(TipoFormulario tipoFormulario)
         {
@@ -89,6 +89,24 @@ namespace ClienteTatoo
             {
 
             }
+        }
+
+        public void SetDadosInModel(Cliente model)
+        {
+            model.Nome = Cliente.Nome;
+            model.DataNascimento = Cliente.DataNascimento;
+            model.Cpf = Cliente.Cpf;
+            model.Email = Cliente.Email;
+            model.Telefone = Cliente.Telefone;
+            model.Celular = Cliente.Celular;
+            model.Cep = Cliente.Cep;
+            model.Uf = Cliente.Uf;
+            model.IdCidade = Cliente.IdCidade;
+            model.TipoLogradouro = Cliente.TipoLogradouro;
+            model.Logradouro = Cliente.Logradouro;
+            model.Complemento = Cliente.Complemento;
+            model.Bairro = Cliente.Bairro;
+            model.Numero = Cliente.Numero;
         }
 
         private void FormDadosPessoaisCliente_FormClosing(object sender, FormClosingEventArgs e)
