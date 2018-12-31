@@ -64,5 +64,18 @@ namespace ClienteTatoo.Utils
             digito = digito + resto.ToString();
             return cpf.EndsWith(digito);
         }
+
+        public static bool IsNumeric(string value)
+        {
+            string[] numeros = { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9" };
+
+            for (int i = 0; i < value.Length; i++)
+                if (!numeros.Contains(value[i].ToString()))
+                {
+                    return false;
+                }
+
+            return true;
+        }
     }
 }
