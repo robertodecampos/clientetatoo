@@ -51,7 +51,7 @@ namespace ClienteTatoo.DAO
             if (model.Id == 0)
                 throw new Exception("Não é possível alterar um registro que não possuí identificador");
 
-            if (model.IsValid(_conn, transaction))
+            if (!model.IsValid(_conn, transaction))
                 throw new Exception("Existem informações inconsistentes!");
 
             string sql = "UPDATE clientes SET" +
