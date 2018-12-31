@@ -66,6 +66,12 @@
     <Compile Include="DAO\TermoResponsabilidadeDAO.cs" />
     <Compile Include="DAO\TipoLogradouroDAO.cs" />
     <Compile Include="DAO\UsuarioDAO.cs" />
+    <Compile Include="FormTatuagens.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormTatuagens.Designer.cs">
+      <DependentUpon>FormTatuagens.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmConfigurarTermoResponsabilidade.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -118,6 +124,9 @@
     <Compile Include="Utils\IConnection.cs" />
     <Compile Include="Utils\Ordenation.cs" />
     <Compile Include="Utils\Validation.cs" />
+    <EmbeddedResource Include="FormTatuagens.resx">
+      <DependentUpon>FormTatuagens.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmConfigurarTermoResponsabilidade.resx">
       <DependentUpon>frmConfigurarTermoResponsabilidade.cs</DependentUpon>
     </EmbeddedResource>
