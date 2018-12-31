@@ -164,6 +164,7 @@ namespace ClienteTatoo
             int qtdeSelecionado = lsvClientes.SelectedIndices.Count;
             btnAlterarInformacoesPessoais.Visible = (qtdeSelecionado == 1);
             btnRemover.Visible = (qtdeSelecionado > 0);
+            btnTatuagens.Visible = (qtdeSelecionado == 1);
         }
 
         private void btnAlterarInformacoesPessoais_Click(object sender, EventArgs e)
@@ -241,6 +242,16 @@ namespace ClienteTatoo
                     transaction.Rollback();
                     MessageBox.Show($"Ocorreu um erro ao remover os clientes, a ação foi canacelada!\n{erro.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
+            }
+        }
+
+        private void btnTatuagens_Click(object sender, EventArgs e)
+        {
+            int idCliente = clientes[lsvClientes.SelectedIndices[0]].Id;
+
+            using (var frmTatuagens = new FormTatuagens(idCliente))
+            {
+                frmTatuagens.ShowDialog();
             }
         }
     }

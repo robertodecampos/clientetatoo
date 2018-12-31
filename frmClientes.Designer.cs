@@ -44,6 +44,7 @@
             this.cmbOrdenacao = new System.Windows.Forms.ComboBox();
             this.btnAlterarInformacoesPessoais = new System.Windows.Forms.Button();
             this.btnRemover = new System.Windows.Forms.Button();
+            this.btnTatuagens = new System.Windows.Forms.Button();
             this.msPricipal.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -192,13 +193,27 @@
             this.btnRemover.TabIndex = 7;
             this.btnRemover.Text = "Remover";
             this.btnRemover.UseVisualStyleBackColor = true;
+            this.btnRemover.Visible = false;
             this.btnRemover.Click += new System.EventHandler(this.btnRemover_Click);
+            // 
+            // btnTatuagens
+            // 
+            this.btnTatuagens.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnTatuagens.Location = new System.Drawing.Point(255, 423);
+            this.btnTatuagens.Name = "btnTatuagens";
+            this.btnTatuagens.Size = new System.Drawing.Size(75, 23);
+            this.btnTatuagens.TabIndex = 8;
+            this.btnTatuagens.Text = "Tatuagens";
+            this.btnTatuagens.UseVisualStyleBackColor = true;
+            this.btnTatuagens.Visible = false;
+            this.btnTatuagens.Click += new System.EventHandler(this.btnTatuagens_Click);
             // 
             // FormClientes
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(807, 458);
+            this.Controls.Add(this.btnTatuagens);
             this.Controls.Add(this.btnRemover);
             this.Controls.Add(this.btnAlterarInformacoesPessoais);
             this.Controls.Add(this.cmbOrdenacao);
@@ -237,6 +252,7 @@
         private System.Windows.Forms.ComboBox cmbOrdenacao;
         private System.Windows.Forms.Button btnAlterarInformacoesPessoais;
         private System.Windows.Forms.Button btnRemover;
+        private System.Windows.Forms.Button btnTatuagens;
     }
 }
 
