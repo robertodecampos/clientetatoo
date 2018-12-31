@@ -95,13 +95,14 @@
             this.columnHeader5,
             this.columnHeader6});
             this.lsvClientes.FullRowSelect = true;
-            this.lsvClientes.Location = new System.Drawing.Point(12, 27);
+            this.lsvClientes.Location = new System.Drawing.Point(12, 56);
             this.lsvClientes.Name = "lsvClientes";
-            this.lsvClientes.Size = new System.Drawing.Size(783, 390);
+            this.lsvClientes.Size = new System.Drawing.Size(783, 361);
             this.lsvClientes.TabIndex = 2;
             this.lsvClientes.UseCompatibleStateImageBehavior = false;
             this.lsvClientes.View = System.Windows.Forms.View.Details;
             this.lsvClientes.SelectedIndexChanged += new System.EventHandler(this.lsvClientes_SelectedIndexChanged);
+            this.lsvClientes.Resize += new System.EventHandler(this.lsvClientes_Resize);
             // 
             // columnHeader1
             // 
@@ -111,7 +112,7 @@
             // columnHeader2
             // 
             this.columnHeader2.Text = "Nome";
-            this.columnHeader2.Width = 40;
+            this.columnHeader2.Width = 300;
             // 
             // columnHeader3
             // 
@@ -121,21 +122,22 @@
             // columnHeader4
             // 
             this.columnHeader4.Text = "CPF";
+            this.columnHeader4.Width = 87;
             // 
             // columnHeader5
             // 
             this.columnHeader5.Text = "Telefone";
-            this.columnHeader5.Width = 120;
+            this.columnHeader5.Width = 84;
             // 
             // columnHeader6
             // 
             this.columnHeader6.Text = "Celular";
-            this.columnHeader6.Width = 120;
+            this.columnHeader6.Width = 93;
             // 
             // btnFiltrar
             // 
-            this.btnFiltrar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnFiltrar.Location = new System.Drawing.Point(612, 423);
+            this.btnFiltrar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnFiltrar.Location = new System.Drawing.Point(720, 27);
             this.btnFiltrar.Name = "btnFiltrar";
             this.btnFiltrar.Size = new System.Drawing.Size(75, 23);
             this.btnFiltrar.TabIndex = 3;
@@ -145,9 +147,9 @@
             // 
             // label1
             // 
-            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(419, 428);
+            this.label1.Location = new System.Drawing.Point(527, 32);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(60, 13);
             this.label1.TabIndex = 4;
@@ -155,14 +157,14 @@
             // 
             // cmbOrdenacao
             // 
-            this.cmbOrdenacao.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmbOrdenacao.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cmbOrdenacao.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbOrdenacao.FormattingEnabled = true;
             this.cmbOrdenacao.Items.AddRange(new object[] {
             "Código",
             "Nome",
             "Data de Nascimento"});
-            this.cmbOrdenacao.Location = new System.Drawing.Point(485, 425);
+            this.cmbOrdenacao.Location = new System.Drawing.Point(593, 29);
             this.cmbOrdenacao.Name = "cmbOrdenacao";
             this.cmbOrdenacao.Size = new System.Drawing.Size(121, 21);
             this.cmbOrdenacao.TabIndex = 5;

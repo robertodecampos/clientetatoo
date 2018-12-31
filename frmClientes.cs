@@ -30,6 +30,7 @@ namespace ClienteTatoo
             filtros = new List<ClienteFilter>();
             cmbOrdenacao.SelectedIndex = 0;
             CarregarClientes();
+            OrganizarColunas();
         }
 
         private void CarregarClientes()
@@ -66,9 +67,9 @@ namespace ClienteTatoo
                     item.SubItems.Add(((DateTime)cliente.DataNascimento).ToString("dd/MM/yyyy"));
                 else
                     item.SubItems.Add("Não informada");
-                item.SubItems.Add(cliente.Cpf);
-                item.SubItems.Add(cliente.Telefone);
-                item.SubItems.Add(cliente.Celular);
+                item.SubItems.Add(string.IsNullOrEmpty(cliente.Cpf) ? "Não Informado" : long.Parse(cliente.Cpf).ToString(@"000\.000\.000-00"));
+                item.SubItems.Add(string.IsNullOrEmpty(cliente.Telefone) ? "Não Informado" : long.Parse(cliente.Telefone).ToString(@"(00)\ 0000-0000"));
+                item.SubItems.Add(string.IsNullOrEmpty(cliente.Celular) ? "Não Informado" : long.Parse(cliente.Celular).ToString(@"(00)\ 0\.0000-0000"));
 
                 lsvClientes.Items.Add(item);
             }
@@ -195,5 +196,20 @@ namespace ClienteTatoo
                 }
             }
         }
+
+        private void OrganizarColunas()
+        {
+            int width = lsvClientes.ClientSize.Width;
+
+            for (int i = 0; i < lsvClientes.Columns.Count; i++)
+                width -= lsvClientes.Columns[i].Width;
+
+            lsvClientes.Columns[1].Width += width;
+
+            lsvClientes.Scrollable = false; // Gambiarra para evitar o scroll ficar aparecendo em baixo sem necessidade
+            lsvClientes.Scrollable = true;  // Gambiarra para evitar o scroll ficar aparecendo em baixo sem necessidade
+        }
+
+        private void lsvClientes_Resize(object sender, EventArgs e) => OrganizarColunas();
     }
 }
