@@ -70,7 +70,7 @@ namespace ClienteTatoo.DAO
         {
             string sql = "SELECT *" +
                          " FROM clientes a" +
-                         " WHERE a.`id` = @id a.`removido` = 0";
+                         " WHERE a.`id` = @id AND a.`removido` = 0";
 
             var parameters = new List<MySqlParameter>();
             parameters.Add(new MySqlParameter("@id", MySqlDbType.Int32) { Value = id });
