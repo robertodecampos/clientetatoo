@@ -122,21 +122,7 @@ namespace ClienteTatoo
                 using (MySqlTransaction transaction = conn.BeginTransaction())
                 {
                     cliente.IdTermoResponsabilidade = frmTermoResponsabilidade.IdTermoResponsabilidade;
-                    cliente.Nome = frmDadosPessoais.Cliente.Nome;
-                    cliente.DataNascimento = frmDadosPessoais.Cliente.DataNascimento;
-                    cliente.Cpf = frmDadosPessoais.Cliente.Cpf;
-                    cliente.Email = frmDadosPessoais.Cliente.Email;
-                    cliente.Telefone = frmDadosPessoais.Cliente.Telefone;
-                    cliente.Celular = frmDadosPessoais.Cliente.Celular;
-                    cliente.Cep = frmDadosPessoais.Cliente.Cep;
-                    cliente.Uf = frmDadosPessoais.Cliente.Uf;
-                    cliente.IdCidade = frmDadosPessoais.Cliente.IdCidade;
-                    cliente.TipoLogradouro = frmDadosPessoais.Cliente.TipoLogradouro;
-                    cliente.Logradouro = frmDadosPessoais.Cliente.Logradouro;
-                    cliente.Complemento = frmDadosPessoais.Cliente.Complemento;
-                    cliente.Bairro = frmDadosPessoais.Cliente.Bairro;
-                    cliente.Numero = frmDadosPessoais.Cliente.Numero;
-
+                    frmDadosPessoais.SetDadosInModel(cliente);
                     try
                     {
                         cliente.Salvar(conn, transaction);
@@ -170,6 +156,44 @@ namespace ClienteTatoo
         {
             frmFiltro.Dispose();
             base.Dispose();
+        }
+
+        private void lsvClientes_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            btnAlterarInformacoesPessoais.Visible = (lsvClientes.SelectedIndices.Count == 1);
+        }
+
+        private void btnAlterarInformacoesPessoais_Click(object sender, EventArgs e)
+        {
+            int idCliente = clientes[lsvClientes.SelectedIndices[0]].Id;
+
+            using (var cliente = new Cliente())
+            {
+                using (var conn = new Connection())
+                {
+                    if (!cliente.SetById(idCliente, conn, null))
+                    {
+                        MessageBox.Show($"Não foi possível encontrar o cliente com id `{idCliente}`", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        CarregarClientes();
+                        return;
+                    }
+                }
+
+                using (var frmDadosPessoais = new FormDadosPessoaisCliente(TipoFormulario.tfEdicao, cliente))
+                {
+                    if (frmDadosPessoais.ShowDialog() != DialogResult.OK)
+                        return;
+
+                    frmDadosPessoais.SetDadosInModel(cliente);
+                }
+
+                using (var conn = new Connection())
+                {
+                    cliente.Salvar(conn, null);
+                    MessageBox.Show("Informações do cliente salva com sucesso!", "Informação", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    CarregarClientes();
+                }
+            }
         }
     }
 }

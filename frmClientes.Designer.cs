@@ -42,6 +42,7 @@
             this.btnFiltrar = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.cmbOrdenacao = new System.Windows.Forms.ComboBox();
+            this.btnAlterarInformacoesPessoais = new System.Windows.Forms.Button();
             this.msPricipal.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -100,6 +101,7 @@
             this.lsvClientes.TabIndex = 2;
             this.lsvClientes.UseCompatibleStateImageBehavior = false;
             this.lsvClientes.View = System.Windows.Forms.View.Details;
+            this.lsvClientes.SelectedIndexChanged += new System.EventHandler(this.lsvClientes_SelectedIndexChanged);
             // 
             // columnHeader1
             // 
@@ -166,11 +168,24 @@
             this.cmbOrdenacao.TabIndex = 5;
             this.cmbOrdenacao.SelectedIndexChanged += new System.EventHandler(this.cmbOrdenacao_SelectedIndexChanged);
             // 
+            // btnAlterarInformacoesPessoais
+            // 
+            this.btnAlterarInformacoesPessoais.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnAlterarInformacoesPessoais.Location = new System.Drawing.Point(12, 423);
+            this.btnAlterarInformacoesPessoais.Name = "btnAlterarInformacoesPessoais";
+            this.btnAlterarInformacoesPessoais.Size = new System.Drawing.Size(156, 23);
+            this.btnAlterarInformacoesPessoais.TabIndex = 6;
+            this.btnAlterarInformacoesPessoais.Text = "Alterar Informações Pessoais";
+            this.btnAlterarInformacoesPessoais.UseVisualStyleBackColor = true;
+            this.btnAlterarInformacoesPessoais.Visible = false;
+            this.btnAlterarInformacoesPessoais.Click += new System.EventHandler(this.btnAlterarInformacoesPessoais_Click);
+            // 
             // FormClientes
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(807, 458);
+            this.Controls.Add(this.btnAlterarInformacoesPessoais);
             this.Controls.Add(this.cmbOrdenacao);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.btnFiltrar);
@@ -205,6 +220,7 @@
         private System.Windows.Forms.Button btnFiltrar;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox cmbOrdenacao;
+        private System.Windows.Forms.Button btnAlterarInformacoesPessoais;
     }
 }
 
