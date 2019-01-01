@@ -97,6 +97,12 @@
     <Compile Include="frmLogin.Designer.cs">
       <DependentUpon>frmLogin.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmTatuagem.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmTatuagem.Designer.cs">
+      <DependentUpon>frmTatuagem.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmTermoResponsabilidade.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -140,6 +146,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmLogin.resx">
       <DependentUpon>frmLogin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmTatuagem.resx">
+      <DependentUpon>frmTatuagem.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmTermoResponsabilidade.resx">
       <DependentUpon>frmTermoResponsabilidade.cs</DependentUpon>
