@@ -5,9 +5,6 @@ using ClienteTatoo.Utils;
 using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ClienteTatoo.Model
 {
@@ -28,7 +25,6 @@ namespace ClienteTatoo.Model
         public string Telefone { get; set; }
         public string Celular { get; set; }
         public string Email { get; set; }
-        public int IdTermoResponsabilidade { get; set; }
 
         public bool IsValid(Connection conn, MySqlTransaction transaction, out string mensagem)
         {

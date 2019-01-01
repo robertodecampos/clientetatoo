@@ -27,9 +27,9 @@ namespace ClienteTatoo.DAO
                 throw new Exception("Existem informações inconsistentes!");
 
             string sql = "INSERT INTO clientes (" +
-                         "nome, cpf, dataNascimento, cep, tipoLogradouro, logradouro, numero, bairro, complemento, idCidade, uf, telefone, celular, email, idTermoResponsabilidade" +
+                         "nome, cpf, dataNascimento, cep, tipoLogradouro, logradouro, numero, bairro, complemento, idCidade, uf, telefone, celular, email" +
                          ") VALUES (" +
-                         "@nome, @cpf, @dataNascimento, @cep, @tipoLogradouro, @logradouro, @numero, @bairro, @complemento, @idCidade, @uf, @telefone, @celular, @email, @idTermoResponsabilidade" +
+                         "@nome, @cpf, @dataNascimento, @cep, @tipoLogradouro, @logradouro, @numero, @bairro, @complemento, @idCidade, @uf, @telefone, @celular, @email" +
                          ")";
 
             List<MySqlParameter> parameters = GetParameters(model);
@@ -70,7 +70,7 @@ namespace ClienteTatoo.DAO
             string sql = "UPDATE clientes SET" +
                          " nome = @nome, cpf = @cpf, dataNascimento = @dataNascimento, cep = @cep, tipoLogradouro = @tipoLogradouro," +
                          " logradouro = @logradouro, numero = @numero, bairro = @bairro, complemento = @complemento, idCidade = @idCidade," +
-                         " uf = @uf, telefone = @telefone, celular = @celular, email = @email, idTermoResponsabilidade = @idTermoResponsabilidade" +
+                         " uf = @uf, telefone = @telefone, celular = @celular, email = @email" +
                          " WHERE id = @id";
 
             List<MySqlParameter> parameters = GetParameters(model);
@@ -162,7 +162,6 @@ namespace ClienteTatoo.DAO
             model.Telefone = dr["telefone"].ToString();
             model.Celular = dr["celular"].ToString();
             model.Email = dr["email"].ToString();
-            model.IdTermoResponsabilidade = int.Parse(dr["idTermoResponsabilidade"].ToString());
         }
 
         private List<MySqlParameter> GetParameters(Cliente model)
@@ -182,7 +181,6 @@ namespace ClienteTatoo.DAO
             parameters.Add(new MySqlParameter("@telefone", MySqlDbType.String) { Value = model.Telefone });
             parameters.Add(new MySqlParameter("@celular", MySqlDbType.String) { Value = model.Celular });
             parameters.Add(new MySqlParameter("@email", MySqlDbType.String) { Value = model.Email });
-            parameters.Add(new MySqlParameter("@idTermoResponsabilidade", MySqlDbType.Int32) { Value = model.IdTermoResponsabilidade });
 
             return parameters;
         }

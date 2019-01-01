@@ -5,20 +5,12 @@ using ClienteTatoo.Utils;
 using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace ClienteTatoo
 {
     public partial class FormClientes : Form
     {
-        private enum PassoCadastroCliente { pccTermoResponsabilidade, pccDadosPessoais };
-
         private List<Cliente> clientes;
         private List<ClienteFilter> filtros;
         private FormFiltroCliente frmFiltro = new FormFiltroCliente();
@@ -88,44 +80,18 @@ namespace ClienteTatoo
 
         private void btnCadastrar_Click(object sender, EventArgs e)
         {
-            using (var frmDadosPessoais = new FormDadosPessoaisCliente(TipoFormulario.tfCadastro))
-            using (var frmTermoResponsabilidade = new FormTermoResponsabilidade())
+            using (var frmDadosPessoais = new FormDadosPessoaisCliente())
             using (var cliente = new Cliente())
             {
-                PassoCadastroCliente passo = PassoCadastroCliente.pccTermoResponsabilidade;
-                bool cadastroFinalizado = false;
+                if (frmDadosPessoais.ShowDialog() != DialogResult.OK)
+                    return;
 
-                while (!cadastroFinalizado)
-                {
-                    switch (passo)
-                    {
-                        case PassoCadastroCliente.pccTermoResponsabilidade:
-                            frmTermoResponsabilidade.ShowDialog();
-                            if (frmTermoResponsabilidade.DialogResult == DialogResult.OK)
-                                passo = PassoCadastroCliente.pccDadosPessoais;
-                            else
-                                return;
-                            break;
-
-                        case PassoCadastroCliente.pccDadosPessoais:
-                            frmDadosPessoais.ShowDialog();
-                            if (frmDadosPessoais.DialogResult == DialogResult.OK)
-                                cadastroFinalizado = true;
-                            else if (frmDadosPessoais.DialogResult == DialogResult.Abort)
-                                passo = PassoCadastroCliente.pccTermoResponsabilidade;
-                            else
-                                return;
-                            break;
-                    }
-                }
-
-                using (var conn = new Utils.Connection())
+                using (var conn = new Connection())
                 using (MySqlTransaction transaction = conn.BeginTransaction())
                 {
-                    cliente.IdTermoResponsabilidade = frmTermoResponsabilidade.IdTermoResponsabilidade;
-                    frmDadosPessoais.SetDadosInModel(cliente);
                     try
                     {
+                        frmDadosPessoais.SetDadosInModel(cliente);
                         cliente.Salvar(conn, transaction);
                         transaction.Commit();
                         CarregarClientes();
@@ -183,7 +149,7 @@ namespace ClienteTatoo
                     }
                 }
 
-                using (var frmDadosPessoais = new FormDadosPessoaisCliente(TipoFormulario.tfEdicao, cliente))
+                using (var frmDadosPessoais = new FormDadosPessoaisCliente(cliente))
                 {
                     if (frmDadosPessoais.ShowDialog() != DialogResult.OK)
                         return;

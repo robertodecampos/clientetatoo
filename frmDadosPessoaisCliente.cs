@@ -18,10 +18,9 @@ namespace ClienteTatoo
     {
         private List<Estado> Estados { get; set; }
         private List<Cidade> Cidades { get; set; }
-        private TipoFormulario TipoFormulario { get; set; }
         private Cliente Cliente { get; set; }
 
-        public FormDadosPessoaisCliente(TipoFormulario tipoFormulario)
+        public FormDadosPessoaisCliente()
         {
             InitializeComponent();
 
@@ -31,19 +30,6 @@ namespace ClienteTatoo
             txtTelefone.Clear();
             txtCelular.Clear();
             txtCep.Clear();
-
-            TipoFormulario = tipoFormulario;
-
-            switch (TipoFormulario)
-            {
-                case TipoFormulario.tfCadastro:
-                    btnOk.Text = "Avançar";
-                    btnAbort.Visible = true;
-                    break;
-                case TipoFormulario.tfEdicao:
-                    btnOk.Text = "Salvar";
-                    break;
-            }
 
             using (var conn = new Connection())
             {
@@ -69,7 +55,7 @@ namespace ClienteTatoo
             }
         }
 
-        public FormDadosPessoaisCliente(TipoFormulario tipoFormulario, Cliente cliente) : this(tipoFormulario)
+        public FormDadosPessoaisCliente(Cliente cliente) : this()
         {
             if (cliente == null)
                 throw new NullReferenceException("O parâmetro cliente não pode ser nulo!");
@@ -120,18 +106,6 @@ namespace ClienteTatoo
             model.Complemento = Cliente.Complemento;
             model.Bairro = Cliente.Bairro;
             model.Numero = Cliente.Numero;
-        }
-
-        private void FormDadosPessoaisCliente_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            if (DialogResult != DialogResult.Cancel)
-                return;
-
-            if (TipoFormulario != TipoFormulario.tfCadastro)
-                return;
-
-            if (MessageBox.Show("Deseja realmente cancelar o cadastro do cliente?\nAs informações não serão salvas!", "Confirmação", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
-                e.Cancel = true;
         }
 
         private void cmbEstado_SelectedIndexChanged(object sender, EventArgs e)

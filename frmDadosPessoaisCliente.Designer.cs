@@ -57,7 +57,6 @@
             this.label14 = new System.Windows.Forms.Label();
             this.cmbCidade = new System.Windows.Forms.ComboBox();
             this.btnOk = new System.Windows.Forms.Button();
-            this.btnAbort = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -330,28 +329,15 @@
             this.btnOk.Name = "btnOk";
             this.btnOk.Size = new System.Drawing.Size(75, 35);
             this.btnOk.TabIndex = 14;
-            this.btnOk.Text = "Avançar";
+            this.btnOk.Text = "Salvar";
             this.btnOk.UseVisualStyleBackColor = true;
             this.btnOk.Click += new System.EventHandler(this.btnOk_Click);
-            // 
-            // btnAbort
-            // 
-            this.btnAbort.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnAbort.DialogResult = System.Windows.Forms.DialogResult.Abort;
-            this.btnAbort.Location = new System.Drawing.Point(12, 345);
-            this.btnAbort.Name = "btnAbort";
-            this.btnAbort.Size = new System.Drawing.Size(75, 35);
-            this.btnAbort.TabIndex = 15;
-            this.btnAbort.Text = "Voltar";
-            this.btnAbort.UseVisualStyleBackColor = true;
-            this.btnAbort.Visible = false;
             // 
             // FormDadosPessoaisCliente
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(624, 392);
-            this.Controls.Add(this.btnAbort);
             this.Controls.Add(this.btnOk);
             this.Controls.Add(this.cmbCidade);
             this.Controls.Add(this.label14);
@@ -388,9 +374,7 @@
             this.MinimizeBox = false;
             this.Name = "FormDadosPessoaisCliente";
             this.Text = "Dados Pessoais";
-            this.TopMost = true;
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormDadosPessoaisCliente_FormClosing);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -427,6 +411,5 @@
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.ComboBox cmbCidade;
         private System.Windows.Forms.Button btnOk;
-        private System.Windows.Forms.Button btnAbort;
     }
 }
