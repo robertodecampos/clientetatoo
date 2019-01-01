@@ -124,7 +124,7 @@
             this.Name = "FormTatuagens";
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "FormTatuagens";
+            this.Text = "Tatuagens";
             this.Resize += new System.EventHandler(this.FormTatuagens_Resize);
             this.ResumeLayout(false);
 
