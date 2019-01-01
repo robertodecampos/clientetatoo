@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace ClienteTatoo.Model
 {
-    class Tatuagem : IDisposable
+    public class Tatuagem : IDisposable
     {
         public int Id { get; set; }
         public int IdCliente { get; set; }
