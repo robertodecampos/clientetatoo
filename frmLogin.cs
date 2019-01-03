@@ -35,5 +35,11 @@ namespace ClienteTatoo
                 MessageBox.Show("Ocorreu um erro ao tentar logar: " + erro.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+        private void FormLogin_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+                btnLogar.PerformClick();
+        }
     }
 }

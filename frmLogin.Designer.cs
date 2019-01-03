@@ -89,12 +89,14 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.KeyPreview = true;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "FormLogin";
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Login";
+            this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.FormLogin_KeyUp);
             this.ResumeLayout(false);
             this.PerformLayout();
 
