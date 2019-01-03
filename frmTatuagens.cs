@@ -26,22 +26,41 @@ namespace ClienteTatoo
 
         private void CarregarTatuagens()
         {
+            lsvTatuagens.Items.Clear();
+
             using (var conn = new Connection())
             {
                 Tatuagens = Tatuagem.GetByIdCliente(IdCliente, conn, null);
-            }
 
-            lsvTatuagens.Items.Clear();
+                foreach (Tatuagem tatuagem in Tatuagens)
+                {
+                    var item = new ListViewItem();
 
-            foreach (Tatuagem tatuagem in Tatuagens)
-            {
-                var item = new ListViewItem();
+                    item.Text = tatuagem.Id.ToString();
+                    item.SubItems.Add(tatuagem.Local);
+                    item.SubItems.Add(tatuagem.Desenho);
 
-                item.Text = tatuagem.Id.ToString();
-                item.SubItems.Add(tatuagem.Local);
-                item.SubItems.Add(tatuagem.Desenho);
+                    int qtdeSessoes = Sessao.CountByIdTatuagem(tatuagem.Id, conn, null);
 
-                lsvTatuagens.Items.Add(item);
+                    item.SubItems.Add(qtdeSessoes.ToString());
+
+                    DateTime? dataPrimeiraSessao = null, dataUltimaSessao = null;
+
+                    if (qtdeSessoes > 0)
+                    {
+                        dataPrimeiraSessao = Sessao.GetDataSessaoOfFirstByIdTatuagem(tatuagem.Id, conn, null);
+
+                        if (qtdeSessoes > 1)
+                            dataUltimaSessao = Sessao.GetDataSessaoOfLastByIdTatuagem(tatuagem.Id, conn, null);
+                        else
+                            dataUltimaSessao = dataPrimeiraSessao;
+                    }
+
+                    item.SubItems.Add(dataPrimeiraSessao == null ? "Sem sessão" : ((DateTime)dataPrimeiraSessao).ToString("dd/MM/yyyy"));
+                    item.SubItems.Add(dataUltimaSessao == null ? "Sem sessão" : ((DateTime)dataUltimaSessao).ToString("dd/MM/yyyy"));
+
+                    lsvTatuagens.Items.Add(item);
+                }
             }
         }
 
@@ -113,7 +132,13 @@ namespace ClienteTatoo
             }
         }
 
-        private void lsvTatuagens_SelectedIndexChanged(object sender, EventArgs e) => btnAlterar.Visible = (lsvTatuagens.SelectedIndices.Count == 1);
+        private void lsvTatuagens_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            int qtdeSelecionada = lsvTatuagens.SelectedIndices.Count;
+
+            btnAlterar.Visible = (qtdeSelecionada == 1);
+            btnSessoes.Visible = (qtdeSelecionada == 1);
+        }
 
         private void btnAlterar_Click(object sender, EventArgs e)
         {
@@ -150,6 +175,16 @@ namespace ClienteTatoo
                         }
                     }
                 }
+            }
+        }
+
+        private void btnSessoes_Click(object sender, EventArgs e)
+        {
+            int idTatuagem = Tatuagens[lsvTatuagens.SelectedIndices[0]].Id;
+
+            using (var frmSessoes = new FormSessoes(idTatuagem))
+            {
+                frmSessoes.ShowDialog();
             }
         }
     }
