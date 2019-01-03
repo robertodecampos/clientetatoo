@@ -104,7 +104,6 @@
             this.lsvClientes.UseCompatibleStateImageBehavior = false;
             this.lsvClientes.View = System.Windows.Forms.View.Details;
             this.lsvClientes.SelectedIndexChanged += new System.EventHandler(this.lsvClientes_SelectedIndexChanged);
-            this.lsvClientes.Resize += new System.EventHandler(this.lsvClientes_Resize);
             // 
             // columnHeader1
             // 
@@ -227,6 +226,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Clientes";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.Resize += new System.EventHandler(this.FormClientes_Resize);
             this.msPricipal.ResumeLayout(false);
             this.msPricipal.PerformLayout();
             this.ResumeLayout(false);

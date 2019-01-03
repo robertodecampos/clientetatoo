@@ -75,9 +75,6 @@ namespace ClienteTatoo
 
             lsvTatuagens.Columns[1].Width += (width / 2) + sobra;
             lsvTatuagens.Columns[2].Width += width / 2;
-
-            lsvTatuagens.Scrollable = false; // Gambiarra para evitar o scroll ficar aparecendo em baixo sem necessidade
-            lsvTatuagens.Scrollable = true;  // Gambiarra para evitar o scroll ficar aparecendo em baixo sem necessidade
         }
 
         private void FormTatuagens_Resize(object sender, EventArgs e) => OrganizarColunas();

@@ -181,12 +181,7 @@ namespace ClienteTatoo
                 width -= lsvClientes.Columns[i].Width;
 
             lsvClientes.Columns[1].Width += width;
-
-            lsvClientes.Scrollable = false; // Gambiarra para evitar o scroll ficar aparecendo em baixo sem necessidade
-            lsvClientes.Scrollable = true;  // Gambiarra para evitar o scroll ficar aparecendo em baixo sem necessidade
         }
-
-        private void lsvClientes_Resize(object sender, EventArgs e) => OrganizarColunas();
 
         private void btnRemover_Click(object sender, EventArgs e)
         {
@@ -241,5 +236,7 @@ namespace ClienteTatoo
                 frmTatuagens.ShowDialog();
             }
         }
+
+        private void FormClientes_Resize(object sender, EventArgs e) => OrganizarColunas();
     }
 }

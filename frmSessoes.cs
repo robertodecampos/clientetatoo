@@ -34,9 +34,6 @@ namespace ClienteTatoo
 
             lsvSessoes.Columns[1].Width += (width / 2) + sobra;
             lsvSessoes.Columns[2].Width += width / 2;
-
-            lsvSessoes.Scrollable = false; // Gambiarra para evitar o scroll ficar aparecendo em baixo sem necessidade
-            lsvSessoes.Scrollable = true;  // Gambiarra para evitar o scroll ficar aparecendo em baixo sem necessidade
         }
 
         private void CarregarSessoes()
