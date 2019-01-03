@@ -135,6 +135,13 @@ namespace ClienteTatoo
 
         private void btnAlterarInformacoesPessoais_Click(object sender, EventArgs e)
         {
+            using (var frmLogin = new FormLogin())
+            {
+                frmLogin.ShowDialog();
+                if (!frmLogin.Logado)
+                    return;
+            }
+
             int idCliente = clientes[lsvClientes.SelectedIndices[0]].Id;
 
             using (var cliente = new Cliente())
@@ -187,6 +194,13 @@ namespace ClienteTatoo
             if (MessageBox.Show($"Deseja realmente remover os {lsvClientes.SelectedIndices.Count} clientes selecionados?\nEssa ação não poderá ser revertida!", "", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
                 return;
 
+            using (var frmLogin = new FormLogin())
+            {
+                frmLogin.ShowDialog();
+                if (!frmLogin.Logado)
+                    return;
+            }
+
             using (var conn = new Connection())
             using (MySqlTransaction transaction = conn.BeginTransaction())
             {
@@ -213,6 +227,13 @@ namespace ClienteTatoo
 
         private void btnTatuagens_Click(object sender, EventArgs e)
         {
+            using (var frmLogin = new FormLogin())
+            {
+                frmLogin.ShowDialog();
+                if (!frmLogin.Logado)
+                    return;
+            }
+
             int idCliente = clientes[lsvClientes.SelectedIndices[0]].Id;
 
             using (var frmTatuagens = new FormTatuagens(idCliente))
