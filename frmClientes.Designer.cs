@@ -45,13 +45,16 @@
             this.btnAlterarInformacoesPessoais = new System.Windows.Forms.Button();
             this.btnRemover = new System.Windows.Forms.Button();
             this.btnTatuagens = new System.Windows.Forms.Button();
+            this.informaçõesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.versãoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.msPricipal.SuspendLayout();
             this.SuspendLayout();
             // 
             // msPricipal
             // 
             this.msPricipal.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.configurarToolStripMenuItem});
+            this.configurarToolStripMenuItem,
+            this.informaçõesToolStripMenuItem});
             this.msPricipal.Location = new System.Drawing.Point(0, 0);
             this.msPricipal.Name = "msPricipal";
             this.msPricipal.Size = new System.Drawing.Size(807, 24);
@@ -207,6 +210,21 @@
             this.btnTatuagens.Visible = false;
             this.btnTatuagens.Click += new System.EventHandler(this.btnTatuagens_Click);
             // 
+            // informaçõesToolStripMenuItem
+            // 
+            this.informaçõesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.versãoToolStripMenuItem});
+            this.informaçõesToolStripMenuItem.Name = "informaçõesToolStripMenuItem";
+            this.informaçõesToolStripMenuItem.Size = new System.Drawing.Size(85, 20);
+            this.informaçõesToolStripMenuItem.Text = "Informações";
+            // 
+            // versãoToolStripMenuItem
+            // 
+            this.versãoToolStripMenuItem.Name = "versãoToolStripMenuItem";
+            this.versãoToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.versãoToolStripMenuItem.Text = "Versão";
+            this.versãoToolStripMenuItem.Click += new System.EventHandler(this.versãoToolStripMenuItem_Click);
+            // 
             // FormClientes
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -253,6 +271,8 @@
         private System.Windows.Forms.Button btnAlterarInformacoesPessoais;
         private System.Windows.Forms.Button btnRemover;
         private System.Windows.Forms.Button btnTatuagens;
+        private System.Windows.Forms.ToolStripMenuItem informaçõesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem versãoToolStripMenuItem;
     }
 }
 

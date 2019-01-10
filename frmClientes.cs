@@ -238,5 +238,13 @@ namespace ClienteTatoo
         }
 
         private void FormClientes_Resize(object sender, EventArgs e) => OrganizarColunas();
+
+        private void versãoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            using (var frmVersao = new FormVersao())
+            {
+                frmVersao.ShowDialog();
+            }
+        }
     }
 }
