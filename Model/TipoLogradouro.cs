@@ -1,11 +1,8 @@
-﻿using ClienteTatoo.DAO;
-using ClienteTatoo.Utils;
-using MySql.Data.MySqlClient;
-using System;
+﻿using System;
+using System.Data.SQLite;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using ClienteTatoo.DAO;
+using ClienteTatoo.Utils;
 
 namespace ClienteTatoo.Model
 {
@@ -13,9 +10,10 @@ namespace ClienteTatoo.Model
     {
         public string Nome { get; set; }
 
-        public static List<TipoLogradouro> GetAll(Connection connection, MySqlTransaction transaction)
+        public static List<TipoLogradouro> GetAll(SQLiteTransaction transaction)
         {
-            using (var dao = new TipoLogradouroDAO(connection))
+            using (var conn = new Connection(Database.Endereco))
+            using (var dao = new TipoLogradouroDAO(conn))
             {
                 return dao.GetAll(transaction);
             }

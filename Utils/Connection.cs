@@ -1,31 +1,48 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data;
-using MySql.Data.MySqlClient;
+using System.Data.SQLite;
+using System.Collections.Generic;
 
 namespace ClienteTatoo.Utils
 {
+    public enum Database { Local, Endereco }
+
     public class Connection : IConnection, IDisposable
     {
-        private readonly MySqlConnection _conn;
+        private readonly SQLiteConnection _conn;
 
-        private string local = "Server=localhost;Database=cliente_tatoo;Uid=cliente_tatoo;Pwd=clitatoo@3409;SslMode=none;";
+        private string local = "Data Source=clientetatoo.db;Version=3;";
+        private string endereco = "Data Source=enderecamento.db;Version=3;";
 
-        public Connection()
+        public Connection() : this(Database.Local) { }
+
+        public Connection(Database database)
         {
-            _conn = new MySqlConnection(local);
+            string connectionString = "";
+
+            switch (database)
+            {
+                case Database.Local:
+                    connectionString = local;
+                    break;
+                case Database.Endereco:
+                    connectionString = endereco;
+                    break;
+            }
+
+            _conn = new SQLiteConnection(connectionString);
             _conn.Open();
         }
 
-        private void SetParametersToCommand(MySqlCommand command, IList<MySqlParameter> parameters)
+        private void SetParametersToCommand(SQLiteCommand command, IList<SQLiteParameter> parameters)
         {
-            foreach (MySqlParameter parameter in parameters)
+            foreach (SQLiteParameter parameter in parameters)
                 command.Parameters.Add(parameter);
         }
 
-        public int Execute(string sql, IList<MySqlParameter> parameters = null, MySqlTransaction transaction = null)
+        public int Execute(string sql, IList<SQLiteParameter> parameters = null, SQLiteTransaction transaction = null)
         {
-            using (var command = new MySqlCommand(sql, _conn))
+            using (var command = new SQLiteCommand(sql, _conn))
             {
                 if (parameters != null)
                     SetParametersToCommand(command, parameters);
@@ -37,9 +54,9 @@ namespace ClienteTatoo.Utils
             }
         }
 
-        public DataTable ExecuteReader(string sql, IList<MySqlParameter> parameters = null, MySqlTransaction transaction = null)
+        public DataTable ExecuteReader(string sql, IList<SQLiteParameter> parameters = null, SQLiteTransaction transaction = null)
         {
-            using (var command = new MySqlCommand(sql, _conn))
+            using (var command = new SQLiteCommand(sql, _conn))
             {
                 if (parameters != null)
                     SetParametersToCommand(command, parameters);
@@ -47,7 +64,7 @@ namespace ClienteTatoo.Utils
                 if (transaction != null)
                     command.Transaction = transaction;
 
-                using (MySqlDataReader dr = command.ExecuteReader())
+                using (SQLiteDataReader dr = command.ExecuteReader())
                 {
                     var dt = new DataTable();
                     dt.Load(dr);
@@ -59,14 +76,9 @@ namespace ClienteTatoo.Utils
             }
         }
 
-        public int UltimoIdInserido()
-        {
-            string sql = "SELECT @@IDENTITY id";
+        public int UltimoIdInserido() => (int)_conn.LastInsertRowId;
 
-            using (var rows = ExecuteReader(sql, null, null)) { return int.Parse(rows.Rows[0]["id"].ToString()); }
-        }
-
-        public MySqlTransaction BeginTransaction() => _conn.BeginTransaction();
+        public SQLiteTransaction BeginTransaction() => _conn.BeginTransaction();
 
         public void Dispose()
         {

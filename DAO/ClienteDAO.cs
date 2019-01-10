@@ -1,24 +1,21 @@
-﻿using ClienteTatoo.Model;
+﻿using System;
+using System.Data;
+using System.Data.SQLite;
+using System.Collections.Generic;
+using ClienteTatoo.Model;
 using ClienteTatoo.Model.Filter;
 using ClienteTatoo.Model.Ordenation;
 using ClienteTatoo.Utils;
-using MySql.Data.MySqlClient;
-using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ClienteTatoo.DAO
 {
-    class ClienteDAO : IDao<Cliente, MySqlTransaction>
+    class ClienteDAO : IDao<Cliente, SQLiteTransaction>
     {
         private Connection _conn;
 
         public ClienteDAO(Connection conn) => _conn = conn;
 
-        public int Insert(Cliente model, MySqlTransaction transaction)
+        public int Insert(Cliente model, SQLiteTransaction transaction)
         {
             if (model.Id != 0)
                 throw new Exception("Não é possível inserir um registro que já possuí identificador");
@@ -32,7 +29,7 @@ namespace ClienteTatoo.DAO
                          "@nome, @cpf, @dataNascimento, @cep, @tipoLogradouro, @logradouro, @numero, @bairro, @complemento, @idCidade, @uf, @telefone, @celular, @email" +
                          ")";
 
-            List<MySqlParameter> parameters = GetParameters(model);
+            List<SQLiteParameter> parameters = GetParameters(model);
 
             int linhasAfetadas = _conn.Execute(sql, parameters, transaction);
 
@@ -44,7 +41,7 @@ namespace ClienteTatoo.DAO
             return linhasAfetadas;
         }
 
-        public int Remove(Cliente model, MySqlTransaction transaction)
+        public int Remove(Cliente model, SQLiteTransaction transaction)
         {
             if (model.Id == 0)
                 throw new Exception("Não é possível remover um registro que não possuí identificador");
@@ -53,13 +50,13 @@ namespace ClienteTatoo.DAO
                          " removido = 1" +
                          " WHERE id = @id";
 
-            List<MySqlParameter> parameters = GetParameters(model);
-            parameters.Add(new MySqlParameter("@id", MySqlDbType.Int32) { Value = model.Id });
+            List<SQLiteParameter> parameters = GetParameters(model);
+            parameters.Add(new SQLiteParameter("@id", DbType.Int32) { Value = model.Id });
 
             return _conn.Execute(sql, parameters, transaction);
         }
 
-        public int Update(Cliente model, MySqlTransaction transaction)
+        public int Update(Cliente model, SQLiteTransaction transaction)
         {
             if (model.Id == 0)
                 throw new Exception("Não é possível alterar um registro que não possuí identificador");
@@ -73,20 +70,20 @@ namespace ClienteTatoo.DAO
                          " uf = @uf, telefone = @telefone, celular = @celular, email = @email" +
                          " WHERE id = @id";
 
-            List<MySqlParameter> parameters = GetParameters(model);
-            parameters.Add(new MySqlParameter("@id", MySqlDbType.Int32) { Value = model.Id });
+            List<SQLiteParameter> parameters = GetParameters(model);
+            parameters.Add(new SQLiteParameter("@id", DbType.Int32) { Value = model.Id });
 
             return _conn.Execute(sql, parameters, transaction);
         }
 
-        public bool SetById(Cliente model, int id, MySqlTransaction transaction)
+        public bool SetById(Cliente model, int id, SQLiteTransaction transaction)
         {
             string sql = "SELECT *" +
                          " FROM clientes a" +
                          " WHERE a.`id` = @id AND a.`removido` = 0";
 
-            var parameters = new List<MySqlParameter>();
-            parameters.Add(new MySqlParameter("@id", MySqlDbType.Int32) { Value = id });
+            var parameters = new List<SQLiteParameter>();
+            parameters.Add(new SQLiteParameter("@id", DbType.Int32) { Value = id });
 
             DataTable dt = _conn.ExecuteReader(sql, parameters, transaction);
 
@@ -100,9 +97,9 @@ namespace ClienteTatoo.DAO
             return true;
         }
 
-        public List<Cliente> GetAll(List<ClienteFilter> filtros, List<ClienteOrdenation> ordenacoes, MySqlTransaction transaction)
+        public List<Cliente> GetAll(List<ClienteFilter> filtros, List<ClienteOrdenation> ordenacoes, SQLiteTransaction transaction)
         {
-            var parameters = new List<MySqlParameter>();
+            var parameters = new List<SQLiteParameter>();
 
             string filtro = Filtrar(filtros, "a", parameters);
             string ordem = Ordenar(ordenacoes, "a");
@@ -126,15 +123,15 @@ namespace ClienteTatoo.DAO
             return clientes;
         }
 
-        public bool ExistsByCpf(string cpf, int id, MySqlTransaction transaction)
+        public bool ExistsByCpf(string cpf, int id, SQLiteTransaction transaction)
         {
             string sql = "SELECT COUNT(a.`id`) qtde" +
                          " FROM `clientes` a" +
                          " WHERE a.`id` <> @id AND a.`removido` = 0 AND a.`cpf` = @cpf";
 
-            var parameters = new List<MySqlParameter>();
-            parameters.Add(new MySqlParameter("@cpf", MySqlDbType.String) { Value = cpf });
-            parameters.Add(new MySqlParameter("@id", MySqlDbType.Int32) { Value = id });
+            var parameters = new List<SQLiteParameter>();
+            parameters.Add(new SQLiteParameter("@cpf", DbType.String) { Value = cpf });
+            parameters.Add(new SQLiteParameter("@id", DbType.Int32) { Value = id });
 
             DataTable dt = _conn.ExecuteReader(sql, parameters, transaction);
 
@@ -164,28 +161,28 @@ namespace ClienteTatoo.DAO
             model.Email = dr["email"].ToString();
         }
 
-        private List<MySqlParameter> GetParameters(Cliente model)
+        private List<SQLiteParameter> GetParameters(Cliente model)
         {
-            var parameters = new List<MySqlParameter>();
-            parameters.Add(new MySqlParameter("@nome", MySqlDbType.String) { Value = model.Nome });
-            parameters.Add(new MySqlParameter("@cpf", MySqlDbType.String) { Value = model.Cpf });
-            parameters.Add(new MySqlParameter("@dataNascimento", MySqlDbType.Date) { Value = model.DataNascimento });
-            parameters.Add(new MySqlParameter("@cep", MySqlDbType.String) { Value = model.Cep });
-            parameters.Add(new MySqlParameter("@tipoLogradouro", MySqlDbType.String) { Value = model.TipoLogradouro });
-            parameters.Add(new MySqlParameter("@logradouro", MySqlDbType.String) { Value = model.Logradouro });
-            parameters.Add(new MySqlParameter("@numero", MySqlDbType.String) { Value = model.Numero });
-            parameters.Add(new MySqlParameter("@bairro", MySqlDbType.String) { Value = model.Bairro });
-            parameters.Add(new MySqlParameter("@complemento", MySqlDbType.String) { Value = model.Complemento });
-            parameters.Add(new MySqlParameter("@idCidade", MySqlDbType.Int32) { Value = model.IdCidade });
-            parameters.Add(new MySqlParameter("@uf", MySqlDbType.String) { Value = model.Uf });
-            parameters.Add(new MySqlParameter("@telefone", MySqlDbType.String) { Value = model.Telefone });
-            parameters.Add(new MySqlParameter("@celular", MySqlDbType.String) { Value = model.Celular });
-            parameters.Add(new MySqlParameter("@email", MySqlDbType.String) { Value = model.Email });
+            var parameters = new List<SQLiteParameter>();
+            parameters.Add(new SQLiteParameter("@nome", DbType.String) { Value = model.Nome });
+            parameters.Add(new SQLiteParameter("@cpf", DbType.String) { Value = model.Cpf });
+            parameters.Add(new SQLiteParameter("@dataNascimento", DbType.Date) { Value = model.DataNascimento });
+            parameters.Add(new SQLiteParameter("@cep", DbType.String) { Value = model.Cep });
+            parameters.Add(new SQLiteParameter("@tipoLogradouro", DbType.String) { Value = model.TipoLogradouro });
+            parameters.Add(new SQLiteParameter("@logradouro", DbType.String) { Value = model.Logradouro });
+            parameters.Add(new SQLiteParameter("@numero", DbType.String) { Value = model.Numero });
+            parameters.Add(new SQLiteParameter("@bairro", DbType.String) { Value = model.Bairro });
+            parameters.Add(new SQLiteParameter("@complemento", DbType.String) { Value = model.Complemento });
+            parameters.Add(new SQLiteParameter("@idCidade", DbType.Int32) { Value = model.IdCidade });
+            parameters.Add(new SQLiteParameter("@uf", DbType.String) { Value = model.Uf });
+            parameters.Add(new SQLiteParameter("@telefone", DbType.String) { Value = model.Telefone });
+            parameters.Add(new SQLiteParameter("@celular", DbType.String) { Value = model.Celular });
+            parameters.Add(new SQLiteParameter("@email", DbType.String) { Value = model.Email });
 
             return parameters;
         }
 
-        private string Filtrar(List<ClienteFilter> filtros, string aliasCliente, List<MySqlParameter> parameters)
+        private string Filtrar(List<ClienteFilter> filtros, string aliasCliente, List<SQLiteParameter> parameters)
         {
             if (filtros == null)
                 throw new NullReferenceException("O parâmetros `filtros` não pode ser nulo!");
@@ -204,23 +201,23 @@ namespace ClienteTatoo.DAO
                 {
                     case FieldFilterCliente.ffcNome:
                         filtro += $"{aliasCliente}.`nome` LIKE @nome";
-                        parameters.Add(new MySqlParameter("@nome", MySqlDbType.String) { Value = $"%{(string)filtros[i].Value}%" });
+                        parameters.Add(new SQLiteParameter("@nome", DbType.String) { Value = $"%{(string)filtros[i].Value}%" });
                         break;
                     case FieldFilterCliente.ffcCpf:
                         filtro += $"{aliasCliente}.`cpf` = @cpf";
-                        parameters.Add(new MySqlParameter("@cpf", MySqlDbType.String) { Value = $"{(string)filtros[i].Value}" });
+                        parameters.Add(new SQLiteParameter("@cpf", DbType.String) { Value = $"{(string)filtros[i].Value}" });
                         break;
                     case FieldFilterCliente.ffcEmail:
                         filtro += $"{aliasCliente}.`email` LIKE @email";
-                        parameters.Add(new MySqlParameter("@email", MySqlDbType.String) { Value = $"%{(string)filtros[i].Value}%" });
+                        parameters.Add(new SQLiteParameter("@email", DbType.String) { Value = $"%{(string)filtros[i].Value}%" });
                         break;
                     case FieldFilterCliente.ffcTelefone:
                         filtro += $"{aliasCliente}.`telefone` LIKE @telefone";
-                        parameters.Add(new MySqlParameter("@telefone", MySqlDbType.String) { Value = $"%{(string)filtros[i].Value}%" });
+                        parameters.Add(new SQLiteParameter("@telefone", DbType.String) { Value = $"%{(string)filtros[i].Value}%" });
                         break;
                     case FieldFilterCliente.ffcCelular:
                         filtro += $"{aliasCliente}.`celular` LIKE @celular";
-                        parameters.Add(new MySqlParameter("@celular", MySqlDbType.String) { Value = $"%{(string)filtros[i].Value}%" });
+                        parameters.Add(new SQLiteParameter("@celular", DbType.String) { Value = $"%{(string)filtros[i].Value}%" });
                         break;
                 }
             }

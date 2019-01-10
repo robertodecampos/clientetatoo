@@ -1,13 +1,13 @@
-﻿using MySql.Data.MySqlClient;
+﻿using System;
+using System.Data;
+using System.Data.SQLite;
+using System.Collections.Generic;
 using ClienteTatoo.Model;
 using ClienteTatoo.Utils;
-using System;
-using System.Collections.Generic;
-using System.Data;
 
 namespace ClienteTatoo.DAO
 {
-    public class CidadeDAO : IDao<Cidade, MySqlTransaction>
+    public class CidadeDAO : IDao<Cidade, SQLiteTransaction>
     {
         private readonly Connection _connection;
 
@@ -16,29 +16,29 @@ namespace ClienteTatoo.DAO
             _connection = connection;
         }
 
-        public int Insert(Cidade model, MySqlTransaction transaction)
+        public int Insert(Cidade model, SQLiteTransaction transaction)
         {
             throw new NotImplementedException();
         }
 
-        public int Remove(Cidade model, MySqlTransaction transaction)
+        public int Remove(Cidade model, SQLiteTransaction transaction)
         {
             throw new NotImplementedException();
         }
 
-        public int Update(Cidade model, MySqlTransaction transaction)
+        public int Update(Cidade model, SQLiteTransaction transaction)
         {
             throw new NotImplementedException();
         }
 
-        public bool GetById(Cidade model, int id, MySqlTransaction transaction = null)
+        public bool GetById(Cidade model, int id, SQLiteTransaction transaction = null)
         {
             string sql = "SELECT a.`loc_nu_sequencial` idCidade, a.`loc_no` cidade" +
-                         " FROM `endereco`.`log_localidade` a" +
+                         " FROM `log_localidade` a" +
                          " WHERE a.`loc_nu_sequencial` = @id";
 
-            var parameters = new List<MySqlParameter>();
-            parameters.Add(new MySqlParameter("@id", MySqlDbType.Int32) { Value = id });
+            var parameters = new List<SQLiteParameter>();
+            parameters.Add(new SQLiteParameter("@id", DbType.Int32) { Value = id });
 
             DataTable dt = _connection.ExecuteReader(sql, parameters, transaction);
 
@@ -50,10 +50,10 @@ namespace ClienteTatoo.DAO
             return true;
         }
 
-        public List<Cidade> GetCidades(MySqlTransaction transaction = null)
+        public List<Cidade> GetCidades(SQLiteTransaction transaction = null)
         {
             string sql = "SELECT a.`loc_nu_sequencial` idCidade, a.`loc_no` cidade" +
-                         " FROM `endereco`.`log_localidade` a";
+                         " FROM `log_localidade` a";
 
             DataTable dt = _connection.ExecuteReader(sql, null, transaction);
 
@@ -71,14 +71,14 @@ namespace ClienteTatoo.DAO
             return cidades;
         }
 
-        public List<Cidade> GetByUf(string uf, MySqlTransaction transaction = null)
+        public List<Cidade> GetByUf(string uf, SQLiteTransaction transaction = null)
         {
             string sql = "SELECT a.`loc_nu_sequencial` idCidade, a.`loc_no` cidade" +
-                         " FROM `endereco`.`log_localidade` a" +
+                         " FROM `log_localidade` a" +
                          " WHERE a.`ufe_sg` = @uf";
 
-            var parameters = new List<MySqlParameter>();
-            parameters.Add(new MySqlParameter("@uf", MySqlDbType.String) { Value = uf });
+            var parameters = new List<SQLiteParameter>();
+            parameters.Add(new SQLiteParameter("@uf", DbType.String) { Value = uf });
 
             DataTable dt = _connection.ExecuteReader(sql, parameters, transaction);
 

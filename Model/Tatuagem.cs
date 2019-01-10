@@ -1,6 +1,6 @@
 ﻿using ClienteTatoo.DAO;
 using ClienteTatoo.Utils;
-using MySql.Data.MySqlClient;
+using System.Data.SQLite;
 using System;
 using System.Collections.Generic;
 
@@ -40,7 +40,7 @@ namespace ClienteTatoo.Model
             return IsValid(out mensagem);
         }
 
-        public void Salvar(Connection conn, MySqlTransaction transaction)
+        public void Salvar(Connection conn, SQLiteTransaction transaction)
         {
             using (var dao = new TatuagemDAO(conn))
             {
@@ -51,7 +51,7 @@ namespace ClienteTatoo.Model
             }
         }
 
-        public void Remover(Connection conn, MySqlTransaction transaction)
+        public void Remover(Connection conn, SQLiteTransaction transaction)
         {
             using (var dao = new TatuagemDAO(conn))
             {
@@ -59,7 +59,7 @@ namespace ClienteTatoo.Model
             }
         }
 
-        public bool SetById(int id, Connection conn, MySqlTransaction transaction)
+        public bool SetById(int id, Connection conn, SQLiteTransaction transaction)
         {
             using (var dao = new TatuagemDAO(conn))
             {
@@ -67,7 +67,7 @@ namespace ClienteTatoo.Model
             }
         }
 
-        public static List<Tatuagem> GetAll(Connection conn, MySqlTransaction transaction)
+        public static List<Tatuagem> GetAll(Connection conn, SQLiteTransaction transaction)
         {
             using (var dao = new TatuagemDAO(conn))
             {
@@ -75,7 +75,7 @@ namespace ClienteTatoo.Model
             }
         }
 
-        public static List<Tatuagem> GetByIdCliente(int idCliente, Connection conn, MySqlTransaction transaction)
+        public static List<Tatuagem> GetByIdCliente(int idCliente, Connection conn, SQLiteTransaction transaction)
         {
             using (var dao = new TatuagemDAO(conn))
             {

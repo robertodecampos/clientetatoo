@@ -31,28 +31,24 @@ namespace ClienteTatoo
             txtCelular.Clear();
             txtCep.Clear();
 
-            using (var conn = new Connection())
-            {
-                cmbEstado.Items.Clear();
-                cmbEstado.Items.Add("Selecione o Estado...");
+            cmbEstado.Items.Clear();
+            cmbEstado.Items.Add("Selecione o Estado...");
 
-                Estados = Estado.GetAll(conn, null);
+            Estados = Estado.GetAll(null);
 
-                foreach (Estado estado in Estados)
-                    cmbEstado.Items.Add(estado.Nome);
+            foreach (Estado estado in Estados)
+                cmbEstado.Items.Add(estado.Nome);
 
-                cmbEstado.SelectedIndex = 0;
+            cmbEstado.SelectedIndex = 0;
 
-                cmbTipoLogradouro.Items.Clear();
+            cmbTipoLogradouro.Items.Clear();
 
-                IList<TipoLogradouro> tiposLogradouro = TipoLogradouro.GetAll(conn, null);
+            IList<TipoLogradouro> tiposLogradouro = TipoLogradouro.GetAll(null);
 
-                foreach (TipoLogradouro tipoLogradouro in tiposLogradouro)
-                    cmbTipoLogradouro.Items.Add(tipoLogradouro.Nome);
+            foreach (TipoLogradouro tipoLogradouro in tiposLogradouro)
+                cmbTipoLogradouro.Items.Add(tipoLogradouro.Nome);
 
-                cmbTipoLogradouro.Text = "";
-
-            }
+            cmbTipoLogradouro.Text = "";
         }
 
         public FormDadosPessoaisCliente(Cliente cliente) : this()
@@ -125,20 +121,17 @@ namespace ClienteTatoo
 
         private void CarregarCidades(string uf)
         {
-            using (var conn = new Connection())
-            {
-                cmbCidade.Items.Clear();
-                cmbCidade.Items.Add("Selecione a Cidade...");
+            cmbCidade.Items.Clear();
+            cmbCidade.Items.Add("Selecione a Cidade...");
 
-                Cidades = Cidade.GetByUf(uf, conn, null);
+            Cidades = Cidade.GetByUf(uf, null);
 
-                foreach (Cidade cidade in Cidades)
-                    cmbCidade.Items.Add(cidade.Nome);
+            foreach (Cidade cidade in Cidades)
+                cmbCidade.Items.Add(cidade.Nome);
 
-                cmbCidade.SelectedIndex = 0;
+            cmbCidade.SelectedIndex = 0;
 
-                cmbCidade.Enabled = true;
-            }
+            cmbCidade.Enabled = true;
         }
 
         private void txtCep_TextChanged(object sender, EventArgs e)
@@ -148,54 +141,51 @@ namespace ClienteTatoo
             if (cep.Length != 8)
                 return;
 
-            using (var conexao = new Connection())
+            var endereco = new Endereco();
+            if (!endereco.SearchByCep(cep, null))
             {
-                var endereco = new Endereco();
-                if (!endereco.SearchByCep(cep, conexao, null))
-                {
-                    cmbEstado.Focus();
-                    return;
-                }
+                cmbEstado.Focus();
+                return;
+            }
 
-                if (!string.IsNullOrEmpty(endereco.Uf))
+            if (!string.IsNullOrEmpty(endereco.Uf))
+            {
+                try
                 {
-                    try
-                    {
-                        cmbEstado.SelectedIndexChanged -= cmbEstado_SelectedIndexChanged;
-                        cmbEstado.SelectedIndex = Estados.FindIndex(estado => estado.Uf == endereco.Uf) + 1;
-                        CarregarCidades(endereco.Uf);
-                        if (endereco.IdCidade != 0)
-                            cmbCidade.SelectedIndex = Cidades.FindIndex(cidade => cidade.Id == endereco.IdCidade) + 1;
-                    }
-                    finally
-                    {
-                        cmbEstado.SelectedIndexChanged += cmbEstado_SelectedIndexChanged;
-                    }
+                    cmbEstado.SelectedIndexChanged -= cmbEstado_SelectedIndexChanged;
+                    cmbEstado.SelectedIndex = Estados.FindIndex(estado => estado.Uf == endereco.Uf) + 1;
+                    CarregarCidades(endereco.Uf);
+                    if (endereco.IdCidade != 0)
+                        cmbCidade.SelectedIndex = Cidades.FindIndex(cidade => cidade.Id == endereco.IdCidade) + 1;
                 }
+                finally
+                {
+                    cmbEstado.SelectedIndexChanged += cmbEstado_SelectedIndexChanged;
+                }
+            }
 
-                if (!string.IsNullOrEmpty(endereco.TipoLogradouro))
-                {
-                    cmbTipoLogradouro.Text = endereco.TipoLogradouro;
-                    txtLogradouro.Focus();
-                }
+            if (!string.IsNullOrEmpty(endereco.TipoLogradouro))
+            {
+                cmbTipoLogradouro.Text = endereco.TipoLogradouro;
+                txtLogradouro.Focus();
+            }
 
-                if (!string.IsNullOrEmpty(endereco.Logradouro))
-                {
-                    txtLogradouro.Text = endereco.Logradouro;
-                    txtComplemento.Focus();
-                }
+            if (!string.IsNullOrEmpty(endereco.Logradouro))
+            {
+                txtLogradouro.Text = endereco.Logradouro;
+                txtComplemento.Focus();
+            }
 
-                if (!string.IsNullOrEmpty(endereco.Complemento))
-                {
-                    txtComplemento.Text = endereco.Complemento;
-                    txtBairro.Focus();
-                }
+            if (!string.IsNullOrEmpty(endereco.Complemento))
+            {
+                txtComplemento.Text = endereco.Complemento;
+                txtBairro.Focus();
+            }
 
-                if (!string.IsNullOrEmpty(endereco.Bairro))
-                {
-                    txtBairro.Text = endereco.Bairro;
-                    txtNumero.Focus();
-                }
+            if (!string.IsNullOrEmpty(endereco.Bairro))
+            {
+                txtBairro.Text = endereco.Bairro;
+                txtNumero.Focus();
             }
         }
 

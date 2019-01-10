@@ -1,10 +1,10 @@
-﻿using ClienteTatoo.DAO;
+﻿using System;
+using System.Data.SQLite;
+using System.Collections.Generic;
+using ClienteTatoo.DAO;
 using ClienteTatoo.Model.Filter;
 using ClienteTatoo.Model.Ordenation;
 using ClienteTatoo.Utils;
-using MySql.Data.MySqlClient;
-using System;
-using System.Collections.Generic;
 
 namespace ClienteTatoo.Model
 {
@@ -26,7 +26,7 @@ namespace ClienteTatoo.Model
         public string Celular { get; set; }
         public string Email { get; set; }
 
-        public bool IsValid(Connection conn, MySqlTransaction transaction, out string mensagem)
+        public bool IsValid(Connection conn, SQLiteTransaction transaction, out string mensagem)
         {
             mensagem = "";
 
@@ -93,14 +93,14 @@ namespace ClienteTatoo.Model
             return true;
         }
 
-        public bool IsValid(Connection conn, MySqlTransaction transaction)
+        public bool IsValid(Connection conn, SQLiteTransaction transaction)
         {
             string mensagem;
 
             return IsValid(conn, transaction, out mensagem);
         }
 
-        public void Salvar(Connection conn, MySqlTransaction transaction)
+        public void Salvar(Connection conn, SQLiteTransaction transaction)
         {
             using (var dao = new ClienteDAO(conn))
             {
@@ -111,7 +111,7 @@ namespace ClienteTatoo.Model
             }
         }
 
-        public void Remover(Connection conn, MySqlTransaction transaction)
+        public void Remover(Connection conn, SQLiteTransaction transaction)
         {
             using (var dao = new ClienteDAO(conn))
             {
@@ -119,7 +119,7 @@ namespace ClienteTatoo.Model
             }
         }
 
-        public bool SetById(int id, Connection conn, MySqlTransaction transaction)
+        public bool SetById(int id, Connection conn, SQLiteTransaction transaction)
         {
             using (var dao = new ClienteDAO(conn))
             {
@@ -127,7 +127,7 @@ namespace ClienteTatoo.Model
             }
         }
 
-        public static List<Cliente> GetAll(List<ClienteFilter> filtros, List<ClienteOrdenation> ordenacoes, Connection conn, MySqlTransaction transaction)
+        public static List<Cliente> GetAll(List<ClienteFilter> filtros, List<ClienteOrdenation> ordenacoes, Connection conn, SQLiteTransaction transaction)
         {
             using (var dao = new ClienteDAO(conn))
             {
@@ -135,7 +135,7 @@ namespace ClienteTatoo.Model
             }
         }
 
-        public static bool ExistsByCpf(string cpf, int id, Connection conn, MySqlTransaction transaction)
+        public static bool ExistsByCpf(string cpf, int id, Connection conn, SQLiteTransaction transaction)
         {
             using (var dao = new ClienteDAO(conn))
             {

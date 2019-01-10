@@ -1,13 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data;
-using MySql.Data.MySqlClient;
+using System.Data.SQLite;
+using System.Collections.Generic;
 using ClienteTatoo.Model;
 using ClienteTatoo.Utils;
 
 namespace ClienteTatoo.DAO
 {
-    public class EstadoDAO : IDao<Estado, MySqlTransaction>
+    public class EstadoDAO : IDao<Estado, SQLiteTransaction>
     {
         private readonly Connection _connection;
 
@@ -16,17 +16,17 @@ namespace ClienteTatoo.DAO
             _connection = connection;
         }
 
-        public int Insert(Estado model, MySqlTransaction transaction)
+        public int Insert(Estado model, SQLiteTransaction transaction)
         {
             throw new NotImplementedException();
         }
 
-        public int Remove(Estado model, MySqlTransaction transaction)
+        public int Remove(Estado model, SQLiteTransaction transaction)
         {
             throw new NotImplementedException();
         }
 
-        public int Update(Estado model, MySqlTransaction transaction)
+        public int Update(Estado model, SQLiteTransaction transaction)
         {
             throw new NotImplementedException();
         }
@@ -37,14 +37,14 @@ namespace ClienteTatoo.DAO
             model.Nome = dr["ufe_no"].ToString();
         }
 
-        public bool GetByUf(Estado model, string uf, MySqlTransaction transaction = null)
+        public bool GetByUf(Estado model, string uf, SQLiteTransaction transaction = null)
         {
             string sql = "SELECT a.`ufe_sg`, a.`ufe_no`" +
-                         " FROM `endereco`.`log_faixa_uf` a" +
+                         " FROM `log_faixa_uf` a" +
                          " WHERE a.`ufe_sg` = @uf";
 
-            var parameters = new List<MySqlParameter>();
-            parameters.Add(new MySqlParameter("@uf", MySqlDbType.String) { Value = uf });
+            var parameters = new List<SQLiteParameter>();
+            parameters.Add(new SQLiteParameter("@uf", DbType.String) { Value = uf });
 
             DataTable dt = _connection.ExecuteReader(sql, parameters, transaction);
 
@@ -56,10 +56,10 @@ namespace ClienteTatoo.DAO
             return true;
         }
 
-        public List<Estado> GetEstados(MySqlTransaction transaction = null)
+        public List<Estado> GetEstados(SQLiteTransaction transaction = null)
         {
             string sql = "SELECT  a.`ufe_sg`, a.`ufe_no`" +
-                         " FROM `endereco`.`log_faixa_uf` a";
+                         " FROM `log_faixa_uf` a";
 
             DataTable dt = _connection.ExecuteReader(sql, null, transaction);
 

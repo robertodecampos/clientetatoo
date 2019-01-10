@@ -1,8 +1,8 @@
-﻿using ClienteTatoo.DAO;
-using ClienteTatoo.Utils;
-using MySql.Data.MySqlClient;
-using System;
+﻿using System;
+using System.Data.SQLite;
 using System.Collections.Generic;
+using ClienteTatoo.DAO;
+using ClienteTatoo.Utils;
 
 namespace ClienteTatoo.Model
 {
@@ -22,7 +22,7 @@ namespace ClienteTatoo.Model
             return new KeyValuePair<bool, IList<string>>(erros.Count == 0, erros);
         }
 
-        public void Salvar(Connection conn, MySqlTransaction transaction)
+        public void Salvar(Connection conn, SQLiteTransaction transaction)
         {
             using (var dao = new TermoResponsabilidadeDAO(conn))
             {
@@ -30,7 +30,7 @@ namespace ClienteTatoo.Model
             }
         }
 
-        public void SetCurrent(Connection conn, MySqlTransaction transaction)
+        public void SetCurrent(Connection conn, SQLiteTransaction transaction)
         {
             using (var dao = new TermoResponsabilidadeDAO(conn))
             {
@@ -38,7 +38,7 @@ namespace ClienteTatoo.Model
             }
         }
 
-        public void SetById(int id, Connection conn, MySqlTransaction transaction)
+        public void SetById(int id, Connection conn, SQLiteTransaction transaction)
         {
             using (var dao = new TermoResponsabilidadeDAO(conn))
             {
@@ -46,7 +46,7 @@ namespace ClienteTatoo.Model
             }
         }
 
-        public static bool Exists(Connection conn, MySqlTransaction transaction)
+        public static bool Exists(Connection conn, SQLiteTransaction transaction)
         {
             using (var dao = new TermoResponsabilidadeDAO(conn))
             {

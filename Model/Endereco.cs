@@ -1,8 +1,7 @@
-﻿using MySql.Data.MySqlClient;
+﻿using System;
+using System.Data.SQLite;
 using ClienteTatoo.DAO;
 using ClienteTatoo.Utils;
-using System;
-using System.Collections.Generic;
 
 namespace ClienteTatoo.Model
 {
@@ -18,8 +17,9 @@ namespace ClienteTatoo.Model
         public string Complemento { get; set; }
         public string Bairro { get; set; }
 
-        public bool SearchByCep(string cep, Connection conn, MySqlTransaction transaction = null)
+        public bool SearchByCep(string cep, SQLiteTransaction transaction = null)
         {
+            using (var conn = new Connection(Database.Endereco))
             using (var dao = new EnderecoDAO(conn))
             {
                 return dao.SearchByCep(this, cep, transaction);

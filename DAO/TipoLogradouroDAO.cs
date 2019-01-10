@@ -1,31 +1,28 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Data.SQLite;
+using System.Collections.Generic;
 using ClienteTatoo.Model;
 using ClienteTatoo.Utils;
-using MySql.Data.MySqlClient;
 
 namespace ClienteTatoo.DAO
 {
-    class TipoLogradouroDAO : IDao<TipoLogradouro, MySqlTransaction>
+    class TipoLogradouroDAO : IDao<TipoLogradouro, SQLiteTransaction>
     {
         private Connection Conexao { get; set; }
 
         public TipoLogradouroDAO(Connection conexao) => Conexao = conexao;
 
-        public int Insert(TipoLogradouro model, MySqlTransaction transaction) => throw new NotImplementedException();
+        public int Insert(TipoLogradouro model, SQLiteTransaction transaction) => throw new NotImplementedException();
 
-        public int Remove(TipoLogradouro model, MySqlTransaction transaction) => throw new NotImplementedException();
+        public int Remove(TipoLogradouro model, SQLiteTransaction transaction) => throw new NotImplementedException();
 
-        public int Update(TipoLogradouro model, MySqlTransaction transaction) => throw new NotImplementedException();
+        public int Update(TipoLogradouro model, SQLiteTransaction transaction) => throw new NotImplementedException();
 
-        public List<TipoLogradouro> GetAll(MySqlTransaction transaction)
+        public List<TipoLogradouro> GetAll(SQLiteTransaction transaction)
         {
             string sql = "SELECT  a.`tipologradouro`" +
-                         " FROM `endereco`.`log_tipo_logr` a";
+                         " FROM `log_tipo_logr` a";
 
             DataTable dt = Conexao.ExecuteReader(sql, null, transaction);
 

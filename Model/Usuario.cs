@@ -1,17 +1,13 @@
-﻿using ClienteTatoo.DAO;
+﻿using System;
+using System.Data.SQLite;
+using ClienteTatoo.DAO;
 using ClienteTatoo.Utils;
-using MySql.Data.MySqlClient;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ClienteTatoo.Model
 {
     public class Usuario: IDisposable
     {
-        public static bool Login(string login, string senha, Connection conn, MySqlTransaction transaction)
+        public static bool Login(string login, string senha, Connection conn, SQLiteTransaction transaction)
         {
             using (var dao = new UsuarioDAO(conn))
             {

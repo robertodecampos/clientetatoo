@@ -1,11 +1,11 @@
-﻿using ClienteTatoo.Model;
+﻿using System;
+using System.Data.SQLite;
+using System.Collections.Generic;
+using System.Windows.Forms;
+using ClienteTatoo.Model;
 using ClienteTatoo.Model.Filter;
 using ClienteTatoo.Model.Ordenation;
 using ClienteTatoo.Utils;
-using MySql.Data.MySqlClient;
-using System;
-using System.Collections.Generic;
-using System.Windows.Forms;
 
 namespace ClienteTatoo
 {
@@ -87,7 +87,7 @@ namespace ClienteTatoo
                     return;
 
                 using (var conn = new Connection())
-                using (MySqlTransaction transaction = conn.BeginTransaction())
+                using (SQLiteTransaction transaction = conn.BeginTransaction())
                 {
                     try
                     {
@@ -197,7 +197,7 @@ namespace ClienteTatoo
             }
 
             using (var conn = new Connection())
-            using (MySqlTransaction transaction = conn.BeginTransaction())
+            using (SQLiteTransaction transaction = conn.BeginTransaction())
             {
                 try
                 {

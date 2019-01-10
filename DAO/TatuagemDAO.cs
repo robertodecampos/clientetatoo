@@ -1,19 +1,19 @@
-﻿using ClienteTatoo.Model;
-using ClienteTatoo.Utils;
-using MySql.Data.MySqlClient;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Data;
+using System.Data.SQLite;
+using System.Collections.Generic;
+using ClienteTatoo.Model;
+using ClienteTatoo.Utils;
 
 namespace ClienteTatoo.DAO
 {
-    class TatuagemDAO : IDao<Tatuagem, MySqlTransaction>
+    class TatuagemDAO : IDao<Tatuagem, SQLiteTransaction>
     {
         private Connection _conn;
 
         public TatuagemDAO(Connection conn) => _conn = conn;
 
-        public int Insert(Tatuagem model, MySqlTransaction transaction)
+        public int Insert(Tatuagem model, SQLiteTransaction transaction)
         {
             if (model.Id != 0)
                 throw new Exception("Não é possível inserir um registro que já possuí identificador!");
@@ -34,7 +34,7 @@ namespace ClienteTatoo.DAO
             return linhasAfetadas;
         }
 
-        public int Remove(Tatuagem model, MySqlTransaction transaction)
+        public int Remove(Tatuagem model, SQLiteTransaction transaction)
         {
             if (model.Id == 0)
                 throw new Exception("Não é possível remover um registro que não possuí identificador");
@@ -43,13 +43,13 @@ namespace ClienteTatoo.DAO
                          " removido = 1" +
                          " WHERE id = @id";
 
-            List<MySqlParameter> parameters = GetParameters(model);
-            parameters.Add(new MySqlParameter("@id", MySqlDbType.Int32) { Value = model.Id });
+            List<SQLiteParameter> parameters = GetParameters(model);
+            parameters.Add(new SQLiteParameter("@id", DbType.Int32) { Value = model.Id });
 
             return _conn.Execute(sql, parameters, transaction);
         }
 
-        public int Update(Tatuagem model, MySqlTransaction transaction)
+        public int Update(Tatuagem model, SQLiteTransaction transaction)
         {
             if (model.Id == 0)
                 throw new Exception("Não é possível alterar um registro que não possuí identificador");
@@ -61,13 +61,13 @@ namespace ClienteTatoo.DAO
                          " idCliente = @idCliente, local = @local, desenho = @desenho, idTermoResponsabilidade = @idTermoResponsabilidade" +
                          " WHERE id = @id";
 
-            List<MySqlParameter> parameters = GetParameters(model);
-            parameters.Add(new MySqlParameter("@id", MySqlDbType.Int32) { Value = model.Id });
+            List<SQLiteParameter> parameters = GetParameters(model);
+            parameters.Add(new SQLiteParameter("@id", DbType.Int32) { Value = model.Id });
 
             return _conn.Execute(sql, parameters, transaction);
         }
 
-        public List<Tatuagem> GetAll(MySqlTransaction transaction)
+        public List<Tatuagem> GetAll(SQLiteTransaction transaction)
         {
             string sql = "SELECT *" +
                          " FROM tatuagens a";
@@ -86,14 +86,14 @@ namespace ClienteTatoo.DAO
             return tatuagens;
         }
 
-        public List<Tatuagem> GetByIdCliente(int idCliente, MySqlTransaction transaction)
+        public List<Tatuagem> GetByIdCliente(int idCliente, SQLiteTransaction transaction)
         {
             string sql = "SELECT *" +
                          " FROM tatuagens a" +
                          " WHERE a.`idCliente` = @idCliente";
 
-            var parameters = new List<MySqlParameter>();
-            parameters.Add(new MySqlParameter("@idCliente", MySqlDbType.Int32) { Value = idCliente });
+            var parameters = new List<SQLiteParameter>();
+            parameters.Add(new SQLiteParameter("@idCliente", DbType.Int32) { Value = idCliente });
 
             DataTable dt = _conn.ExecuteReader(sql, parameters, transaction);
 
@@ -109,14 +109,14 @@ namespace ClienteTatoo.DAO
             return tatuagens;
         }
 
-        public bool SetById(Tatuagem model, int id, MySqlTransaction transaction)
+        public bool SetById(Tatuagem model, int id, SQLiteTransaction transaction)
         {
             string sql = "SELECT *" +
                          " FROM tatuagens a" +
                          " WHERE a.`id` = @id";
 
-            var parameters = new List<MySqlParameter>();
-            parameters.Add(new MySqlParameter("@id", MySqlDbType.Int32) { Value = id });
+            var parameters = new List<SQLiteParameter>();
+            parameters.Add(new SQLiteParameter("@id", DbType.Int32) { Value = id });
 
             DataTable dt = _conn.ExecuteReader(sql, parameters, transaction);
 
@@ -130,13 +130,13 @@ namespace ClienteTatoo.DAO
             return true;
         }
 
-        private List<MySqlParameter> GetParameters(Tatuagem model)
+        private List<SQLiteParameter> GetParameters(Tatuagem model)
         {
-            var parameters = new List<MySqlParameter>();
-            parameters.Add(new MySqlParameter("@idCliente", MySqlDbType.Int32) { Value = model.IdCliente });
-            parameters.Add(new MySqlParameter("@local", MySqlDbType.String) { Value = model.Local });
-            parameters.Add(new MySqlParameter("@desenho", MySqlDbType.String) { Value = model.Desenho });
-            parameters.Add(new MySqlParameter("@idTermoResponsabilidade", MySqlDbType.Int32) { Value = model.IdTermoResponsabilidade });
+            var parameters = new List<SQLiteParameter>();
+            parameters.Add(new SQLiteParameter("@idCliente", DbType.Int32) { Value = model.IdCliente });
+            parameters.Add(new SQLiteParameter("@local", DbType.String) { Value = model.Local });
+            parameters.Add(new SQLiteParameter("@desenho", DbType.String) { Value = model.Desenho });
+            parameters.Add(new SQLiteParameter("@idTermoResponsabilidade", DbType.Int32) { Value = model.IdTermoResponsabilidade });
 
             return parameters;
         }

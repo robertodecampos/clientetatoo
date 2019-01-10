@@ -1,8 +1,8 @@
-﻿using MySql.Data.MySqlClient;
+﻿using System;
+using System.Data.SQLite;
+using System.Collections.Generic;
 using ClienteTatoo.DAO;
 using ClienteTatoo.Utils;
-using System;
-using System.Collections.Generic;
 
 namespace ClienteTatoo.Model
 {
@@ -11,24 +11,27 @@ namespace ClienteTatoo.Model
         public int Id { get; set; }
         public string Nome { get; set; }
 
-        public bool GetById(int id, Connection conn, MySqlTransaction transaction = null)
+        public bool GetById(int id, SQLiteTransaction transaction = null)
         {
+            using (var conn = new Connection(Database.Endereco))
             using (var dao = new CidadeDAO(conn))
             {
                 return dao.GetById(this, id, transaction);
             }
         }
 
-        public static List<Cidade> GetAll(Connection conn, MySqlTransaction transaction = null)
+        public static List<Cidade> GetAll(SQLiteTransaction transaction = null)
         {
+            using (var conn = new Connection(Database.Endereco))
             using (var dao = new CidadeDAO(conn))
             {
                 return dao.GetCidades(transaction);
             }
         }
 
-        public static List<Cidade> GetByUf(string uf, Connection conn, MySqlTransaction transaction = null)
+        public static List<Cidade> GetByUf(string uf, SQLiteTransaction transaction = null)
         {
+            using (var conn = new Connection(Database.Endereco))
             using (var dao = new CidadeDAO(conn))
             {
                 return dao.GetByUf(uf, transaction);

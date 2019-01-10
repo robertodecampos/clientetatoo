@@ -1,7 +1,7 @@
-﻿using MySql.Data.MySqlClient;
+﻿using System.Data.SQLite;
+using System.Collections.Generic;
 using ClienteTatoo.DAO;
 using ClienteTatoo.Utils;
-using System.Collections.Generic;
 
 namespace ClienteTatoo.Model
 {
@@ -10,16 +10,18 @@ namespace ClienteTatoo.Model
         public string Uf { get; set; }
         public string Nome { get; set; }
 
-        public bool GetByUf(string uf, Connection conn, MySqlTransaction transaction = null)
+        public bool GetByUf(string uf, SQLiteTransaction transaction = null)
         {
+            using (var conn = new Connection(Database.Endereco))
             using (var dao = new EstadoDAO(conn))
             {
                 return dao.GetByUf(this, uf, transaction);
             }
         }
 
-        public static List<Estado> GetAll(Connection conn, MySqlTransaction transaction = null)
+        public static List<Estado> GetAll(SQLiteTransaction transaction = null)
         {
+            using (var conn = new Connection(Database.Endereco))
             using (var dao = new EstadoDAO(conn))
             {
                 return dao.GetEstados(transaction);

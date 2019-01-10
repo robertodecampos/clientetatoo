@@ -1,11 +1,8 @@
-﻿using ClienteTatoo.DAO;
-using ClienteTatoo.Utils;
-using MySql.Data.MySqlClient;
-using System;
+﻿using System;
+using System.Data.SQLite;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using ClienteTatoo.DAO;
+using ClienteTatoo.Utils;
 
 namespace ClienteTatoo.Model
 {
@@ -40,7 +37,7 @@ namespace ClienteTatoo.Model
             return IsValid(out mensagem);
         }
 
-        public void Salvar(Connection conn, MySqlTransaction transaction)
+        public void Salvar(Connection conn, SQLiteTransaction transaction)
         {
             using (var dao = new SessaoDAO(conn))
             {
@@ -51,7 +48,7 @@ namespace ClienteTatoo.Model
             }
         }
 
-        public void Remover(Connection conn, MySqlTransaction transaction)
+        public void Remover(Connection conn, SQLiteTransaction transaction)
         {
             using (var dao = new SessaoDAO(conn))
             {
@@ -59,7 +56,7 @@ namespace ClienteTatoo.Model
             }
         }
 
-        public bool SetById(int id, Connection conn, MySqlTransaction transaction)
+        public bool SetById(int id, Connection conn, SQLiteTransaction transaction)
         {
             using (var dao = new SessaoDAO(conn))
             {
@@ -67,7 +64,7 @@ namespace ClienteTatoo.Model
             }
         }
 
-        public void MarcarComoPaga(Connection conn, MySqlTransaction transaction)
+        public void MarcarComoPaga(Connection conn, SQLiteTransaction transaction)
         {
             using (var dao = new SessaoDAO(conn))
             {
@@ -75,7 +72,7 @@ namespace ClienteTatoo.Model
             }
         }
 
-        public static List<Sessao> GetByIdTatuagem(int idTatuagem, Connection conn, MySqlTransaction transaction)
+        public static List<Sessao> GetByIdTatuagem(int idTatuagem, Connection conn, SQLiteTransaction transaction)
         {
             using (var dao = new SessaoDAO(conn))
             {
@@ -83,7 +80,7 @@ namespace ClienteTatoo.Model
             }
         }
 
-        public static int CountByIdTatuagem(int idTatuagem, Connection conn, MySqlTransaction transaction)
+        public static int CountByIdTatuagem(int idTatuagem, Connection conn, SQLiteTransaction transaction)
         {
             using (var dao = new SessaoDAO(conn))
             {
@@ -91,7 +88,7 @@ namespace ClienteTatoo.Model
             }
         }
 
-        public static DateTime? GetDataSessaoOfFirstByIdTatuagem(int idTatuagem, Connection conn, MySqlTransaction transaction)
+        public static DateTime? GetDataSessaoOfFirstByIdTatuagem(int idTatuagem, Connection conn, SQLiteTransaction transaction)
         {
             using (var dao = new SessaoDAO(conn))
             {
@@ -99,7 +96,7 @@ namespace ClienteTatoo.Model
             }
         }
 
-        public static DateTime? GetDataSessaoOfLastByIdTatuagem(int idTatuagem, Connection conn, MySqlTransaction transaction)
+        public static DateTime? GetDataSessaoOfLastByIdTatuagem(int idTatuagem, Connection conn, SQLiteTransaction transaction)
         {
             using (var dao = new SessaoDAO(conn))
             {
