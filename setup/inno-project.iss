@@ -37,7 +37,7 @@ Source: "..\bin\Release\Google.Protobuf.dll"; DestDir: "{app}"; Flags: ignorever
 Source: "..\bin\Release\System.Data.SQLite.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\bin\Release\System.Data.SQLite.EF6.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\bin\Release\System.Data.SQLite.Linq.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\DataBase\clientetatoo.db"; DestDir: "{app}"; Flags: ignoreversion;
+Source: "..\DataBase\clientetatoo.db"; DestDir: "{app}"; Flags: ignoreversion onlyifdoesntexist;
 Source: "..\DataBase\enderecamento.db"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\bin\Release\x64\SQLite.Interop.dll"; DestDir: "{app}\x64"; Flags: ignoreversion
 Source: "..\bin\Release\x86\SQLite.Interop.dll"; DestDir: "{app}\x86"; Flags: ignoreversion
