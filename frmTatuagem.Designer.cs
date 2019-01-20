@@ -87,7 +87,7 @@
             // btnVoltar
             // 
             this.btnVoltar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnVoltar.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.btnVoltar.DialogResult = System.Windows.Forms.DialogResult.Retry;
             this.btnVoltar.Location = new System.Drawing.Point(12, 112);
             this.btnVoltar.Name = "btnVoltar";
             this.btnVoltar.Size = new System.Drawing.Size(75, 23);

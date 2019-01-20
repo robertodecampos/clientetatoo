@@ -112,9 +112,10 @@ namespace ClienteTatoo
                             DialogResult dr = frmTatuagem.ShowDialog();
                             if (dr == DialogResult.OK)
                                 finalizado = true;
-                            else if (dr == DialogResult.Cancel)
+                            else if (dr == DialogResult.Retry)
                                 passo = PassoCadastro.TermoResponsabilidade;
-                            else return;
+                            else
+                                return;
                             break;
                     }
                 }
