@@ -127,7 +127,7 @@ namespace ClienteTatoo.DAO
         {
             string sql = "SELECT COUNT(a.`id`) qtde" +
                          " FROM `clientes` a" +
-                         " WHERE a.`id` <> @id AND a.`removido` = 0 AND a.`cpf` = @cpf";
+                         " WHERE a.`id` <> @id AND a.`cpf` = @cpf AND a.`removido` = 0";
 
             var parameters = new List<SQLiteParameter>();
             parameters.Add(new SQLiteParameter("@cpf", DbType.String) { Value = cpf });

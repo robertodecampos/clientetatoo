@@ -19,6 +19,7 @@ namespace ClienteTatoo
         private List<Estado> Estados { get; set; }
         private List<Cidade> Cidades { get; set; }
         private Cliente Cliente { get; set; }
+        private int IdCliente { get; set; } = 0;
 
         public FormDadosPessoaisCliente()
         {
@@ -59,6 +60,8 @@ namespace ClienteTatoo
             try
             {
                 txtCep.TextChanged -= txtCep_TextChanged;
+
+                IdCliente = cliente.Id;
 
                 txtNome.Text = cliente.Nome;
                 txtCpf.Text = cliente.Cpf;
@@ -192,6 +195,8 @@ namespace ClienteTatoo
         private void btnOk_Click(object sender, EventArgs e)
         {
             Cliente = new Cliente();
+
+            Cliente.Id = IdCliente;
 
             Cliente.Nome = txtNome.Text.Trim();
             if (dtpDataNascimento.Value.Date == DateTime.Now.Date)
