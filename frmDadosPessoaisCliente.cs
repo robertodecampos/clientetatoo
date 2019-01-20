@@ -26,8 +26,6 @@ namespace ClienteTatoo
             InitializeComponent();
 
             txtCpf.Clear();
-            dtpDataNascimento.Value = DateTime.Now;
-            dtpDataNascimento.MaxDate = DateTime.Now;
             txtTelefone.Clear();
             txtCelular.Clear();
             txtCep.Clear();
@@ -66,7 +64,7 @@ namespace ClienteTatoo
                 txtNome.Text = cliente.Nome;
                 txtCpf.Text = cliente.Cpf;
                 if (cliente.DataNascimento != null)
-                    dtpDataNascimento.Value = (DateTime)cliente.DataNascimento;
+                    txtDataNascimento.Text = ((DateTime)cliente.DataNascimento).ToString("dd/MM/yyyy");
                 txtTelefone.Text = cliente.Telefone;
                 txtCelular.Text = cliente.Celular;
                 txtEmail.Text = cliente.Email;
@@ -199,10 +197,17 @@ namespace ClienteTatoo
             Cliente.Id = IdCliente;
 
             Cliente.Nome = txtNome.Text.Trim();
-            if (dtpDataNascimento.Value.Date == DateTime.Now.Date)
-                Cliente.DataNascimento = null;
-            else
-                Cliente.DataNascimento = dtpDataNascimento.Value;
+
+            DateTime dataNascimento;
+            
+            if (!DateTime.TryParse(txtDataNascimento.Text, out dataNascimento))
+            {
+                MessageBox.Show("A data não está em um formato válido!", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                DialogResult = DialogResult.None;
+                return;
+            }
+
+            Cliente.DataNascimento = dataNascimento;
             Cliente.Cpf = txtCpf.Text.Replace(" ", "").Replace(".", "").Replace("-", "");
             Cliente.Email = txtEmail.Text.Trim();
             Cliente.Telefone = txtTelefone.Text.Replace(" ", "").Replace("(", "").Replace(")", "").Replace("-", "");

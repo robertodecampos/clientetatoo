@@ -36,6 +36,12 @@ namespace ClienteTatoo.Model
                 return false;
             }
 
+            if ((DataNascimento != null) && ((DataNascimento.Value.Year < (DateTime.Now.Year - 120)) || (DataNascimento.Value.Date > DateTime.Now.Date)))
+            {
+                mensagem = "A data de nascimento não é uma data válida!";
+                return false;
+            }
+
             if (string.IsNullOrEmpty(Cpf))
             {
                 mensagem = "O campo `CPF` é obrigatório!";

@@ -33,7 +33,6 @@
             this.label2 = new System.Windows.Forms.Label();
             this.txtCpf = new System.Windows.Forms.MaskedTextBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.dtpDataNascimento = new System.Windows.Forms.DateTimePicker();
             this.label4 = new System.Windows.Forms.Label();
             this.txtTelefone = new System.Windows.Forms.MaskedTextBox();
             this.txtCelular = new System.Windows.Forms.MaskedTextBox();
@@ -57,6 +56,7 @@
             this.label14 = new System.Windows.Forms.Label();
             this.cmbCidade = new System.Windows.Forms.ComboBox();
             this.btnOk = new System.Windows.Forms.Button();
+            this.txtDataNascimento = new System.Windows.Forms.MaskedTextBox();
             this.SuspendLayout();
             // 
             // label1
@@ -106,15 +106,6 @@
             this.label3.Size = new System.Drawing.Size(154, 20);
             this.label3.TabIndex = 4;
             this.label3.Text = "Data de Nascimento";
-            // 
-            // dtpDataNascimento
-            // 
-            this.dtpDataNascimento.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.dtpDataNascimento.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtpDataNascimento.Location = new System.Drawing.Point(462, 32);
-            this.dtpDataNascimento.Name = "dtpDataNascimento";
-            this.dtpDataNascimento.Size = new System.Drawing.Size(150, 26);
-            this.dtpDataNascimento.TabIndex = 1;
             // 
             // label4
             // 
@@ -333,11 +324,22 @@
             this.btnOk.UseVisualStyleBackColor = true;
             this.btnOk.Click += new System.EventHandler(this.btnOk_Click);
             // 
+            // txtDataNascimento
+            // 
+            this.txtDataNascimento.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtDataNascimento.Location = new System.Drawing.Point(462, 32);
+            this.txtDataNascimento.Mask = "00/00/0000";
+            this.txtDataNascimento.Name = "txtDataNascimento";
+            this.txtDataNascimento.Size = new System.Drawing.Size(150, 26);
+            this.txtDataNascimento.TabIndex = 27;
+            this.txtDataNascimento.Text = "99999999";
+            // 
             // FormDadosPessoaisCliente
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(624, 392);
+            this.Controls.Add(this.txtDataNascimento);
             this.Controls.Add(this.btnOk);
             this.Controls.Add(this.cmbCidade);
             this.Controls.Add(this.label14);
@@ -361,7 +363,6 @@
             this.Controls.Add(this.label5);
             this.Controls.Add(this.txtTelefone);
             this.Controls.Add(this.label4);
-            this.Controls.Add(this.dtpDataNascimento);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.txtCpf);
             this.Controls.Add(this.label2);
@@ -387,7 +388,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.MaskedTextBox txtCpf;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.DateTimePicker dtpDataNascimento;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.MaskedTextBox txtTelefone;
         private System.Windows.Forms.MaskedTextBox txtCelular;
@@ -411,5 +411,6 @@
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.ComboBox cmbCidade;
         private System.Windows.Forms.Button btnOk;
+        private System.Windows.Forms.MaskedTextBox txtDataNascimento;
     }
 }
