@@ -331,7 +331,7 @@
             this.txtDataNascimento.Mask = "00/00/0000";
             this.txtDataNascimento.Name = "txtDataNascimento";
             this.txtDataNascimento.Size = new System.Drawing.Size(150, 26);
-            this.txtDataNascimento.TabIndex = 27;
+            this.txtDataNascimento.TabIndex = 1;
             // 
             // FormDadosPessoaisCliente
             // 
