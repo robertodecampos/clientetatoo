@@ -332,7 +332,6 @@
             this.txtDataNascimento.Name = "txtDataNascimento";
             this.txtDataNascimento.Size = new System.Drawing.Size(150, 26);
             this.txtDataNascimento.TabIndex = 27;
-            this.txtDataNascimento.Text = "99999999";
             // 
             // FormDadosPessoaisCliente
             // 
