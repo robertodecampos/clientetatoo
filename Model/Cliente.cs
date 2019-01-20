@@ -60,15 +60,9 @@ namespace ClienteTatoo.Model
                 return false;
             }
 
-            if (string.IsNullOrEmpty(Telefone))
+            if ((Telefone.Length != 10) && (Telefone.Length != 0))
             {
-                mensagem = "O campo `Telefone` é obrigatório!";
-                return false;
-            }
-
-            if (Telefone.Length != 10)
-            {
-                mensagem = "O campo `Telefone` deve conter 10 dígitos!";
+                mensagem = "O campo `Telefone` não é obrigatório, mas se preenchido, não pode estar incompleto";
                 return false;
             }
 
