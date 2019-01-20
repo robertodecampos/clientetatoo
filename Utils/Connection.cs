@@ -11,8 +11,13 @@ namespace ClienteTatoo.Utils
     {
         private readonly SQLiteConnection _conn;
 
-        private string local = "Data Source=clientetatoo.db;Version=3;";
+#if DEBUG
+        private string local = "Data Source=clientetatoo.db;Version=3";
         private string endereco = "Data Source=enderecamento.db;Version=3;";
+#else
+        private string local = @"Data Source=C:\ProgramData\Cliente Tatoo\clientetatoo.db;Version=3;";
+        private string endereco = @"Data Source=C:\ProgramData\Cliente Tatoo\enderecamento.db;Version=3;";
+#endif
 
         public Connection() : this(Database.Local) { }
 
