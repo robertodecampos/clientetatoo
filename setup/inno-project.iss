@@ -37,8 +37,8 @@ Source: "..\bin\Release\Google.Protobuf.dll"; DestDir: "{app}"; Flags: ignorever
 Source: "..\bin\Release\System.Data.SQLite.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\bin\Release\System.Data.SQLite.EF6.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\bin\Release\System.Data.SQLite.Linq.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\DataBase\clientetatoo.db"; DestDir: "{app}"; Flags: ignoreversion onlyifdoesntexist;
-Source: "..\DataBase\enderecamento.db"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\DataBase\clientetatoo.db"; DestDir: "{commonappdata}\Cliente Tatoo"; Flags: ignoreversion onlyifdoesntexist;
+Source: "..\DataBase\enderecamento.db"; DestDir: "{commonappdata}\Cliente Tatoo"; Flags: ignoreversion
 Source: "..\bin\Release\x64\SQLite.Interop.dll"; DestDir: "{app}\x64"; Flags: ignoreversion
 Source: "..\bin\Release\x86\SQLite.Interop.dll"; DestDir: "{app}\x86"; Flags: ignoreversion
 Source: "sqlite3.exe"; DestDir: "{tmp}"; Flags: ignoreversion;
@@ -51,7 +51,7 @@ Name: "{commondesktop}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; Tasks: 
 
 [Run]
 Filename: "{app}\{#MyAppExeName}"; Description: "{cm:LaunchProgram,{#StringChange(MyAppName, '&', '&&')}}"; Flags: runascurrentuser nowait postinstall skipifsilent
-Filename: "{tmp}\sqlite3.exe"; Parameters: """{app}\clientetatoo.db"" ""INSERT INTO usuario (login, senha) VALUES('{code:GetUsuario}', '{code:GetSenha}')"""; Flags: runascurrentuser runhidden; StatusMsg: "Aplicando usuário e senha..."
+Filename: "{tmp}\sqlite3.exe"; Parameters: """{commonappdata}\Cliente Tatoo\clientetatoo.db"" ""DELETE FROM usuario;INSERT INTO usuario (login, senha) VALUES('{code:GetUsuario}', '{code:GetSenha}')"""; Flags: runascurrentuser runhidden; StatusMsg: "Aplicando usuário e senha..."
 
 [Code]
 var
