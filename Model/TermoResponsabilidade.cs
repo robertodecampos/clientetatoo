@@ -30,11 +30,11 @@ namespace ClienteTatoo.Model
             }
         }
 
-        public void SetCurrent(Connection conn, SQLiteTransaction transaction)
+        public bool SetCurrent(Connection conn, SQLiteTransaction transaction)
         {
             using (var dao = new TermoResponsabilidadeDAO(conn))
             {
-                dao.SetCurrent(this, transaction);
+                return dao.SetCurrent(this, transaction);
             }
         }
 

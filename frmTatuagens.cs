@@ -81,6 +81,16 @@ namespace ClienteTatoo
 
         private void btnAdicionar_Click(object sender, EventArgs e)
         {
+            using (var conn = new Connection())
+            using (var termoResponsabilidade = new TermoResponsabilidade())
+            {
+                if (!termoResponsabilidade.SetCurrent(conn, null))
+                {
+                    MessageBox.Show("Não existe nehum termo de responsabilidade cadastrado!\nCadastre um termo de responsabilidade antes de cadastrar uma tatuagem", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+            }
+
             using (var frmTermoResponsabilidade = new FormTermoResponsabilidade())
             using (var frmTatuagem = new FormTatuagem(TipoAcao.Cadastro))
             {

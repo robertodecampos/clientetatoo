@@ -41,7 +41,7 @@ namespace ClienteTatoo.DAO
 
         public int Update(TermoResponsabilidade model, SQLiteTransaction transaction) => throw new NotImplementedException();
 
-        public void SetCurrent(TermoResponsabilidade model, SQLiteTransaction transaction)
+        public bool SetCurrent(TermoResponsabilidade model, SQLiteTransaction transaction)
         {
             string sql = "SELECT *" +
                          " FROM termo_responsabilidade a" +
@@ -50,12 +50,11 @@ namespace ClienteTatoo.DAO
 
             DataTable dt = _conn.ExecuteReader(sql, null, transaction);
 
-            if (dt.Rows.Count == 1)
-            {
-                PreencherModel(model, dt.Rows[0]);
-            }
-            else if (dt.Rows.Count == 0)
-                throw new Exception($"Não existe nenhum termo de responsabilidade cadastrado!");
+            if (dt.Rows.Count == 0)
+                return false;
+
+            PreencherModel(model, dt.Rows[0]);
+            return true;
         }
 
         public void SetById(int id, TermoResponsabilidade model, SQLiteTransaction transaction)
