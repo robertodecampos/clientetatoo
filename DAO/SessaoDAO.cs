@@ -201,7 +201,7 @@ namespace ClienteTatoo.DAO
             model.Parametros = dr["parametros"].ToString();
             model.Disparos = dr["disparos"].ToString();
             model.Observacao = dr["observacao"].ToString();
-            model.Pago = bool.Parse(dr["pago"].ToString());
+            model.Pago = (int.Parse(dr["pago"].ToString()) == 1);
         }
 
         public void Dispose() { }
