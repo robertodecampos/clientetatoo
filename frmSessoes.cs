@@ -93,6 +93,17 @@ namespace ClienteTatoo
 
         private void btnAlterar_Click(object sender, EventArgs e)
         {
+            if (lsvSessoes.SelectedIndices.Count == 0)
+            {
+                MessageBox.Show("Selecione uma sessão para ser alterada!", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            else if (lsvSessoes.SelectedIndices.Count > 1)
+            {
+                MessageBox.Show("Selecione somente uma sessão para ser alterada!", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
             int idSessao = sessoes[lsvSessoes.SelectedIndices[0]].Id;
 
             using (var sessao = new Sessao())
@@ -142,6 +153,17 @@ namespace ClienteTatoo
 
         private void btnPagar_Click(object sender, EventArgs e)
         {
+            if (lsvSessoes.SelectedIndices.Count == 0)
+            {
+                MessageBox.Show("Selecione uma sessão para ser marcada como paga!", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            else if (lsvSessoes.SelectedIndices.Count > 1)
+            {
+                MessageBox.Show("Selecione somente uma sessão para ser marcada como paga!", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
             if (MessageBox.Show("Deseja realmente marcar esta sessão como paga?\nEsta ação não poderá ser revertida!", "", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.No)
                 return;
 

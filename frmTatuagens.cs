@@ -150,6 +150,17 @@ namespace ClienteTatoo
 
         private void btnAlterar_Click(object sender, EventArgs e)
         {
+            if (lsvTatuagens.SelectedIndices.Count == 0)
+            {
+                MessageBox.Show("Selecione uma tatuagem para ser alterada!", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            else if (lsvTatuagens.SelectedIndices.Count > 1)
+            {
+                MessageBox.Show("Selecione somente uma tatuagem para ser alterada!", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
             int idTatuagem = Tatuagens[lsvTatuagens.SelectedIndices[0]].Id;
 
             using (var tatuagem = new Tatuagem())
@@ -188,6 +199,17 @@ namespace ClienteTatoo
 
         private void btnSessoes_Click(object sender, EventArgs e)
         {
+            if (lsvTatuagens.SelectedIndices.Count == 0)
+            {
+                MessageBox.Show("Selecione uma tatuagem para visualizar as sessões!", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            else if (lsvTatuagens.SelectedIndices.Count > 1)
+            {
+                MessageBox.Show("Selecione somente uma tatuagem para visualizar as sessões!", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
             int idTatuagem = Tatuagens[lsvTatuagens.SelectedIndices[0]].Id;
 
             using (var frmSessoes = new FormSessoes(idTatuagem))

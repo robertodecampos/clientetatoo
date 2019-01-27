@@ -135,6 +135,17 @@ namespace ClienteTatoo
 
         private void btnAlterarInformacoesPessoais_Click(object sender, EventArgs e)
         {
+            if (lsvClientes.SelectedIndices.Count == 0)
+            {
+                MessageBox.Show("Selecione um cliente para ser alterado!", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            else if (lsvClientes.SelectedIndices.Count > 1)
+            {
+                MessageBox.Show("Selecione somente um cliente para ser alterado!", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
             using (var frmLogin = new FormLogin())
             {
                 frmLogin.ShowDialog();
@@ -185,6 +196,12 @@ namespace ClienteTatoo
 
         private void btnRemover_Click(object sender, EventArgs e)
         {
+            if (lsvClientes.SelectedIndices.Count == 0)
+            {
+                MessageBox.Show("Selecione um cliente para ser removido!", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
             // Verificando se o usuário deseja realmente remover os clientes selecionados
             if (MessageBox.Show($"Deseja realmente remover os {lsvClientes.SelectedIndices.Count} clientes selecionados?\nEssa ação não poderá ser revertida!", "", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
                 return;
@@ -222,6 +239,17 @@ namespace ClienteTatoo
 
         private void btnTatuagens_Click(object sender, EventArgs e)
         {
+            if (lsvClientes.SelectedIndices.Count == 0)
+            {
+                MessageBox.Show("Selecione um cliente para visualizar as tatuagens!", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            else if (lsvClientes.SelectedIndices.Count > 1)
+            {
+                MessageBox.Show("Selecione somente um cliente para visualizar as tatuagens!", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
             using (var frmLogin = new FormLogin())
             {
                 frmLogin.ShowDialog();
