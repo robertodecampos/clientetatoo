@@ -97,6 +97,27 @@ namespace ClienteTatoo.DAO
             string sql = "SELECT *" +
                          " FROM perguntas a" +
                          " WHERE a.`idResposta` IS NULL" +
+                         " AND NOT a.`removida`";
+
+            DataTable dt = _conn.ExecuteReader(sql, null, transaction);
+
+            var perguntas = new List<Pergunta>(dt.Rows.Count);
+
+            foreach (DataRow dr in dt.Rows)
+            {
+                var pergunta = new Pergunta();
+                PreencherModel(pergunta, dr);
+                perguntas.Add(pergunta);
+            }
+
+            return perguntas;
+        }
+
+        public List<Pergunta> GetPrincipaisAtivas(SQLiteTransaction transaction)
+        {
+            string sql = "SELECT *" +
+                         " FROM perguntas a" +
+                         " WHERE a.`idResposta` IS NULL" +
                          " AND NOT a.`removida` AND a.`ativada`";
 
             DataTable dt = _conn.ExecuteReader(sql, null, transaction);
@@ -114,6 +135,30 @@ namespace ClienteTatoo.DAO
         }
 
         public List<Pergunta> GetByIdResposta(int idResposta, SQLiteTransaction transaction)
+        {
+            string sql = "SELECT *" +
+                         " FROM perguntas a" +
+                         " WHERE a.`idResposta` = :idResposta" +
+                         " AND NOT a.`removida`";
+
+            DataTable dt = _conn.ExecuteReader(sql, null, transaction);
+
+            var parameters = new List<SQLiteParameter>();
+            parameters.Add(new SQLiteParameter("@idResposta", DbType.Int32) { Value = idResposta });
+
+            var perguntas = new List<Pergunta>(dt.Rows.Count);
+
+            foreach (DataRow dr in dt.Rows)
+            {
+                var pergunta = new Pergunta();
+                PreencherModel(pergunta, dr);
+                perguntas.Add(pergunta);
+            }
+
+            return perguntas;
+        }
+
+        public List<Pergunta> GetAtivasByIdResposta(int idResposta, SQLiteTransaction transaction)
         {
             string sql = "SELECT *" +
                          " FROM perguntas a" +

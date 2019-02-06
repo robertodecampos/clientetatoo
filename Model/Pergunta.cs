@@ -68,19 +68,25 @@ namespace ClienteTatoo.Model
             }
         }
 
-        public static List<Pergunta> GetPrincipais(Connection conn, SQLiteTransaction transaction)
+        public static List<Pergunta> GetPrincipais(bool somenteAtivas, Connection conn, SQLiteTransaction transaction)
         {
             using (var dao = new PerguntaDAO(conn))
             {
-                return dao.GetPrincipais(transaction);
+                if (somenteAtivas)
+                    return dao.GetPrincipaisAtivas(transaction);
+                else
+                    return dao.GetPrincipais(transaction);
             }
         }
 
-        public static List<Pergunta> GetByIdResposta(int idResposta, Connection conn, SQLiteTransaction transaction)
+        public static List<Pergunta> GetByIdResposta(int idResposta, bool somenteAtivas, Connection conn, SQLiteTransaction transaction)
         {
             using (var dao = new PerguntaDAO(conn))
             {
-                return dao.GetByIdResposta(idResposta, transaction);
+                if (somenteAtivas)
+                    return dao.GetAtivasByIdResposta(idResposta, transaction);
+                else
+                    return dao.GetByIdResposta(idResposta, transaction);
             }
         }
 
