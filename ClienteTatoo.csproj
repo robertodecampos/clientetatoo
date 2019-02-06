@@ -96,6 +96,7 @@
     <Compile Include="DAO\EstadoDAO.cs" />
     <Compile Include="DAO\IDao.cs" />
     <Compile Include="DAO\PerguntaDAO.cs" />
+    <Compile Include="DAO\RespostaDAO.cs" />
     <Compile Include="DAO\SessaoDAO.cs" />
     <Compile Include="DAO\TatuagemDAO.cs" />
     <Compile Include="DAO\TermoResponsabilidadeDAO.cs" />
@@ -174,6 +175,7 @@
     <Compile Include="Model\Filter\ClienteFilter.cs" />
     <Compile Include="Model\Ordenation\ClienteOrdenation.cs" />
     <Compile Include="Model\Pergunta.cs" />
+    <Compile Include="Model\Resposta.cs" />
     <Compile Include="Model\Sessao.cs" />
     <Compile Include="Model\Tatuagem.cs" />
     <Compile Include="Model\TermoResponsabilidade.cs" />
