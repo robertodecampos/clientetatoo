@@ -16,7 +16,9 @@ CREATE TABLE "respostas" (
     `id` INTEGER PRIMARY KEY AUTOINCREMENT,
     `idPergunta` INTEGER NOT NULL,
     `descricao` TEXT NOT NULL,
-    `especificar` INTEGER
+    `especificar` INTEGER,
+    `ativada` INTEGER NOT NULL DEFAULT 1,
+    `removida` INTEGER NOT NULL DEFAULT 0
 );
 
 PRAGMA user_version = 1;
