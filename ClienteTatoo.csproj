@@ -108,6 +108,12 @@
     <Compile Include="frmPergunta.Designer.cs">
       <DependentUpon>frmPergunta.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmPerguntas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmPerguntas.Designer.cs">
+      <DependentUpon>frmPerguntas.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmSessao.cs">
       <SubType>Form</SubType>
     </Compile>
