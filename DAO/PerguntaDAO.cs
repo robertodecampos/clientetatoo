@@ -22,7 +22,7 @@ namespace ClienteTatoo.DAO
                 throw new Exception("Não é possível inserir um registro que já possuí identificador!");
 
             string sql = "INSERT INTO perguntas (idResposta, descricao, respostaUnica, respostaDissertativa, obrigatoria, tipo)" +
-                         " VALUES (@idResposta, @descricao, @respostaUnica, @respostaDissertavia, @obrigatora, @tipo)";
+                         " VALUES (@idResposta, @descricao, @respostaUnica, @respostaDissertativa, @obrigatoria, @tipo)";
 
             var parameters = GetParameters(model);
 
@@ -92,11 +92,23 @@ namespace ClienteTatoo.DAO
             return true;
         }
 
-        public List<Pergunta> GetPrincipais(SQLiteTransaction transaction)
+        public List<Pergunta> GetPrincipaisByTipoPergunta(TipoPergunta tipoPergunta, SQLiteTransaction transaction)
         {
+            string tipo = "";
+            switch (tipoPergunta)
+            {
+                case TipoPergunta.Cliente:
+                    tipo = "cliente";
+                    break;
+                case TipoPergunta.Tatuagem:
+                    tipo = "tatuagem";
+                    break;
+            }
+
             string sql = "SELECT *" +
                          " FROM perguntas a" +
-                         " WHERE a.`idResposta` IS NULL" +
+                         $" WHERE a.`tipo` = '{tipo}'" +
+                         " AND a.`idResposta` IS NULL" +
                          " AND NOT a.`removida`";
 
             DataTable dt = _conn.ExecuteReader(sql, null, transaction);
@@ -113,11 +125,23 @@ namespace ClienteTatoo.DAO
             return perguntas;
         }
 
-        public List<Pergunta> GetPrincipaisAtivas(SQLiteTransaction transaction)
+        public List<Pergunta> GetPrincipaisAtivasByTipoPergunta(TipoPergunta tipoPergunta, SQLiteTransaction transaction)
         {
+            string tipo = "";
+            switch (tipoPergunta)
+            {
+                case TipoPergunta.Cliente:
+                    tipo = "cliente";
+                    break;
+                case TipoPergunta.Tatuagem:
+                    tipo = "tatuagem";
+                    break;
+            }
+
             string sql = "SELECT *" +
                          " FROM perguntas a" +
-                         " WHERE a.`idResposta` IS NULL" +
+                         $" WHERE a.`tipo` = '{tipo}'" +
+                         " AND a.`idResposta` IS NULL" +
                          " AND NOT a.`removida` AND a.`ativada`";
 
             DataTable dt = _conn.ExecuteReader(sql, null, transaction);
@@ -211,12 +235,16 @@ namespace ClienteTatoo.DAO
         private void PreencherModel(Pergunta model, DataRow dr)
         {
             model.Id = int.Parse(dr["id"].ToString());
-            model.IdResposta = int.Parse(dr["idResposta"].ToString());
+            if (dr["idResposta"].ToString() == "")
+                model.IdResposta = null;
+            else
+                model.IdResposta = int.Parse(dr["idResposta"].ToString());
             model.Descricao = dr["descricao"].ToString();
             model.RespostaUnica = (int.Parse(dr["respostaUnica"].ToString()) == 1);
             model.RespostaDissertativa = (int.Parse(dr["respostaDissertativa"].ToString()) == 1);
-            model.RespostaDissertativa = (int.Parse(dr["obrigatoria"].ToString()) == 1);
-            
+            model.Obrigatoria = (int.Parse(dr["obrigatoria"].ToString()) == 1);
+            model.Ativada = (int.Parse(dr["ativada"].ToString()) == 1);
+
             switch (dr["tipo"].ToString())
             {
                 case "cliente":

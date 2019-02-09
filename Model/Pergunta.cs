@@ -68,14 +68,14 @@ namespace ClienteTatoo.Model
             }
         }
 
-        public static List<Pergunta> GetPrincipais(bool somenteAtivas, Connection conn, SQLiteTransaction transaction)
+        public static List<Pergunta> GetPrincipaisByTipoPergunta(TipoPergunta tipoPergunta, bool somenteAtivas, Connection conn, SQLiteTransaction transaction)
         {
             using (var dao = new PerguntaDAO(conn))
             {
                 if (somenteAtivas)
-                    return dao.GetPrincipaisAtivas(transaction);
+                    return dao.GetPrincipaisAtivasByTipoPergunta(tipoPergunta, transaction);
                 else
-                    return dao.GetPrincipais(transaction);
+                    return dao.GetPrincipaisByTipoPergunta(tipoPergunta, transaction);
             }
         }
 
