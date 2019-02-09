@@ -31,6 +31,9 @@
             this.msPricipal = new System.Windows.Forms.MenuStrip();
             this.configurarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.termoDeResponsabilidadeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.perguntasERespostasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.informaçõesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.versãoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.btnCadastrar = new System.Windows.Forms.Button();
             this.lsvClientes = new System.Windows.Forms.ListView();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -45,8 +48,8 @@
             this.btnAlterarInformacoesPessoais = new System.Windows.Forms.Button();
             this.btnRemover = new System.Windows.Forms.Button();
             this.btnTatuagens = new System.Windows.Forms.Button();
-            this.informaçõesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.versãoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.clientesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.tatuagensToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.msPricipal.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -64,7 +67,8 @@
             // configurarToolStripMenuItem
             // 
             this.configurarToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.termoDeResponsabilidadeToolStripMenuItem});
+            this.termoDeResponsabilidadeToolStripMenuItem,
+            this.perguntasERespostasToolStripMenuItem});
             this.configurarToolStripMenuItem.Name = "configurarToolStripMenuItem";
             this.configurarToolStripMenuItem.Size = new System.Drawing.Size(76, 20);
             this.configurarToolStripMenuItem.Text = "Configurar";
@@ -75,6 +79,30 @@
             this.termoDeResponsabilidadeToolStripMenuItem.Size = new System.Drawing.Size(219, 22);
             this.termoDeResponsabilidadeToolStripMenuItem.Text = "Termo de Responsabilidade";
             this.termoDeResponsabilidadeToolStripMenuItem.Click += new System.EventHandler(this.termoDeResponsabilidadeToolStripMenuItem_Click);
+            // 
+            // perguntasERespostasToolStripMenuItem
+            // 
+            this.perguntasERespostasToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.clientesToolStripMenuItem,
+            this.tatuagensToolStripMenuItem});
+            this.perguntasERespostasToolStripMenuItem.Name = "perguntasERespostasToolStripMenuItem";
+            this.perguntasERespostasToolStripMenuItem.Size = new System.Drawing.Size(219, 22);
+            this.perguntasERespostasToolStripMenuItem.Text = "Perguntas e Respostas";
+            // 
+            // informaçõesToolStripMenuItem
+            // 
+            this.informaçõesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.versãoToolStripMenuItem});
+            this.informaçõesToolStripMenuItem.Name = "informaçõesToolStripMenuItem";
+            this.informaçõesToolStripMenuItem.Size = new System.Drawing.Size(85, 20);
+            this.informaçõesToolStripMenuItem.Text = "Informações";
+            // 
+            // versãoToolStripMenuItem
+            // 
+            this.versãoToolStripMenuItem.Name = "versãoToolStripMenuItem";
+            this.versãoToolStripMenuItem.Size = new System.Drawing.Size(108, 22);
+            this.versãoToolStripMenuItem.Text = "Versão";
+            this.versãoToolStripMenuItem.Click += new System.EventHandler(this.versãoToolStripMenuItem_Click);
             // 
             // btnCadastrar
             // 
@@ -210,20 +238,19 @@
             this.btnTatuagens.Visible = false;
             this.btnTatuagens.Click += new System.EventHandler(this.btnTatuagens_Click);
             // 
-            // informaçõesToolStripMenuItem
+            // clientesToolStripMenuItem
             // 
-            this.informaçõesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.versãoToolStripMenuItem});
-            this.informaçõesToolStripMenuItem.Name = "informaçõesToolStripMenuItem";
-            this.informaçõesToolStripMenuItem.Size = new System.Drawing.Size(85, 20);
-            this.informaçõesToolStripMenuItem.Text = "Informações";
+            this.clientesToolStripMenuItem.Name = "clientesToolStripMenuItem";
+            this.clientesToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.clientesToolStripMenuItem.Text = "Clientes";
+            this.clientesToolStripMenuItem.Click += new System.EventHandler(this.clientesToolStripMenuItem_Click);
             // 
-            // versãoToolStripMenuItem
+            // tatuagensToolStripMenuItem
             // 
-            this.versãoToolStripMenuItem.Name = "versãoToolStripMenuItem";
-            this.versãoToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.versãoToolStripMenuItem.Text = "Versão";
-            this.versãoToolStripMenuItem.Click += new System.EventHandler(this.versãoToolStripMenuItem_Click);
+            this.tatuagensToolStripMenuItem.Name = "tatuagensToolStripMenuItem";
+            this.tatuagensToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.tatuagensToolStripMenuItem.Text = "Tatuagens";
+            this.tatuagensToolStripMenuItem.Click += new System.EventHandler(this.tatuagensToolStripMenuItem_Click);
             // 
             // FormClientes
             // 
@@ -273,6 +300,9 @@
         private System.Windows.Forms.Button btnTatuagens;
         private System.Windows.Forms.ToolStripMenuItem informaçõesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem versãoToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem perguntasERespostasToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem clientesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem tatuagensToolStripMenuItem;
     }
 }
 

@@ -274,5 +274,21 @@ namespace ClienteTatoo
                 frmVersao.ShowDialog();
             }
         }
+
+        private void clientesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            using (var frmPerguntas = new FormPerguntas(TipoPergunta.Cliente))
+            {
+                frmPerguntas.ShowDialog();
+            }
+        }
+
+        private void tatuagensToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            using (var frmPerguntas = new FormPerguntas(TipoPergunta.Tatuagem))
+            {
+                frmPerguntas.ShowDialog();
+            }
+        }
     }
 }
