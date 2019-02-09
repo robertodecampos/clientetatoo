@@ -102,6 +102,12 @@
     <Compile Include="DAO\TermoResponsabilidadeDAO.cs" />
     <Compile Include="DAO\TipoLogradouroDAO.cs" />
     <Compile Include="DAO\UsuarioDAO.cs" />
+    <Compile Include="frmPergunta.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmPergunta.Designer.cs">
+      <DependentUpon>frmPergunta.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmSessao.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -189,6 +195,12 @@
     <Compile Include="Utils\IConnection.cs" />
     <Compile Include="Utils\Ordenation.cs" />
     <Compile Include="Utils\Validation.cs" />
+    <EmbeddedResource Include="frmPergunta.resx">
+      <DependentUpon>frmPergunta.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmPerguntas.resx">
+      <DependentUpon>frmPerguntas.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmSessao.resx">
       <DependentUpon>frmSessao.cs</DependentUpon>
     </EmbeddedResource>
