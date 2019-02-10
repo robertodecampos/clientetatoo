@@ -95,13 +95,13 @@ namespace ClienteTatoo.DAO
         {
             string sql = "SELECT *" +
                          " FROM respostas a" +
-                         " WHERE a.`idPergunta` = :idPergunta" +
+                         " WHERE a.`idPergunta` = @idPergunta" +
                          " AND NOT a.`removida`";
-
-            DataTable dt = _conn.ExecuteReader(sql, null, transaction);
 
             var parameters = new List<SQLiteParameter>();
             parameters.Add(new SQLiteParameter("@idPergunta", DbType.Int32) { Value = idPergunta });
+
+            DataTable dt = _conn.ExecuteReader(sql, parameters, transaction);
 
             var respostas = new List<Resposta>(dt.Rows.Count);
 
@@ -119,13 +119,13 @@ namespace ClienteTatoo.DAO
         {
             string sql = "SELECT *" +
                          " FROM respostas a" +
-                         " WHERE a.`idPergunta` = :idPergunta" +
+                         " WHERE a.`idPergunta` = @idPergunta" +
                          " AND NOT a.`removida` AND a.`ativada`";
-
-            DataTable dt = _conn.ExecuteReader(sql, null, transaction);
 
             var parameters = new List<SQLiteParameter>();
             parameters.Add(new SQLiteParameter("@idPergunta", DbType.Int32) { Value = idPergunta });
+
+            DataTable dt = _conn.ExecuteReader(sql, parameters, transaction);
 
             var respostas = new List<Resposta>(dt.Rows.Count);
 

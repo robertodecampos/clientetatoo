@@ -38,6 +38,7 @@
             this.btnAdicionar = new System.Windows.Forms.Button();
             this.btnAlterar = new System.Windows.Forms.Button();
             this.btnAtivarDesativar = new System.Windows.Forms.Button();
+            this.btnConfigurarRespostas = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // lsvPerguntas
@@ -91,6 +92,7 @@
             this.btnRemover.TabIndex = 1;
             this.btnRemover.Text = "Remover";
             this.btnRemover.UseVisualStyleBackColor = true;
+            this.btnRemover.Click += new System.EventHandler(this.btnRemover_Click);
             // 
             // btnAdicionar
             // 
@@ -125,11 +127,23 @@
             this.btnAtivarDesativar.UseVisualStyleBackColor = true;
             this.btnAtivarDesativar.Click += new System.EventHandler(this.btnAtivarDesativar_Click);
             // 
+            // btnConfigurarRespostas
+            // 
+            this.btnConfigurarRespostas.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnConfigurarRespostas.Location = new System.Drawing.Point(255, 253);
+            this.btnConfigurarRespostas.Name = "btnConfigurarRespostas";
+            this.btnConfigurarRespostas.Size = new System.Drawing.Size(117, 23);
+            this.btnConfigurarRespostas.TabIndex = 5;
+            this.btnConfigurarRespostas.Text = "Configurar Respostas";
+            this.btnConfigurarRespostas.UseVisualStyleBackColor = true;
+            this.btnConfigurarRespostas.Click += new System.EventHandler(this.btnConfigurarRespostas_Click);
+            // 
             // FormPerguntas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(660, 288);
+            this.Controls.Add(this.btnConfigurarRespostas);
             this.Controls.Add(this.btnAtivarDesativar);
             this.Controls.Add(this.btnAlterar);
             this.Controls.Add(this.btnAdicionar);
@@ -159,5 +173,6 @@
         private System.Windows.Forms.Button btnAdicionar;
         private System.Windows.Forms.Button btnAlterar;
         private System.Windows.Forms.Button btnAtivarDesativar;
+        private System.Windows.Forms.Button btnConfigurarRespostas;
     }
 }

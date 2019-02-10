@@ -44,6 +44,7 @@ namespace ClienteTatoo
             btnRemover.Visible = (lsvPerguntas.SelectedIndices.Count > 0);
             btnAtivarDesativar.Visible = GetVisibleAtivarDesativar();
             btnAlterar.Visible = lsvPerguntas.SelectedIndices.Count == 1;
+            btnConfigurarRespostas.Visible = ((lsvPerguntas.SelectedIndices.Count == 1) && !Perguntas[lsvPerguntas.SelectedIndices[0]].RespostaDissertativa);
         }
 
         private void CarregarPerguntas()
@@ -150,8 +151,8 @@ namespace ClienteTatoo
                 {
                     for (int i = 0; i < qtdeSelecionada; i++)
                     {
-                        Perguntas[i].Ativada = ativar;
-                        Perguntas[i].Salvar(conn, transaction);
+                        Perguntas[lsvPerguntas.SelectedIndices[i]].Ativada = ativar;
+                        Perguntas[lsvPerguntas.SelectedIndices[i]].Salvar(conn, transaction);
                     }
 
                     transaction.Commit();
@@ -162,6 +163,51 @@ namespace ClienteTatoo
                 {
                     transaction.Rollback();
                     MessageBox.Show("Ocorreu um erro ao" + mensagemPerguntasSelecionadas + "\n\n" + erro.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
+        private void btnConfigurarRespostas_Click(object sender, EventArgs e)
+        {
+            if ((lsvPerguntas.SelectedIndices.Count != 1) || Perguntas[lsvPerguntas.SelectedIndices[0]].RespostaDissertativa)
+                return;
+
+            using (var frmRespostas = new FormRespostas(Perguntas[lsvPerguntas.SelectedIndices[0]].Id))
+            {
+                frmRespostas.ShowDialog();
+            }
+        }
+
+        private void btnRemover_Click(object sender, EventArgs e)
+        {
+            if (lsvPerguntas.SelectedIndices.Count == 0)
+                return;
+
+            int qtdeSelecionada = lsvPerguntas.SelectedIndices.Count;
+
+            string mensagemPerguntasSelecionadas = $" {(qtdeSelecionada == 1 ? $"a pergunta \"{Perguntas[lsvPerguntas.SelectedIndices[0]].Descricao}\"" : $"as {qtdeSelecionada} perguntas selecionadas")}?\n" +
+                "Essa ação não poderá ser revertida posteriormente!";
+
+            if (MessageBox.Show("Deseja realmente remover " + mensagemPerguntasSelecionadas, "Confirmação", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
+                return;
+
+            using (var conn = new Connection())
+            using (SQLiteTransaction transaction = conn.BeginTransaction())
+            {
+                try
+                {
+                    for (int i = 0; i < qtdeSelecionada; i++)
+                        Perguntas[lsvPerguntas.SelectedIndices[i]].Remover(conn, transaction);
+
+                    transaction.Commit();
+                    MessageBox.Show($"{(qtdeSelecionada == 1 ? "Pergunta removida" : "Perguntas removidas")} com sucesso!", "Informação", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                    CarregarPerguntas();
+                }
+                catch (Exception erro)
+                {
+                    transaction.Rollback();
+                    MessageBox.Show("Ocorreu um erro ao remover " + mensagemPerguntasSelecionadas + "\n\n" + erro.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }
