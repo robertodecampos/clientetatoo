@@ -17,12 +17,14 @@ namespace ClienteTatoo
     {
         private List<Pergunta> Perguntas { get; set; }
         private TipoPergunta TipoPergunta { get; set; }
+        private int? IdResposta { get; set; }
 
-        public FormPerguntas(TipoPergunta tipoPergunta)
+        private FormPerguntas(TipoPergunta tipoPergunta, int? idResposta)
         {
             InitializeComponent();
 
             TipoPergunta = tipoPergunta;
+            IdResposta = idResposta;
 
             switch (tipoPergunta)
             {
@@ -39,6 +41,10 @@ namespace ClienteTatoo
             CarregarPerguntas();
         }
 
+        public FormPerguntas(TipoPergunta tipoPergunta) : this(tipoPergunta, null) { }
+
+        public FormPerguntas(int idResposta, TipoPergunta tipoPergunta) : this(tipoPergunta, idResposta) { }
+
         private void AtivarDesativarAcoes()
         {
             btnRemover.Visible = (lsvPerguntas.SelectedIndices.Count > 0);
@@ -51,7 +57,10 @@ namespace ClienteTatoo
         {
             using (var conn = new Connection())
             {
-                Perguntas = Pergunta.GetPrincipaisByTipoPergunta(TipoPergunta, false, conn, null);
+                if (IdResposta == null)
+                    Perguntas = Pergunta.GetPrincipaisByTipoPergunta(TipoPergunta, false, conn, null);
+                else
+                    Perguntas = Pergunta.GetByIdResposta((int)IdResposta, false, conn, null);
             }
 
             lsvPerguntas.Items.Clear();
@@ -108,7 +117,7 @@ namespace ClienteTatoo
 
         private void btnAdicionar_Click(object sender, EventArgs e)
         {
-            using (var frmPergunta = new FormPergunta(TipoPergunta))
+            using (var frmPergunta = (IdResposta == null ? new FormPergunta(TipoPergunta) : new FormPergunta((int)IdResposta, TipoPergunta)))
             {
                 if (frmPergunta.ShowDialog() == DialogResult.OK)
                     CarregarPerguntas();

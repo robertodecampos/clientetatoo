@@ -25,9 +25,15 @@ namespace ClienteTatoo
             Pergunta.Tipo = tipoPergunta;
         }
 
+        public FormPergunta(int idResposta, TipoPergunta tipoPergunta) : this(tipoPergunta)
+        {
+            Pergunta.IdResposta = idResposta;
+        }
+
         public FormPergunta(Pergunta pergunta) : this(pergunta.Tipo)
         {
             Pergunta.Id = pergunta.Id;
+            Pergunta.IdResposta = pergunta.IdResposta;
 
             txtDescricao.Text = pergunta.Descricao;
             if (pergunta.RespostaDissertativa)
