@@ -142,6 +142,7 @@ namespace ClienteTatoo.DAO
         private List<SQLiteParameter> GetParameters(Resposta model)
         {
             var parameters = new List<SQLiteParameter>();
+
             parameters.Add(new SQLiteParameter("@idPergunta", DbType.Int32) { Value = model.IdPergunta });
             parameters.Add(new SQLiteParameter("@descricao", DbType.String) { Value = model.Descricao });
             parameters.Add(new SQLiteParameter("@especificar", DbType.Int16) { Value = model.Especificar });
