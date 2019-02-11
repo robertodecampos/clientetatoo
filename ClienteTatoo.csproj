@@ -120,6 +120,12 @@
     <Compile Include="frmResposta.Designer.cs">
       <DependentUpon>frmResposta.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmRespostas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmRespostas.Designer.cs">
+      <DependentUpon>frmRespostas.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmSessao.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -215,6 +221,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmResposta.resx">
       <DependentUpon>frmResposta.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmRespostas.resx">
+      <DependentUpon>frmRespostas.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmSessao.resx">
       <DependentUpon>frmSessao.cs</DependentUpon>
