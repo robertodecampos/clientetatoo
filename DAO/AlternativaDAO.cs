@@ -10,18 +10,18 @@ using System.Threading.Tasks;
 
 namespace ClienteTatoo.DAO
 {
-    class RespostaDAO : IDao<Resposta, SQLiteTransaction>
+    class AlternativaDAO : IDao<Alternativa, SQLiteTransaction>
     {
         private Connection _conn;
 
-        public RespostaDAO(Connection conn) => _conn = conn;
+        public AlternativaDAO(Connection conn) => _conn = conn;
 
-        public int Insert(Resposta model, SQLiteTransaction transaction)
+        public int Insert(Alternativa model, SQLiteTransaction transaction)
         {
             if (model.Id != 0)
                 throw new Exception("Não é possível inserir um registro que já possuí identificador!");
 
-            string sql = "INSERT INTO respostas (idPergunta, descricao, especificar)" +
+            string sql = "INSERT INTO alternativas (idPergunta, descricao, especificar)" +
                          " VALUES (@idPergunta, @descricao, @especificar)";
 
             var parameters = GetParameters(model);
@@ -36,12 +36,12 @@ namespace ClienteTatoo.DAO
             return linhasAfetadas;
         }
 
-        public int Remove(Resposta model, SQLiteTransaction transaction)
+        public int Remove(Alternativa model, SQLiteTransaction transaction)
         {
             if (model.Id == 0)
                 throw new Exception("Não é possível remover um registro que não possuí identificador");
 
-            string sql = "UPDATE respostas SET" +
+            string sql = "UPDATE alternativas SET" +
                          " removida = 1" +
                          " WHERE id = @id";
 
@@ -51,7 +51,7 @@ namespace ClienteTatoo.DAO
             return _conn.Execute(sql, parameters, transaction);
         }
 
-        public int Update(Resposta model, SQLiteTransaction transaction)
+        public int Update(Alternativa model, SQLiteTransaction transaction)
         {
             if (model.Id == 0)
                 throw new Exception("Não é possível alterar um registro que não possuí identificador");
@@ -59,7 +59,7 @@ namespace ClienteTatoo.DAO
             if (!model.IsValid())
                 throw new Exception("Existem informações inconsistentes!");
 
-            string sql = "UPDATE respostas SET" +
+            string sql = "UPDATE alternativas SET" +
                          " idPergunta = @idPergunta, descricao = @descricao, especificar = @especificar, ativada = @ativada" +
                          " WHERE id = @id";
 
@@ -70,10 +70,10 @@ namespace ClienteTatoo.DAO
             return _conn.Execute(sql, parameters, transaction);
         }
 
-        public bool SetById(Resposta model, int id, SQLiteTransaction transaction)
+        public bool SetById(Alternativa model, int id, SQLiteTransaction transaction)
         {
             string sql = "SELECT *" +
-                         " FROM respostas a" +
+                         " FROM alternativas a" +
                          " WHERE a.`id` = @id";
 
             var parameters = new List<SQLiteParameter>();
@@ -84,17 +84,17 @@ namespace ClienteTatoo.DAO
             if (dt.Rows.Count == 0)
                 return false;
             else if (dt.Rows.Count > 1)
-                throw new Exception($"Existem {dt.Rows.Count} respostas com o id `{id}`!");
+                throw new Exception($"Existem {dt.Rows.Count} alternativas com o id `{id}`!");
 
             PreencherModel(model, dt.Rows[0]);
 
             return true;
         }
 
-        public List<Resposta> GetByIdPergunta(int idPergunta, SQLiteTransaction transaction)
+        public List<Alternativa> GetByIdPergunta(int idPergunta, SQLiteTransaction transaction)
         {
             string sql = "SELECT *" +
-                         " FROM respostas a" +
+                         " FROM alternativas a" +
                          " WHERE a.`idPergunta` = @idPergunta" +
                          " AND NOT a.`removida`";
 
@@ -103,22 +103,22 @@ namespace ClienteTatoo.DAO
 
             DataTable dt = _conn.ExecuteReader(sql, parameters, transaction);
 
-            var respostas = new List<Resposta>(dt.Rows.Count);
+            var alternativas = new List<Alternativa>(dt.Rows.Count);
 
             foreach (DataRow dr in dt.Rows)
             {
-                var resposta = new Resposta();
-                PreencherModel(resposta, dr);
-                respostas.Add(resposta);
+                var alternativa = new Alternativa();
+                PreencherModel(alternativa, dr);
+                alternativas.Add(alternativa);
             }
 
-            return respostas;
+            return alternativas;
         }
 
-        public List<Resposta> GetAtivasByIdPergunta(int idPergunta, SQLiteTransaction transaction)
+        public List<Alternativa> GetAtivasByIdPergunta(int idPergunta, SQLiteTransaction transaction)
         {
             string sql = "SELECT *" +
-                         " FROM respostas a" +
+                         " FROM alternativas a" +
                          " WHERE a.`idPergunta` = @idPergunta" +
                          " AND NOT a.`removida` AND a.`ativada`";
 
@@ -127,19 +127,19 @@ namespace ClienteTatoo.DAO
 
             DataTable dt = _conn.ExecuteReader(sql, parameters, transaction);
 
-            var respostas = new List<Resposta>(dt.Rows.Count);
+            var alternativas = new List<Alternativa>(dt.Rows.Count);
 
             foreach (DataRow dr in dt.Rows)
             {
-                var resposta = new Resposta();
-                PreencherModel(resposta, dr);
-                respostas.Add(resposta);
+                var alternativa = new Alternativa();
+                PreencherModel(alternativa, dr);
+                alternativas.Add(alternativa);
             }
 
-            return respostas;
+            return alternativas;
         }
 
-        private List<SQLiteParameter> GetParameters(Resposta model)
+        private List<SQLiteParameter> GetParameters(Alternativa model)
         {
             var parameters = new List<SQLiteParameter>();
 
@@ -150,7 +150,7 @@ namespace ClienteTatoo.DAO
             return parameters;
         }
 
-        private void PreencherModel(Resposta model, DataRow dr)
+        private void PreencherModel(Alternativa model, DataRow dr)
         {
             model.Id = int.Parse(dr["id"].ToString());
             model.IdPergunta = int.Parse(dr["idPergunta"].ToString());

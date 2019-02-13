@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace ClienteTatoo.Model
 {
-    public class Resposta : IDisposable
+    public class Alternativa : IDisposable
     {
         public int Id { get; set; }
         public int IdPergunta { get; set; }
@@ -38,7 +38,7 @@ namespace ClienteTatoo.Model
 
         public void Salvar(Connection conn, SQLiteTransaction transaction)
         {
-            using (var dao = new RespostaDAO(conn))
+            using (var dao = new AlternativaDAO(conn))
             {
                 if (Id == 0)
                     dao.Insert(this, transaction);
@@ -49,7 +49,7 @@ namespace ClienteTatoo.Model
 
         public void Remover(Connection conn, SQLiteTransaction transaction)
         {
-            using (var dao = new RespostaDAO(conn))
+            using (var dao = new AlternativaDAO(conn))
             {
                 dao.Remove(this, transaction);
             }
@@ -57,15 +57,15 @@ namespace ClienteTatoo.Model
 
         public bool SetById(int id, Connection conn, SQLiteTransaction transaction)
         {
-            using (var dao = new RespostaDAO(conn))
+            using (var dao = new AlternativaDAO(conn))
             {
                 return dao.SetById(this, id, transaction);
             }
         }
 
-        public static List<Resposta> GetByIdPergunta(int idPergunta, bool somenteAtivas, Connection conn, SQLiteTransaction transaction)
+        public static List<Alternativa> GetByIdPergunta(int idPergunta, bool somenteAtivas, Connection conn, SQLiteTransaction transaction)
         {
-            using (var dao = new RespostaDAO(conn))
+            using (var dao = new AlternativaDAO(conn))
             {
                 if (somenteAtivas)
                     return dao.GetAtivasByIdPergunta(idPergunta, transaction);

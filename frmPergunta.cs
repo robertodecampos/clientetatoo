@@ -25,24 +25,24 @@ namespace ClienteTatoo
             Pergunta.Tipo = tipoPergunta;
         }
 
-        public FormPergunta(int idResposta, TipoPergunta tipoPergunta) : this(tipoPergunta)
+        public FormPergunta(int idAlternativa, TipoPergunta tipoPergunta) : this(tipoPergunta)
         {
-            Pergunta.IdResposta = idResposta;
+            Pergunta.IdAlternativa = idAlternativa;
         }
 
         public FormPergunta(Pergunta pergunta) : this(pergunta.Tipo)
         {
             Pergunta.Id = pergunta.Id;
-            Pergunta.IdResposta = pergunta.IdResposta;
+            Pergunta.IdAlternativa = pergunta.IdAlternativa;
 
             txtDescricao.Text = pergunta.Descricao;
-            if (pergunta.RespostaDissertativa)
+            if (pergunta.Dissertativa)
                 rbDissertativa.Checked = true;
-            else if (pergunta.RespostaUnica)
+            else if (pergunta.AlternativaUnica)
                 rbSelecaoUnica.Checked = true;
             else
                 rbMultiplaSelecao.Checked = true;
-            cbxRespostaObrigatoria.Checked = pergunta.Obrigatoria;
+            cbxAlternativaObrigatoria.Checked = pergunta.Obrigatoria;
         }
 
         private bool IsValid()
@@ -52,7 +52,7 @@ namespace ClienteTatoo
             if (Pergunta.IsValid(out mensagem))
             {
                 if (!rbDissertativa.Checked && !rbMultiplaSelecao.Checked && !rbSelecaoUnica.Checked)
-                    mensagem = "Selecione o tipo de resposta para essa pergunta!";
+                    mensagem = "Selecione o tipo de alternativa para essa pergunta!";
             }
 
             if (mensagem == string.Empty)
@@ -69,9 +69,9 @@ namespace ClienteTatoo
             try
             {
                 Pergunta.Descricao = txtDescricao.Text;
-                Pergunta.RespostaDissertativa = rbDissertativa.Checked;
-                Pergunta.RespostaUnica = rbSelecaoUnica.Checked;
-                Pergunta.Obrigatoria = cbxRespostaObrigatoria.Checked;
+                Pergunta.Dissertativa = rbDissertativa.Checked;
+                Pergunta.AlternativaUnica = rbSelecaoUnica.Checked;
+                Pergunta.Obrigatoria = cbxAlternativaObrigatoria.Checked;
 
                 if (!IsValid())
                 {

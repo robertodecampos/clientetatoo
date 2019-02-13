@@ -21,8 +21,8 @@ namespace ClienteTatoo.DAO
             if (model.Id != 0)
                 throw new Exception("Não é possível inserir um registro que já possuí identificador!");
 
-            string sql = "INSERT INTO perguntas (idResposta, descricao, respostaUnica, respostaDissertativa, obrigatoria, tipo)" +
-                         " VALUES (@idResposta, @descricao, @respostaUnica, @respostaDissertativa, @obrigatoria, @tipo)";
+            string sql = "INSERT INTO perguntas (idAlternativa, descricao, alternativaUnica, alternativaDissertativa, obrigatoria, tipo)" +
+                         " VALUES (@idAlternativa, @descricao, @alternativaUnica, @dissertativa, @obrigatoria, @tipo)";
 
             var parameters = GetParameters(model);
 
@@ -45,7 +45,7 @@ namespace ClienteTatoo.DAO
                          " removida = 1" +
                          " WHERE id = @id";
 
-            List<SQLiteParameter> parameters = GetParameters(model);
+            var parameters = new List<SQLiteParameter>();
             parameters.Add(new SQLiteParameter("@id", DbType.Int32) { Value = model.Id });
 
             return _conn.Execute(sql, parameters, transaction);
@@ -60,8 +60,8 @@ namespace ClienteTatoo.DAO
                 throw new Exception("Existem informações inconsistentes!");
 
             string sql = "UPDATE perguntas SET" +
-                         " idResposta = @idResposta, descricao = @descricao, respostaUnica = @respostaUnica, tipo = @tipo," +
-                         " respostaDissertativa = @respostaDissertativa, obrigatoria = @obrigatoria, ativada = @ativada" +
+                         " idAlternativa = @idAlternativa, descricao = @descricao, alternativaUnica = @alternativaUnica, tipo = @tipo," +
+                         " alternativaDissertativa = @dissertativa, obrigatoria = @obrigatoria, ativada = @ativada" +
                          " WHERE id = @id";
 
             List<SQLiteParameter> parameters = GetParameters(model);
@@ -108,7 +108,7 @@ namespace ClienteTatoo.DAO
             string sql = "SELECT *" +
                          " FROM perguntas a" +
                          $" WHERE a.`tipo` = '{tipo}'" +
-                         " AND a.`idResposta` IS NULL" +
+                         " AND a.`idAlternativa` IS NULL" +
                          " AND NOT a.`removida`";
 
             DataTable dt = _conn.ExecuteReader(sql, null, transaction);
@@ -141,7 +141,7 @@ namespace ClienteTatoo.DAO
             string sql = "SELECT *" +
                          " FROM perguntas a" +
                          $" WHERE a.`tipo` = '{tipo}'" +
-                         " AND a.`idResposta` IS NULL" +
+                         " AND a.`idAlternativa` IS NULL" +
                          " AND NOT a.`removida` AND a.`ativada`";
 
             DataTable dt = _conn.ExecuteReader(sql, null, transaction);
@@ -158,15 +158,15 @@ namespace ClienteTatoo.DAO
             return perguntas;
         }
 
-        public List<Pergunta> GetByIdResposta(int idResposta, SQLiteTransaction transaction)
+        public List<Pergunta> GetByIdAlternativa(int idAlternativa, SQLiteTransaction transaction)
         {
             string sql = "SELECT *" +
                          " FROM perguntas a" +
-                         " WHERE a.`idResposta` = @idResposta" +
+                         " WHERE a.`idAlternativa` = @idAlternativa" +
                          " AND NOT a.`removida`";
 
             var parameters = new List<SQLiteParameter>();
-            parameters.Add(new SQLiteParameter("@idResposta", DbType.Int32) { Value = idResposta });
+            parameters.Add(new SQLiteParameter("@idAlternativa", DbType.Int32) { Value = idAlternativa });
 
             DataTable dt = _conn.ExecuteReader(sql, parameters, transaction);
 
@@ -182,15 +182,15 @@ namespace ClienteTatoo.DAO
             return perguntas;
         }
 
-        public List<Pergunta> GetAtivasByIdResposta(int idResposta, SQLiteTransaction transaction)
+        public List<Pergunta> GetAtivasByIdAlternativa(int idAlternativa, SQLiteTransaction transaction)
         {
             string sql = "SELECT *" +
                          " FROM perguntas a" +
-                         " WHERE a.`idResposta` = @idResposta" +
+                         " WHERE a.`idAlternativa` = @idAlternativa" +
                          " AND NOT a.`removida` AND a.`ativada`";
 
             var parameters = new List<SQLiteParameter>();
-            parameters.Add(new SQLiteParameter("@idResposta", DbType.Int32) { Value = idResposta });
+            parameters.Add(new SQLiteParameter("@idAlternativa", DbType.Int32) { Value = idAlternativa });
 
             DataTable dt = _conn.ExecuteReader(sql, parameters, transaction);
 
@@ -209,10 +209,10 @@ namespace ClienteTatoo.DAO
         private List<SQLiteParameter> GetParameters(Pergunta model)
         {
             var parameters = new List<SQLiteParameter>();
-            parameters.Add(new SQLiteParameter("@idResposta", DbType.Int32) { Value = model.IdResposta });
+            parameters.Add(new SQLiteParameter("@idAlternativa", DbType.Int32) { Value = model.IdAlternativa });
             parameters.Add(new SQLiteParameter("@descricao", DbType.String) { Value = model.Descricao });
-            parameters.Add(new SQLiteParameter("@respostaUnica", DbType.Int16) { Value = model.RespostaUnica });
-            parameters.Add(new SQLiteParameter("@respostaDissertativa", DbType.Int16) { Value = model.RespostaDissertativa });
+            parameters.Add(new SQLiteParameter("@alternativaUnica", DbType.Int16) { Value = model.AlternativaUnica });
+            parameters.Add(new SQLiteParameter("@dissertativa", DbType.Int16) { Value = model.Dissertativa });
             parameters.Add(new SQLiteParameter("@obrigatoria", DbType.Int16) { Value = model.Obrigatoria });
 
             string tipo = null;
@@ -235,13 +235,13 @@ namespace ClienteTatoo.DAO
         private void PreencherModel(Pergunta model, DataRow dr)
         {
             model.Id = int.Parse(dr["id"].ToString());
-            if (dr["idResposta"].ToString() == "")
-                model.IdResposta = null;
+            if (dr["idAlternativa"].ToString() == "")
+                model.IdAlternativa = null;
             else
-                model.IdResposta = int.Parse(dr["idResposta"].ToString());
+                model.IdAlternativa = int.Parse(dr["idAlternativa"].ToString());
             model.Descricao = dr["descricao"].ToString();
-            model.RespostaUnica = (int.Parse(dr["respostaUnica"].ToString()) == 1);
-            model.RespostaDissertativa = (int.Parse(dr["respostaDissertativa"].ToString()) == 1);
+            model.AlternativaUnica = (int.Parse(dr["alternativaUnica"].ToString()) == 1);
+            model.Dissertativa = (int.Parse(dr["dissertativa"].ToString()) == 1);
             model.Obrigatoria = (int.Parse(dr["obrigatoria"].ToString()) == 1);
             model.Ativada = (int.Parse(dr["ativada"].ToString()) == 1);
 

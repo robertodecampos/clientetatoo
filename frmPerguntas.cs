@@ -17,14 +17,14 @@ namespace ClienteTatoo
     {
         private List<Pergunta> Perguntas { get; set; }
         private TipoPergunta TipoPergunta { get; set; }
-        private int? IdResposta { get; set; }
+        private int? IdAlternativa { get; set; }
 
-        private FormPerguntas(TipoPergunta tipoPergunta, int? idResposta)
+        private FormPerguntas(TipoPergunta tipoPergunta, int? idAlternativa)
         {
             InitializeComponent();
 
             TipoPergunta = tipoPergunta;
-            IdResposta = idResposta;
+            IdAlternativa = idAlternativa;
 
             switch (tipoPergunta)
             {
@@ -43,24 +43,24 @@ namespace ClienteTatoo
 
         public FormPerguntas(TipoPergunta tipoPergunta) : this(tipoPergunta, null) { }
 
-        public FormPerguntas(int idResposta, TipoPergunta tipoPergunta) : this(tipoPergunta, idResposta) { }
+        public FormPerguntas(int idAlternativa, TipoPergunta tipoPergunta) : this(tipoPergunta, idAlternativa) { }
 
         private void AtivarDesativarAcoes()
         {
             btnRemover.Visible = (lsvPerguntas.SelectedIndices.Count > 0);
             btnAtivarDesativar.Visible = GetVisibleAtivarDesativar();
             btnAlterar.Visible = lsvPerguntas.SelectedIndices.Count == 1;
-            btnConfigurarRespostas.Visible = ((lsvPerguntas.SelectedIndices.Count == 1) && !Perguntas[lsvPerguntas.SelectedIndices[0]].RespostaDissertativa);
+            btnConfigurarAlternativas.Visible = ((lsvPerguntas.SelectedIndices.Count == 1) && !Perguntas[lsvPerguntas.SelectedIndices[0]].Dissertativa);
         }
 
         private void CarregarPerguntas()
         {
             using (var conn = new Connection())
             {
-                if (IdResposta == null)
+                if (IdAlternativa == null)
                     Perguntas = Pergunta.GetPrincipaisByTipoPergunta(TipoPergunta, false, conn, null);
                 else
-                    Perguntas = Pergunta.GetByIdResposta((int)IdResposta, false, conn, null);
+                    Perguntas = Pergunta.GetByIdAlternativa((int)IdAlternativa, false, conn, null);
             }
 
             lsvPerguntas.Items.Clear();
@@ -71,9 +71,9 @@ namespace ClienteTatoo
 
                 item.Text = pergunta.Id.ToString();
                 item.SubItems.Add(pergunta.Descricao);
-                if (pergunta.RespostaDissertativa)
+                if (pergunta.Dissertativa)
                     item.SubItems.Add("Dissertativa");
-                else if (pergunta.RespostaUnica)
+                else if (pergunta.AlternativaUnica)
                     item.SubItems.Add("Seleção Única");
                 else
                     item.SubItems.Add("Múltipla Seleção");
@@ -117,7 +117,7 @@ namespace ClienteTatoo
 
         private void btnAdicionar_Click(object sender, EventArgs e)
         {
-            using (var frmPergunta = (IdResposta == null ? new FormPergunta(TipoPergunta) : new FormPergunta((int)IdResposta, TipoPergunta)))
+            using (var frmPergunta = (IdAlternativa == null ? new FormPergunta(TipoPergunta) : new FormPergunta((int)IdAlternativa, TipoPergunta)))
             {
                 if (frmPergunta.ShowDialog() == DialogResult.OK)
                     CarregarPerguntas();
@@ -176,14 +176,14 @@ namespace ClienteTatoo
             }
         }
 
-        private void btnConfigurarRespostas_Click(object sender, EventArgs e)
+        private void btnConfigurarAlternativas_Click(object sender, EventArgs e)
         {
-            if ((lsvPerguntas.SelectedIndices.Count != 1) || Perguntas[lsvPerguntas.SelectedIndices[0]].RespostaDissertativa)
+            if ((lsvPerguntas.SelectedIndices.Count != 1) || Perguntas[lsvPerguntas.SelectedIndices[0]].Dissertativa)
                 return;
 
-            using (var frmRespostas = new FormRespostas(Perguntas[lsvPerguntas.SelectedIndices[0]].Id))
+            using (var frmAlternativas = new FormAlternativas(Perguntas[lsvPerguntas.SelectedIndices[0]].Id))
             {
-                frmRespostas.ShowDialog();
+                frmAlternativas.ShowDialog();
             }
         }
 

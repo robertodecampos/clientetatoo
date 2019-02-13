@@ -96,7 +96,7 @@
     <Compile Include="DAO\EstadoDAO.cs" />
     <Compile Include="DAO\IDao.cs" />
     <Compile Include="DAO\PerguntaDAO.cs" />
-    <Compile Include="DAO\RespostaDAO.cs" />
+    <Compile Include="DAO\AlternativaDAO.cs" />
     <Compile Include="DAO\SessaoDAO.cs" />
     <Compile Include="DAO\TatuagemDAO.cs" />
     <Compile Include="DAO\TermoResponsabilidadeDAO.cs" />
@@ -114,17 +114,17 @@
     <Compile Include="frmPerguntas.Designer.cs">
       <DependentUpon>frmPerguntas.cs</DependentUpon>
     </Compile>
-    <Compile Include="frmResposta.cs">
+    <Compile Include="frmAlternativa.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmResposta.Designer.cs">
-      <DependentUpon>frmResposta.cs</DependentUpon>
+    <Compile Include="frmAlternativa.Designer.cs">
+      <DependentUpon>frmAlternativa.cs</DependentUpon>
     </Compile>
-    <Compile Include="frmRespostas.cs">
+    <Compile Include="frmAlternativas.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmRespostas.Designer.cs">
-      <DependentUpon>frmRespostas.cs</DependentUpon>
+    <Compile Include="frmAlternativas.Designer.cs">
+      <DependentUpon>frmAlternativas.cs</DependentUpon>
     </Compile>
     <Compile Include="frmSessao.cs">
       <SubType>Form</SubType>
@@ -199,7 +199,7 @@
     <Compile Include="Model\Filter\ClienteFilter.cs" />
     <Compile Include="Model\Ordenation\ClienteOrdenation.cs" />
     <Compile Include="Model\Pergunta.cs" />
-    <Compile Include="Model\Resposta.cs" />
+    <Compile Include="Model\Alternativa.cs" />
     <Compile Include="Model\Sessao.cs" />
     <Compile Include="Model\Tatuagem.cs" />
     <Compile Include="Model\TermoResponsabilidade.cs" />
@@ -219,11 +219,11 @@
     <EmbeddedResource Include="frmPerguntas.resx">
       <DependentUpon>frmPerguntas.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmResposta.resx">
-      <DependentUpon>frmResposta.cs</DependentUpon>
+    <EmbeddedResource Include="frmAlternativa.resx">
+      <DependentUpon>frmAlternativa.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmRespostas.resx">
-      <DependentUpon>frmRespostas.cs</DependentUpon>
+    <EmbeddedResource Include="frmAlternativas.resx">
+      <DependentUpon>frmAlternativas.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmSessao.resx">
       <DependentUpon>frmSessao.cs</DependentUpon>

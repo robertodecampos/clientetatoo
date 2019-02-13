@@ -31,7 +31,7 @@
             this.msPricipal = new System.Windows.Forms.MenuStrip();
             this.configurarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.termoDeResponsabilidadeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.perguntasERespostasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.perguntasEAlternativasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.informaçõesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.versãoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.btnCadastrar = new System.Windows.Forms.Button();
@@ -68,7 +68,7 @@
             // 
             this.configurarToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.termoDeResponsabilidadeToolStripMenuItem,
-            this.perguntasERespostasToolStripMenuItem});
+            this.perguntasEAlternativasToolStripMenuItem});
             this.configurarToolStripMenuItem.Name = "configurarToolStripMenuItem";
             this.configurarToolStripMenuItem.Size = new System.Drawing.Size(76, 20);
             this.configurarToolStripMenuItem.Text = "Configurar";
@@ -80,14 +80,14 @@
             this.termoDeResponsabilidadeToolStripMenuItem.Text = "Termo de Responsabilidade";
             this.termoDeResponsabilidadeToolStripMenuItem.Click += new System.EventHandler(this.termoDeResponsabilidadeToolStripMenuItem_Click);
             // 
-            // perguntasERespostasToolStripMenuItem
+            // perguntasEAlternativasToolStripMenuItem
             // 
-            this.perguntasERespostasToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.perguntasEAlternativasToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.clientesToolStripMenuItem,
             this.tatuagensToolStripMenuItem});
-            this.perguntasERespostasToolStripMenuItem.Name = "perguntasERespostasToolStripMenuItem";
-            this.perguntasERespostasToolStripMenuItem.Size = new System.Drawing.Size(219, 22);
-            this.perguntasERespostasToolStripMenuItem.Text = "Perguntas e Respostas";
+            this.perguntasEAlternativasToolStripMenuItem.Name = "perguntasEAlternativasToolStripMenuItem";
+            this.perguntasEAlternativasToolStripMenuItem.Size = new System.Drawing.Size(219, 22);
+            this.perguntasEAlternativasToolStripMenuItem.Text = "Perguntas e Alternativas";
             // 
             // informaçõesToolStripMenuItem
             // 
@@ -300,7 +300,7 @@
         private System.Windows.Forms.Button btnTatuagens;
         private System.Windows.Forms.ToolStripMenuItem informaçõesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem versãoToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem perguntasERespostasToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem perguntasEAlternativasToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem clientesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem tatuagensToolStripMenuItem;
     }

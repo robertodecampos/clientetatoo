@@ -30,13 +30,13 @@
         {
             this.label1 = new System.Windows.Forms.Label();
             this.txtDescricao = new System.Windows.Forms.TextBox();
-            this.gbxTipoResposta = new System.Windows.Forms.GroupBox();
+            this.gbxTipoAlternativa = new System.Windows.Forms.GroupBox();
             this.rbDissertativa = new System.Windows.Forms.RadioButton();
             this.rbMultiplaSelecao = new System.Windows.Forms.RadioButton();
             this.rbSelecaoUnica = new System.Windows.Forms.RadioButton();
-            this.cbxRespostaObrigatoria = new System.Windows.Forms.CheckBox();
+            this.cbxAlternativaObrigatoria = new System.Windows.Forms.CheckBox();
             this.btnSalvar = new System.Windows.Forms.Button();
-            this.gbxTipoResposta.SuspendLayout();
+            this.gbxTipoAlternativa.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
@@ -57,19 +57,19 @@
             this.txtDescricao.Size = new System.Drawing.Size(311, 20);
             this.txtDescricao.TabIndex = 1;
             // 
-            // gbxTipoResposta
+            // gbxTipoAlternativa
             // 
-            this.gbxTipoResposta.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.gbxTipoAlternativa.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.gbxTipoResposta.Controls.Add(this.rbSelecaoUnica);
-            this.gbxTipoResposta.Controls.Add(this.rbMultiplaSelecao);
-            this.gbxTipoResposta.Controls.Add(this.rbDissertativa);
-            this.gbxTipoResposta.Location = new System.Drawing.Point(12, 51);
-            this.gbxTipoResposta.Name = "gbxTipoResposta";
-            this.gbxTipoResposta.Size = new System.Drawing.Size(311, 90);
-            this.gbxTipoResposta.TabIndex = 2;
-            this.gbxTipoResposta.TabStop = false;
-            this.gbxTipoResposta.Text = "Tipo de Reposta";
+            this.gbxTipoAlternativa.Controls.Add(this.rbSelecaoUnica);
+            this.gbxTipoAlternativa.Controls.Add(this.rbMultiplaSelecao);
+            this.gbxTipoAlternativa.Controls.Add(this.rbDissertativa);
+            this.gbxTipoAlternativa.Location = new System.Drawing.Point(12, 51);
+            this.gbxTipoAlternativa.Name = "gbxTipoAlternativa";
+            this.gbxTipoAlternativa.Size = new System.Drawing.Size(311, 90);
+            this.gbxTipoAlternativa.TabIndex = 2;
+            this.gbxTipoAlternativa.TabStop = false;
+            this.gbxTipoAlternativa.Text = "Tipo de Reposta";
             // 
             // rbDissertativa
             // 
@@ -104,15 +104,15 @@
             this.rbSelecaoUnica.Text = "Seleção ùnica";
             this.rbSelecaoUnica.UseVisualStyleBackColor = true;
             // 
-            // cbxRespostaObrigatoria
+            // cbxAlternativaObrigatoria
             // 
-            this.cbxRespostaObrigatoria.AutoSize = true;
-            this.cbxRespostaObrigatoria.Location = new System.Drawing.Point(12, 147);
-            this.cbxRespostaObrigatoria.Name = "cbxRespostaObrigatoria";
-            this.cbxRespostaObrigatoria.Size = new System.Drawing.Size(125, 17);
-            this.cbxRespostaObrigatoria.TabIndex = 3;
-            this.cbxRespostaObrigatoria.Text = "Resposta Obrigatória";
-            this.cbxRespostaObrigatoria.UseVisualStyleBackColor = true;
+            this.cbxAlternativaObrigatoria.AutoSize = true;
+            this.cbxAlternativaObrigatoria.Location = new System.Drawing.Point(12, 147);
+            this.cbxAlternativaObrigatoria.Name = "cbxAlternativaObrigatoria";
+            this.cbxAlternativaObrigatoria.Size = new System.Drawing.Size(125, 17);
+            this.cbxAlternativaObrigatoria.TabIndex = 3;
+            this.cbxAlternativaObrigatoria.Text = "Alternativa Obrigatória";
+            this.cbxAlternativaObrigatoria.UseVisualStyleBackColor = true;
             // 
             // btnSalvar
             // 
@@ -132,8 +132,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(335, 228);
             this.Controls.Add(this.btnSalvar);
-            this.Controls.Add(this.cbxRespostaObrigatoria);
-            this.Controls.Add(this.gbxTipoResposta);
+            this.Controls.Add(this.cbxAlternativaObrigatoria);
+            this.Controls.Add(this.gbxTipoAlternativa);
             this.Controls.Add(this.txtDescricao);
             this.Controls.Add(this.label1);
             this.MaximizeBox = false;
@@ -143,8 +143,8 @@
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Pergunta";
-            this.gbxTipoResposta.ResumeLayout(false);
-            this.gbxTipoResposta.PerformLayout();
+            this.gbxTipoAlternativa.ResumeLayout(false);
+            this.gbxTipoAlternativa.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -154,11 +154,11 @@
 
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox txtDescricao;
-        private System.Windows.Forms.GroupBox gbxTipoResposta;
+        private System.Windows.Forms.GroupBox gbxTipoAlternativa;
         private System.Windows.Forms.RadioButton rbSelecaoUnica;
         private System.Windows.Forms.RadioButton rbMultiplaSelecao;
         private System.Windows.Forms.RadioButton rbDissertativa;
-        private System.Windows.Forms.CheckBox cbxRespostaObrigatoria;
+        private System.Windows.Forms.CheckBox cbxAlternativaObrigatoria;
         private System.Windows.Forms.Button btnSalvar;
     }
 }

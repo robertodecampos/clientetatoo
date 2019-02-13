@@ -14,10 +14,10 @@ namespace ClienteTatoo.Model
     public class Pergunta : IDisposable
     {
         public int Id { get; set; }
-        public int? IdResposta { get; set; } = null;
+        public int? IdAlternativa { get; set; } = null;
         public string Descricao { get; set; }
-        public bool RespostaUnica { get; set; }
-        public bool RespostaDissertativa { get; set; }
+        public bool AlternativaUnica { get; set; }
+        public bool Dissertativa { get; set; }
         public bool Obrigatoria { get; set; }
         public bool Ativada { get; set; } = true;
         public TipoPergunta Tipo { get; set; }
@@ -79,14 +79,14 @@ namespace ClienteTatoo.Model
             }
         }
 
-        public static List<Pergunta> GetByIdResposta(int idResposta, bool somenteAtivas, Connection conn, SQLiteTransaction transaction)
+        public static List<Pergunta> GetByIdAlternativa(int idAlternativa, bool somenteAtivas, Connection conn, SQLiteTransaction transaction)
         {
             using (var dao = new PerguntaDAO(conn))
             {
                 if (somenteAtivas)
-                    return dao.GetAtivasByIdResposta(idResposta, transaction);
+                    return dao.GetAtivasByIdAlternativa(idAlternativa, transaction);
                 else
-                    return dao.GetByIdResposta(idResposta, transaction);
+                    return dao.GetByIdAlternativa(idAlternativa, transaction);
             }
         }
 

@@ -1,6 +1,6 @@
 ﻿namespace ClienteTatoo
 {
-    partial class FormResposta
+    partial class FormAlternativa
     {
         /// <summary>
         /// Required designer variable.
@@ -74,7 +74,7 @@
             this.btnSalvar.UseVisualStyleBackColor = true;
             this.btnSalvar.Click += new System.EventHandler(this.btnSalvar_Click);
             // 
-            // FormResposta
+            // FormAlternativa
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -86,11 +86,11 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "FormResposta";
+            this.Name = "FormAlternativa";
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Resposta";
+            this.Text = "Alternativa";
             this.ResumeLayout(false);
             this.PerformLayout();
 
