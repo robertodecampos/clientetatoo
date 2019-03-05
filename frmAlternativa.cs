@@ -30,7 +30,6 @@ namespace ClienteTatoo
             Alternativa.Id = alternativa.Id;
 
             txtDescricao.Text = alternativa.Descricao;
-            cbxEspecificar.Checked = alternativa.Especificar;
         }
 
         private void btnSalvar_Click(object sender, EventArgs e)
@@ -38,7 +37,6 @@ namespace ClienteTatoo
             using (var conn = new Connection())
             {
                 Alternativa.Descricao = txtDescricao.Text;
-                Alternativa.Especificar = cbxEspecificar.Checked;
 
                 try
                 {

@@ -14,7 +14,6 @@ namespace ClienteTatoo.Model
         public int Id { get; set; }
         public int IdPergunta { get; set; }
         public string Descricao { get; set; }
-        public bool Especificar { get; set; }
         public bool Ativada { get; set; } = true;
 
         public bool IsValid(out string mensagem)

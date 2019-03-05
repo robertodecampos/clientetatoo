@@ -16,7 +16,6 @@ CREATE TABLE "alternativas" (
     `id` INTEGER PRIMARY KEY AUTOINCREMENT,
     `idPergunta` INTEGER NOT NULL,
     `descricao` TEXT NOT NULL,
-    `especificar` INTEGER,
     `ativada` INTEGER NOT NULL DEFAULT 1,
     `removida` INTEGER NOT NULL DEFAULT 0
 );

@@ -44,7 +44,6 @@ namespace ClienteTatoo
 
                 item.Text = alternativa.Id.ToString();
                 item.SubItems.Add(alternativa.Descricao);
-                item.SubItems.Add(alternativa.Especificar ? "Sim" : "Não");
                 item.SubItems.Add(alternativa.Ativada ? "Sim" : "Não");
 
                 lsvAlternativas.Items.Add(item);

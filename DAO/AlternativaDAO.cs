@@ -21,8 +21,8 @@ namespace ClienteTatoo.DAO
             if (model.Id != 0)
                 throw new Exception("Não é possível inserir um registro que já possuí identificador!");
 
-            string sql = "INSERT INTO alternativas (idPergunta, descricao, especificar)" +
-                         " VALUES (@idPergunta, @descricao, @especificar)";
+            string sql = "INSERT INTO alternativas (idPergunta, descricao)" +
+                         " VALUES (@idPergunta, @descricao)";
 
             var parameters = GetParameters(model);
 
@@ -60,7 +60,7 @@ namespace ClienteTatoo.DAO
                 throw new Exception("Existem informações inconsistentes!");
 
             string sql = "UPDATE alternativas SET" +
-                         " idPergunta = @idPergunta, descricao = @descricao, especificar = @especificar, ativada = @ativada" +
+                         " idPergunta = @idPergunta, descricao = @descricao, ativada = @ativada" +
                          " WHERE id = @id";
 
             List<SQLiteParameter> parameters = GetParameters(model);
@@ -145,7 +145,6 @@ namespace ClienteTatoo.DAO
 
             parameters.Add(new SQLiteParameter("@idPergunta", DbType.Int32) { Value = model.IdPergunta });
             parameters.Add(new SQLiteParameter("@descricao", DbType.String) { Value = model.Descricao });
-            parameters.Add(new SQLiteParameter("@especificar", DbType.Int16) { Value = model.Especificar });
 
             return parameters;
         }
@@ -155,7 +154,6 @@ namespace ClienteTatoo.DAO
             model.Id = int.Parse(dr["id"].ToString());
             model.IdPergunta = int.Parse(dr["idPergunta"].ToString());
             model.Descricao = dr["descricao"].ToString();
-            model.Especificar = (int.Parse(dr["especificar"].ToString()) == 1);
             model.Ativada = (int.Parse(dr["ativada"].ToString()) == 1);
         }
 

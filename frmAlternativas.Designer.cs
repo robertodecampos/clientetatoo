@@ -31,7 +31,6 @@
             this.lsvAlternativas = new System.Windows.Forms.ListView();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.btnRemover = new System.Windows.Forms.Button();
             this.btnAtivarDesativar = new System.Windows.Forms.Button();
@@ -45,7 +44,6 @@
             this.lsvAlternativas.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader1,
             this.columnHeader2,
-            this.columnHeader3,
             this.columnHeader4});
             this.lsvAlternativas.FullRowSelect = true;
             this.lsvAlternativas.Location = new System.Drawing.Point(12, 12);
@@ -64,11 +62,6 @@
             // columnHeader2
             // 
             this.columnHeader2.Text = "Descrição";
-            // 
-            // columnHeader3
-            // 
-            this.columnHeader3.Text = "Especificar";
-            this.columnHeader3.Width = 64;
             // 
             // columnHeader4
             // 
@@ -156,7 +149,6 @@
         #endregion
         private System.Windows.Forms.ColumnHeader columnHeader1;
         private System.Windows.Forms.ColumnHeader columnHeader2;
-        private System.Windows.Forms.ColumnHeader columnHeader3;
         private System.Windows.Forms.ColumnHeader columnHeader4;
         private System.Windows.Forms.Button btnRemover;
         private System.Windows.Forms.Button btnAtivarDesativar;
