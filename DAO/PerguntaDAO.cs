@@ -61,7 +61,7 @@ namespace ClienteTatoo.DAO
 
             string sql = "UPDATE perguntas SET" +
                          " idAlternativa = @idAlternativa, descricao = @descricao, alternativaUnica = @alternativaUnica, tipo = @tipo," +
-                         " alternativaDissertativa = @dissertativa, obrigatoria = @obrigatoria, ativada = @ativada" +
+                         " dissertativa = @dissertativa, obrigatoria = @obrigatoria, ativada = @ativada" +
                          " WHERE id = @id";
 
             List<SQLiteParameter> parameters = GetParameters(model);
