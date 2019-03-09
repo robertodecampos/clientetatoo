@@ -1,9 +1,11 @@
-﻿using ClienteTatoo.Model;
+﻿using ClienteTatoo.Control;
+using ClienteTatoo.Model;
 using ClienteTatoo.Utils;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SQLite;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -232,6 +234,33 @@ namespace ClienteTatoo
                 {
                     MessageBox.Show(mensagem, "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     DialogResult = DialogResult.None;
+                }
+            }
+        }
+
+        private void btnAlterarPesquisa_Click(object sender, EventArgs e)
+        {
+            using (var frmPesquisa = new FormPesquisa(TipoPergunta.Cliente, PesquisaControl.TipoFonte.Grande, false, IdCliente))
+            {
+                if (frmPesquisa.ShowDialog() != DialogResult.OK)
+                    return;
+
+                using (var conn = new Connection())
+                using (SQLiteTransaction transaction = conn.BeginTransaction())
+                {
+                    try
+                    {
+                        Resposta.SalvarRespostas(TipoPergunta.Cliente, Cliente.Id, frmPesquisa.Respostas, conn, transaction);
+
+                        transaction.Commit();
+
+                        MessageBox.Show("Pesquisa alterada com sucesso!", "Informação", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    } catch (Exception erro)
+                    {
+                        transaction.Rollback();
+
+                        MessageBox.Show(erro.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
             }
         }

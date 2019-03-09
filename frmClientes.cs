@@ -6,6 +6,7 @@ using ClienteTatoo.Model;
 using ClienteTatoo.Model.Filter;
 using ClienteTatoo.Model.Ordenation;
 using ClienteTatoo.Utils;
+using ClienteTatoo.Control;
 
 namespace ClienteTatoo
 {
@@ -14,6 +15,8 @@ namespace ClienteTatoo
         private List<Cliente> clientes;
         private List<ClienteFilter> filtros;
         private FormFiltroCliente frmFiltro = new FormFiltroCliente();
+
+        private enum PassoCadastro {DadosPessoais, Pesquisa};
 
         public FormClientes()
         {
@@ -81,10 +84,37 @@ namespace ClienteTatoo
         private void btnCadastrar_Click(object sender, EventArgs e)
         {
             using (var frmDadosPessoais = new FormDadosPessoaisCliente())
+            using (var frmPesquisa = new FormPesquisa(TipoPergunta.Cliente, PesquisaControl.TipoFonte.Grande, false))
             using (var cliente = new Cliente())
             {
-                if (frmDadosPessoais.ShowDialog() != DialogResult.OK)
-                    return;
+                frmDadosPessoais.btnOk.Text = "Avançar";
+                frmPesquisa.btnVoltar.Visible = true;
+
+                PassoCadastro passo = PassoCadastro.DadosPessoais;
+                bool cadastroFinalizado = false;
+
+                while (!cadastroFinalizado)
+                {
+                    switch (passo)
+                    {
+                        case PassoCadastro.DadosPessoais:
+                            if (frmDadosPessoais.ShowDialog() == DialogResult.OK)
+                                passo = PassoCadastro.Pesquisa;
+                            else
+                                return;
+                            break;
+                        case PassoCadastro.Pesquisa:
+                            DialogResult dialogResult = frmPesquisa.ShowDialog();
+
+                            if (dialogResult == DialogResult.OK)
+                                cadastroFinalizado = true;
+                            else if (dialogResult == DialogResult.Retry)
+                                passo = PassoCadastro.DadosPessoais;
+                            else
+                                return;
+                            break;
+                    }
+                }
 
                 using (var conn = new Connection())
                 using (SQLiteTransaction transaction = conn.BeginTransaction())
@@ -93,7 +123,11 @@ namespace ClienteTatoo
                     {
                         frmDadosPessoais.SetDadosInModel(cliente);
                         cliente.Salvar(conn, transaction);
+
+                        Resposta.SalvarRespostas(TipoPergunta.Cliente, cliente.Id, frmPesquisa.Respostas, conn, transaction);
+
                         transaction.Commit();
+
                         CarregarClientes();
                     }
                     catch (Exception erro)
@@ -128,60 +162,10 @@ namespace ClienteTatoo
         private void lsvClientes_SelectedIndexChanged(object sender, EventArgs e)
         {
             int qtdeSelecionado = lsvClientes.SelectedIndices.Count;
-            btnAlterarInformacoesPessoais.Visible = (qtdeSelecionado == 1);
             btnRemover.Visible = (qtdeSelecionado > 0);
+            btnAlterar.Visible = (qtdeSelecionado == 1);
+            btnVisualizarPesquisa.Visible = (qtdeSelecionado == 1);
             btnTatuagens.Visible = (qtdeSelecionado == 1);
-        }
-
-        private void btnAlterarInformacoesPessoais_Click(object sender, EventArgs e)
-        {
-            if (lsvClientes.SelectedIndices.Count == 0)
-            {
-                MessageBox.Show("Selecione um cliente para ser alterado!", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-            else if (lsvClientes.SelectedIndices.Count > 1)
-            {
-                MessageBox.Show("Selecione somente um cliente para ser alterado!", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-
-            using (var frmLogin = new FormLogin())
-            {
-                frmLogin.ShowDialog();
-                if (!frmLogin.Logado)
-                    return;
-            }
-
-            int idCliente = clientes[lsvClientes.SelectedIndices[0]].Id;
-
-            using (var cliente = new Cliente())
-            {
-                using (var conn = new Connection())
-                {
-                    if (!cliente.SetById(idCliente, conn, null))
-                    {
-                        MessageBox.Show($"Não foi possível encontrar o cliente com id `{idCliente}`", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        CarregarClientes();
-                        return;
-                    }
-                }
-
-                using (var frmDadosPessoais = new FormDadosPessoaisCliente(cliente))
-                {
-                    if (frmDadosPessoais.ShowDialog() != DialogResult.OK)
-                        return;
-
-                    frmDadosPessoais.SetDadosInModel(cliente);
-                }
-
-                using (var conn = new Connection())
-                {
-                    cliente.Salvar(conn, null);
-                    MessageBox.Show("Informações do cliente salva com sucesso!", "Informação", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    CarregarClientes();
-                }
-            }
         }
 
         private void OrganizarColunas()
@@ -272,6 +256,124 @@ namespace ClienteTatoo
             using (var frmVersao = new FormVersao())
             {
                 frmVersao.ShowDialog();
+            }
+        }
+
+        private void clientesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            using (var frmLogin = new FormLogin())
+            {
+                frmLogin.ShowDialog();
+                if (!frmLogin.Logado)
+                    return;
+            }
+
+            using (var frmPerguntas = new FormPerguntas(TipoPergunta.Cliente))
+            {
+                frmPerguntas.ShowDialog();
+            }
+        }
+
+        private void tatuagensToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            using (var frmLogin = new FormLogin())
+            {
+                frmLogin.ShowDialog();
+                if (!frmLogin.Logado)
+                    return;
+            }
+
+            using (var frmPerguntas = new FormPerguntas(TipoPergunta.Tatuagem))
+            {
+                frmPerguntas.ShowDialog();
+            }
+        }
+
+        private void btnAlterar_Click(object sender, EventArgs e)
+        {
+            if (lsvClientes.SelectedIndices.Count == 0)
+            {
+                MessageBox.Show("Selecione um cliente para ser alterado!", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            else if (lsvClientes.SelectedIndices.Count > 1)
+            {
+                MessageBox.Show("Selecione somente um cliente para ser alterado!", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            using (var frmLogin = new FormLogin())
+            {
+                frmLogin.ShowDialog();
+                if (!frmLogin.Logado)
+                    return;
+            }
+
+            int idCliente = clientes[lsvClientes.SelectedIndices[0]].Id;
+
+            using (var cliente = new Cliente())
+            {
+                using (var conn = new Connection())
+                {
+                    if (!cliente.SetById(idCliente, conn, null))
+                    {
+                        MessageBox.Show($"Não foi possível encontrar o cliente com id `{idCliente}`", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        CarregarClientes();
+                        return;
+                    }
+                }
+
+                using (var frmDadosPessoais = new FormDadosPessoaisCliente(cliente))
+                {
+                    frmDadosPessoais.btnAlterarPesquisa.Visible = true;
+
+                    if (frmDadosPessoais.ShowDialog() != DialogResult.OK)
+                        return;
+
+                    frmDadosPessoais.SetDadosInModel(cliente);
+                }
+
+                using (var conn = new Connection())
+                {
+                    cliente.Salvar(conn, null);
+                    MessageBox.Show("Informações do cliente salva com sucesso!", "Informação", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    CarregarClientes();
+                }
+            }
+        }
+
+        private void btnVisualizarPesquisa_Click(object sender, EventArgs e)
+        {
+            if (lsvClientes.SelectedIndices.Count != 1)
+                return;
+
+            using (var frmLogin = new FormLogin())
+            {
+                frmLogin.ShowDialog();
+                if (!frmLogin.Logado)
+                    return;
+            }
+
+            using (var frmPesquisa = new FormPesquisa(TipoPergunta.Cliente, PesquisaControl.TipoFonte.Normal, true, clientes[lsvClientes.SelectedIndices[0]].Id))
+            {
+                if (frmPesquisa.ShowDialog() != DialogResult.OK)
+                    return;
+
+                using (var conn = new Connection())
+                using (var transaction = conn.BeginTransaction())
+                {
+                    try
+                    {
+                        Resposta.SalvarRespostas(TipoPergunta.Cliente, clientes[lsvClientes.SelectedIndices[0]].Id, frmPesquisa.Respostas, conn, transaction);
+
+                        transaction.Commit();
+                    }
+                    catch (Exception erro)
+                    {
+                        transaction.Rollback();
+                        MessageBox.Show(erro.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
             }
         }
     }

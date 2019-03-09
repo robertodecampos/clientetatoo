@@ -1,14 +1,16 @@
-﻿using ClienteTatoo.Model;
+﻿using ClienteTatoo.Control;
+using ClienteTatoo.Model;
 using ClienteTatoo.Utils;
 using System;
 using System.Collections.Generic;
+using System.Data.SQLite;
 using System.Windows.Forms;
 
 namespace ClienteTatoo
 {
     public partial class FormTatuagens : Form
     {
-        private enum PassoCadastro { TermoResponsabilidade, Informacoes }
+        private enum PassoCadastro { TermoResponsabilidade, Informacoes, Pesquisa }
 
         private int IdCliente { get; set; }
         private List<Tatuagem> Tatuagens { get; set; }
@@ -93,13 +95,19 @@ namespace ClienteTatoo
 
             using (var frmTermoResponsabilidade = new FormTermoResponsabilidade())
             using (var frmTatuagem = new FormTatuagem(TipoAcao.Cadastro))
+            using (var frmPesquisa = new FormPesquisa(TipoPergunta.Tatuagem, PesquisaControl.TipoFonte.Grande, false))
             {
+                frmTatuagem.btnSalvar.Text = "Avançar";
+                frmPesquisa.btnVoltar.Visible = true;
+
                 PassoCadastro passo = PassoCadastro.TermoResponsabilidade;
 
                 bool finalizado = false;
 
                 while (!finalizado)
                 {
+                    DialogResult dr;
+
                     switch (passo)
                     {
                         case PassoCadastro.TermoResponsabilidade:
@@ -109,11 +117,20 @@ namespace ClienteTatoo
                                 return;
                             break;
                         case PassoCadastro.Informacoes:
-                            DialogResult dr = frmTatuagem.ShowDialog();
+                            dr = frmTatuagem.ShowDialog();
+                            if (dr == DialogResult.OK)
+                                passo = PassoCadastro.Pesquisa;
+                            else if (dr == DialogResult.Retry)
+                                passo = PassoCadastro.TermoResponsabilidade;
+                            else
+                                return;
+                            break;
+                        case PassoCadastro.Pesquisa:
+                            dr = frmPesquisa.ShowDialog();
                             if (dr == DialogResult.OK)
                                 finalizado = true;
                             else if (dr == DialogResult.Retry)
-                                passo = PassoCadastro.TermoResponsabilidade;
+                                passo = PassoCadastro.Informacoes;
                             else
                                 return;
                             break;
@@ -121,6 +138,7 @@ namespace ClienteTatoo
                 }
 
                 using (var conn = new Connection())
+                using (SQLiteTransaction transaction = conn.BeginTransaction())
                 using (var tatuagem = new Tatuagem())
                 {
                     try
@@ -128,12 +146,18 @@ namespace ClienteTatoo
                         tatuagem.IdCliente = IdCliente;
                         tatuagem.IdTermoResponsabilidade = frmTermoResponsabilidade.IdTermoResponsabilidade;
                         frmTatuagem.SetDadosInModel(tatuagem);
-                        tatuagem.Salvar(conn, null);
+                        tatuagem.Salvar(conn, transaction);
+
+                        Resposta.SalvarRespostas(TipoPergunta.Tatuagem, tatuagem.Id, frmPesquisa.Respostas, conn, transaction);
+
+                        transaction.Commit();
+
                         MessageBox.Show("Tatuagem inserida com sucesso!", "Informação", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         CarregarTatuagens();
                     }
                     catch (Exception erro)
                     {
+                        transaction.Rollback();
                         MessageBox.Show("Ocorreu um erro ao inserir a tatuagem!\n" + erro.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
@@ -145,6 +169,7 @@ namespace ClienteTatoo
             int qtdeSelecionada = lsvTatuagens.SelectedIndices.Count;
 
             btnAlterar.Visible = (qtdeSelecionada == 1);
+            btnVisualizarRespostas.Visible = (qtdeSelecionada == 1);
             btnSessoes.Visible = (qtdeSelecionada == 1);
         }
 
@@ -215,6 +240,25 @@ namespace ClienteTatoo
             using (var frmSessoes = new FormSessoes(idTatuagem))
             {
                 frmSessoes.ShowDialog();
+            }
+        }
+
+        private void btnVisualizarRespostas_Click(object sender, EventArgs e)
+        {
+            if (lsvTatuagens.SelectedIndices.Count == 0)
+            {
+                MessageBox.Show("Selecione uma tatuagem para visualizar as respostas!", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            else if (lsvTatuagens.SelectedIndices.Count > 1)
+            {
+                MessageBox.Show("Selecione somente uma tatuagem para visualizar as respostas!", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            using (var frmPesquisa = new FormPesquisa(TipoPergunta.Tatuagem, PesquisaControl.TipoFonte.Normal, true, Tatuagens[lsvTatuagens.SelectedIndices[0]].Id))
+            {
+                frmPesquisa.ShowDialog();
             }
         }
     }

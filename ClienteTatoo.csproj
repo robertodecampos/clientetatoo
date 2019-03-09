@@ -90,16 +90,61 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Control\AlternativaControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Control\PerguntaControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Control\PesquisaControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Control\PesquisaControl.Designer.cs">
+      <DependentUpon>PesquisaControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="DAO\CidadeDAO.cs" />
     <Compile Include="DAO\ClienteDAO.cs" />
     <Compile Include="DAO\EnderecoDAO.cs" />
     <Compile Include="DAO\EstadoDAO.cs" />
     <Compile Include="DAO\IDao.cs" />
+    <Compile Include="DAO\PerguntaDAO.cs" />
+    <Compile Include="DAO\AlternativaDAO.cs" />
+    <Compile Include="DAO\RespostaDAO.cs" />
     <Compile Include="DAO\SessaoDAO.cs" />
     <Compile Include="DAO\TatuagemDAO.cs" />
     <Compile Include="DAO\TermoResponsabilidadeDAO.cs" />
     <Compile Include="DAO\TipoLogradouroDAO.cs" />
     <Compile Include="DAO\UsuarioDAO.cs" />
+    <Compile Include="frmPesquisa.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmPesquisa.Designer.cs">
+      <DependentUpon>frmPesquisa.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmPergunta.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmPergunta.Designer.cs">
+      <DependentUpon>frmPergunta.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmPerguntas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmPerguntas.Designer.cs">
+      <DependentUpon>frmPerguntas.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmAlternativa.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmAlternativa.Designer.cs">
+      <DependentUpon>frmAlternativa.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmAlternativas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmAlternativas.Designer.cs">
+      <DependentUpon>frmAlternativas.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmSessao.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -172,6 +217,9 @@
     <Compile Include="Model\Estado.cs" />
     <Compile Include="Model\Filter\ClienteFilter.cs" />
     <Compile Include="Model\Ordenation\ClienteOrdenation.cs" />
+    <Compile Include="Model\Pergunta.cs" />
+    <Compile Include="Model\Alternativa.cs" />
+    <Compile Include="Model\Resposta.cs" />
     <Compile Include="Model\Sessao.cs" />
     <Compile Include="Model\Tatuagem.cs" />
     <Compile Include="Model\TermoResponsabilidade.cs" />
@@ -185,6 +233,24 @@
     <Compile Include="Utils\IConnection.cs" />
     <Compile Include="Utils\Ordenation.cs" />
     <Compile Include="Utils\Validation.cs" />
+    <EmbeddedResource Include="Control\PesquisaControl.resx">
+      <DependentUpon>PesquisaControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmPergunta.resx">
+      <DependentUpon>frmPergunta.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmPerguntas.resx">
+      <DependentUpon>frmPerguntas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmAlternativa.resx">
+      <DependentUpon>frmAlternativa.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmAlternativas.resx">
+      <DependentUpon>frmAlternativas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmPesquisa.resx">
+      <DependentUpon>frmPesquisa.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmSessao.resx">
       <DependentUpon>frmSessao.cs</DependentUpon>
     </EmbeddedResource>
