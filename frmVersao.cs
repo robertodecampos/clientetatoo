@@ -14,8 +14,8 @@ namespace ClienteTatoo
 
             using (var conn = new Connection())
             {
-                DataTable dt = conn.ExecuteReader("SELECT versao FROM versao", null, null);
-                lblBancoDados.Text = dt.Rows[0]["versao"].ToString();
+                DataTable dt = conn.ExecuteReader("PRAGMA user_version", null, null);
+                lblBancoDados.Text = dt.Rows[0]["user_version"].ToString();
             }
 
             using (var conn = new Connection(Database.Endereco))
