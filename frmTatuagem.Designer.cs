@@ -123,7 +123,7 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox txtLocal;
         private System.Windows.Forms.TextBox txtDesenho;
-        private System.Windows.Forms.Button btnSalvar;
         private System.Windows.Forms.Button btnVoltar;
+        public System.Windows.Forms.Button btnSalvar;
     }
 }
