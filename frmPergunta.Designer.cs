@@ -31,9 +31,9 @@
             this.label1 = new System.Windows.Forms.Label();
             this.txtDescricao = new System.Windows.Forms.TextBox();
             this.gbxTipoAlternativa = new System.Windows.Forms.GroupBox();
-            this.rbDissertativa = new System.Windows.Forms.RadioButton();
-            this.rbMultiplaSelecao = new System.Windows.Forms.RadioButton();
             this.rbSelecaoUnica = new System.Windows.Forms.RadioButton();
+            this.rbMultiplaSelecao = new System.Windows.Forms.RadioButton();
+            this.rbDissertativa = new System.Windows.Forms.RadioButton();
             this.cbxAlternativaObrigatoria = new System.Windows.Forms.CheckBox();
             this.btnSalvar = new System.Windows.Forms.Button();
             this.gbxTipoAlternativa.SuspendLayout();
@@ -71,16 +71,16 @@
             this.gbxTipoAlternativa.TabStop = false;
             this.gbxTipoAlternativa.Text = "Tipo de Reposta";
             // 
-            // rbDissertativa
+            // rbSelecaoUnica
             // 
-            this.rbDissertativa.AutoSize = true;
-            this.rbDissertativa.Location = new System.Drawing.Point(6, 19);
-            this.rbDissertativa.Name = "rbDissertativa";
-            this.rbDissertativa.Size = new System.Drawing.Size(80, 17);
-            this.rbDissertativa.TabIndex = 0;
-            this.rbDissertativa.TabStop = true;
-            this.rbDissertativa.Text = "Dissertativa";
-            this.rbDissertativa.UseVisualStyleBackColor = true;
+            this.rbSelecaoUnica.AutoSize = true;
+            this.rbSelecaoUnica.Location = new System.Drawing.Point(6, 65);
+            this.rbSelecaoUnica.Name = "rbSelecaoUnica";
+            this.rbSelecaoUnica.Size = new System.Drawing.Size(93, 17);
+            this.rbSelecaoUnica.TabIndex = 2;
+            this.rbSelecaoUnica.TabStop = true;
+            this.rbSelecaoUnica.Text = "Seleção ùnica";
+            this.rbSelecaoUnica.UseVisualStyleBackColor = true;
             // 
             // rbMultiplaSelecao
             // 
@@ -93,25 +93,25 @@
             this.rbMultiplaSelecao.Text = "Múltipla Seleção";
             this.rbMultiplaSelecao.UseVisualStyleBackColor = true;
             // 
-            // rbSelecaoUnica
+            // rbDissertativa
             // 
-            this.rbSelecaoUnica.AutoSize = true;
-            this.rbSelecaoUnica.Location = new System.Drawing.Point(6, 65);
-            this.rbSelecaoUnica.Name = "rbSelecaoUnica";
-            this.rbSelecaoUnica.Size = new System.Drawing.Size(93, 17);
-            this.rbSelecaoUnica.TabIndex = 2;
-            this.rbSelecaoUnica.TabStop = true;
-            this.rbSelecaoUnica.Text = "Seleção ùnica";
-            this.rbSelecaoUnica.UseVisualStyleBackColor = true;
+            this.rbDissertativa.AutoSize = true;
+            this.rbDissertativa.Location = new System.Drawing.Point(6, 19);
+            this.rbDissertativa.Name = "rbDissertativa";
+            this.rbDissertativa.Size = new System.Drawing.Size(80, 17);
+            this.rbDissertativa.TabIndex = 0;
+            this.rbDissertativa.TabStop = true;
+            this.rbDissertativa.Text = "Dissertativa";
+            this.rbDissertativa.UseVisualStyleBackColor = true;
             // 
             // cbxAlternativaObrigatoria
             // 
             this.cbxAlternativaObrigatoria.AutoSize = true;
             this.cbxAlternativaObrigatoria.Location = new System.Drawing.Point(12, 147);
             this.cbxAlternativaObrigatoria.Name = "cbxAlternativaObrigatoria";
-            this.cbxAlternativaObrigatoria.Size = new System.Drawing.Size(125, 17);
+            this.cbxAlternativaObrigatoria.Size = new System.Drawing.Size(123, 17);
             this.cbxAlternativaObrigatoria.TabIndex = 3;
-            this.cbxAlternativaObrigatoria.Text = "Alternativa Obrigatória";
+            this.cbxAlternativaObrigatoria.Text = "Pergunta Obrigatória";
             this.cbxAlternativaObrigatoria.UseVisualStyleBackColor = true;
             // 
             // btnSalvar
