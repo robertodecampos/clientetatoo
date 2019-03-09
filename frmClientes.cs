@@ -261,6 +261,13 @@ namespace ClienteTatoo
 
         private void clientesToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            using (var frmLogin = new FormLogin())
+            {
+                frmLogin.ShowDialog();
+                if (!frmLogin.Logado)
+                    return;
+            }
+
             using (var frmPerguntas = new FormPerguntas(TipoPergunta.Cliente))
             {
                 frmPerguntas.ShowDialog();
@@ -269,6 +276,13 @@ namespace ClienteTatoo
 
         private void tatuagensToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            using (var frmLogin = new FormLogin())
+            {
+                frmLogin.ShowDialog();
+                if (!frmLogin.Logado)
+                    return;
+            }
+
             using (var frmPerguntas = new FormPerguntas(TipoPergunta.Tatuagem))
             {
                 frmPerguntas.ShowDialog();
@@ -332,6 +346,13 @@ namespace ClienteTatoo
         {
             if (lsvClientes.SelectedIndices.Count != 1)
                 return;
+
+            using (var frmLogin = new FormLogin())
+            {
+                frmLogin.ShowDialog();
+                if (!frmLogin.Logado)
+                    return;
+            }
 
             using (var frmPesquisa = new FormPesquisa(TipoPergunta.Cliente, PesquisaControl.TipoFonte.Normal, true, clientes[lsvClientes.SelectedIndices[0]].Id))
             {
