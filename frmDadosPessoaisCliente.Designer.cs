@@ -57,6 +57,7 @@
             this.cmbCidade = new System.Windows.Forms.ComboBox();
             this.btnOk = new System.Windows.Forms.Button();
             this.txtDataNascimento = new System.Windows.Forms.MaskedTextBox();
+            this.btnAlterarPesquisa = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -333,11 +334,24 @@
             this.txtDataNascimento.Size = new System.Drawing.Size(150, 26);
             this.txtDataNascimento.TabIndex = 1;
             // 
+            // btnAlterarPesquisa
+            // 
+            this.btnAlterarPesquisa.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnAlterarPesquisa.Location = new System.Drawing.Point(12, 345);
+            this.btnAlterarPesquisa.Name = "btnAlterarPesquisa";
+            this.btnAlterarPesquisa.Size = new System.Drawing.Size(135, 35);
+            this.btnAlterarPesquisa.TabIndex = 27;
+            this.btnAlterarPesquisa.Text = "Alterar Pesquisa";
+            this.btnAlterarPesquisa.UseVisualStyleBackColor = true;
+            this.btnAlterarPesquisa.Visible = false;
+            this.btnAlterarPesquisa.Click += new System.EventHandler(this.btnAlterarPesquisa_Click);
+            // 
             // FormDadosPessoaisCliente
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(624, 392);
+            this.Controls.Add(this.btnAlterarPesquisa);
             this.Controls.Add(this.txtDataNascimento);
             this.Controls.Add(this.btnOk);
             this.Controls.Add(this.cmbCidade);
@@ -409,7 +423,8 @@
         private System.Windows.Forms.ComboBox cmbEstado;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.ComboBox cmbCidade;
-        private System.Windows.Forms.Button btnOk;
         private System.Windows.Forms.MaskedTextBox txtDataNascimento;
+        public System.Windows.Forms.Button btnOk;
+        public System.Windows.Forms.Button btnAlterarPesquisa;
     }
 }

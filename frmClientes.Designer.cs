@@ -32,6 +32,8 @@
             this.configurarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.termoDeResponsabilidadeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.perguntasEAlternativasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.clientesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.tatuagensToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.informaçõesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.versãoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.btnCadastrar = new System.Windows.Forms.Button();
@@ -45,11 +47,10 @@
             this.btnFiltrar = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.cmbOrdenacao = new System.Windows.Forms.ComboBox();
-            this.btnAlterarInformacoesPessoais = new System.Windows.Forms.Button();
+            this.btnAlterar = new System.Windows.Forms.Button();
             this.btnRemover = new System.Windows.Forms.Button();
             this.btnTatuagens = new System.Windows.Forms.Button();
-            this.clientesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.tatuagensToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnVisualizarPesquisa = new System.Windows.Forms.Button();
             this.msPricipal.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -88,6 +89,20 @@
             this.perguntasEAlternativasToolStripMenuItem.Name = "perguntasEAlternativasToolStripMenuItem";
             this.perguntasEAlternativasToolStripMenuItem.Size = new System.Drawing.Size(219, 22);
             this.perguntasEAlternativasToolStripMenuItem.Text = "Perguntas e Alternativas";
+            // 
+            // clientesToolStripMenuItem
+            // 
+            this.clientesToolStripMenuItem.Name = "clientesToolStripMenuItem";
+            this.clientesToolStripMenuItem.Size = new System.Drawing.Size(128, 22);
+            this.clientesToolStripMenuItem.Text = "Clientes";
+            this.clientesToolStripMenuItem.Click += new System.EventHandler(this.clientesToolStripMenuItem_Click);
+            // 
+            // tatuagensToolStripMenuItem
+            // 
+            this.tatuagensToolStripMenuItem.Name = "tatuagensToolStripMenuItem";
+            this.tatuagensToolStripMenuItem.Size = new System.Drawing.Size(128, 22);
+            this.tatuagensToolStripMenuItem.Text = "Tatuagens";
+            this.tatuagensToolStripMenuItem.Click += new System.EventHandler(this.tatuagensToolStripMenuItem_Click);
             // 
             // informaçõesToolStripMenuItem
             // 
@@ -202,17 +217,17 @@
             this.cmbOrdenacao.TabIndex = 5;
             this.cmbOrdenacao.SelectedIndexChanged += new System.EventHandler(this.cmbOrdenacao_SelectedIndexChanged);
             // 
-            // btnAlterarInformacoesPessoais
+            // btnAlterar
             // 
-            this.btnAlterarInformacoesPessoais.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnAlterarInformacoesPessoais.Location = new System.Drawing.Point(93, 423);
-            this.btnAlterarInformacoesPessoais.Name = "btnAlterarInformacoesPessoais";
-            this.btnAlterarInformacoesPessoais.Size = new System.Drawing.Size(156, 23);
-            this.btnAlterarInformacoesPessoais.TabIndex = 6;
-            this.btnAlterarInformacoesPessoais.Text = "Alterar Informações Pessoais";
-            this.btnAlterarInformacoesPessoais.UseVisualStyleBackColor = true;
-            this.btnAlterarInformacoesPessoais.Visible = false;
-            this.btnAlterarInformacoesPessoais.Click += new System.EventHandler(this.btnAlterarInformacoesPessoais_Click);
+            this.btnAlterar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnAlterar.Location = new System.Drawing.Point(93, 423);
+            this.btnAlterar.Name = "btnAlterar";
+            this.btnAlterar.Size = new System.Drawing.Size(68, 23);
+            this.btnAlterar.TabIndex = 6;
+            this.btnAlterar.Text = "Alterar";
+            this.btnAlterar.UseVisualStyleBackColor = true;
+            this.btnAlterar.Visible = false;
+            this.btnAlterar.Click += new System.EventHandler(this.btnAlterar_Click);
             // 
             // btnRemover
             // 
@@ -229,7 +244,7 @@
             // btnTatuagens
             // 
             this.btnTatuagens.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnTatuagens.Location = new System.Drawing.Point(255, 423);
+            this.btnTatuagens.Location = new System.Drawing.Point(281, 423);
             this.btnTatuagens.Name = "btnTatuagens";
             this.btnTatuagens.Size = new System.Drawing.Size(75, 23);
             this.btnTatuagens.TabIndex = 8;
@@ -238,28 +253,27 @@
             this.btnTatuagens.Visible = false;
             this.btnTatuagens.Click += new System.EventHandler(this.btnTatuagens_Click);
             // 
-            // clientesToolStripMenuItem
+            // btnVisualizarPesquisa
             // 
-            this.clientesToolStripMenuItem.Name = "clientesToolStripMenuItem";
-            this.clientesToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.clientesToolStripMenuItem.Text = "Clientes";
-            this.clientesToolStripMenuItem.Click += new System.EventHandler(this.clientesToolStripMenuItem_Click);
-            // 
-            // tatuagensToolStripMenuItem
-            // 
-            this.tatuagensToolStripMenuItem.Name = "tatuagensToolStripMenuItem";
-            this.tatuagensToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.tatuagensToolStripMenuItem.Text = "Tatuagens";
-            this.tatuagensToolStripMenuItem.Click += new System.EventHandler(this.tatuagensToolStripMenuItem_Click);
+            this.btnVisualizarPesquisa.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnVisualizarPesquisa.Location = new System.Drawing.Point(167, 423);
+            this.btnVisualizarPesquisa.Name = "btnVisualizarPesquisa";
+            this.btnVisualizarPesquisa.Size = new System.Drawing.Size(108, 23);
+            this.btnVisualizarPesquisa.TabIndex = 10;
+            this.btnVisualizarPesquisa.Text = "Visualizar Pesquisa";
+            this.btnVisualizarPesquisa.UseVisualStyleBackColor = true;
+            this.btnVisualizarPesquisa.Visible = false;
+            this.btnVisualizarPesquisa.Click += new System.EventHandler(this.btnVisualizarPesquisa_Click);
             // 
             // FormClientes
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(807, 458);
+            this.Controls.Add(this.btnVisualizarPesquisa);
             this.Controls.Add(this.btnTatuagens);
             this.Controls.Add(this.btnRemover);
-            this.Controls.Add(this.btnAlterarInformacoesPessoais);
+            this.Controls.Add(this.btnAlterar);
             this.Controls.Add(this.cmbOrdenacao);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.btnFiltrar);
@@ -295,7 +309,7 @@
         private System.Windows.Forms.Button btnFiltrar;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox cmbOrdenacao;
-        private System.Windows.Forms.Button btnAlterarInformacoesPessoais;
+        private System.Windows.Forms.Button btnAlterar;
         private System.Windows.Forms.Button btnRemover;
         private System.Windows.Forms.Button btnTatuagens;
         private System.Windows.Forms.ToolStripMenuItem informaçõesToolStripMenuItem;
@@ -303,6 +317,7 @@
         private System.Windows.Forms.ToolStripMenuItem perguntasEAlternativasToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem clientesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem tatuagensToolStripMenuItem;
+        private System.Windows.Forms.Button btnVisualizarPesquisa;
     }
 }
 
