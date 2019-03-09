@@ -20,4 +20,12 @@ CREATE TABLE "alternativas" (
     `removida` INTEGER NOT NULL DEFAULT 0
 );
 
+CREATE TABLE `respostas` (
+    `id` INTEGER PRIMARY KEY AUTOINCREMENT,
+    `idPergunta` INTEGER NOT NULL,
+    `idReferencia` INTEGER NOT NULL,
+    `idAlternativa` INTEGER,
+    `respostaDissertativa` TEXT
+);
+
 PRAGMA user_version = 1;
