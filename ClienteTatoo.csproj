@@ -115,6 +115,7 @@
     <Compile Include="DAO\TermoResponsabilidadeDAO.cs" />
     <Compile Include="DAO\TipoLogradouroDAO.cs" />
     <Compile Include="DAO\UsuarioDAO.cs" />
+    <Compile Include="Exceptions\PerguntasNotFoundException.cs" />
     <Compile Include="frmPesquisa.cs">
       <SubType>Form</SubType>
     </Compile>

@@ -7,6 +7,7 @@ using ClienteTatoo.Model.Filter;
 using ClienteTatoo.Model.Ordenation;
 using ClienteTatoo.Utils;
 using ClienteTatoo.Control;
+using ClienteTatoo.Exceptions;
 
 namespace ClienteTatoo
 {
@@ -83,59 +84,65 @@ namespace ClienteTatoo
 
         private void btnCadastrar_Click(object sender, EventArgs e)
         {
-            using (var frmDadosPessoais = new FormDadosPessoaisCliente())
-            using (var frmPesquisa = new FormPesquisa(TipoPergunta.Cliente, PesquisaControl.TipoFonte.Grande, false))
-            using (var cliente = new Cliente())
+            try
             {
-                frmDadosPessoais.btnOk.Text = "Avançar";
-                frmPesquisa.btnVoltar.Visible = true;
-
-                PassoCadastro passo = PassoCadastro.DadosPessoais;
-                bool cadastroFinalizado = false;
-
-                while (!cadastroFinalizado)
+                using (var frmDadosPessoais = new FormDadosPessoaisCliente())
+                using (var frmPesquisa = new FormPesquisa(TipoPergunta.Cliente, PesquisaControl.TipoFonte.Grande, false))
+                using (var cliente = new Cliente())
                 {
-                    switch (passo)
-                    {
-                        case PassoCadastro.DadosPessoais:
-                            if (frmDadosPessoais.ShowDialog() == DialogResult.OK)
-                                passo = PassoCadastro.Pesquisa;
-                            else
-                                return;
-                            break;
-                        case PassoCadastro.Pesquisa:
-                            DialogResult dialogResult = frmPesquisa.ShowDialog();
+                    frmDadosPessoais.btnOk.Text = "Avançar";
+                    frmPesquisa.btnVoltar.Visible = true;
 
-                            if (dialogResult == DialogResult.OK)
-                                cadastroFinalizado = true;
-                            else if (dialogResult == DialogResult.Retry)
-                                passo = PassoCadastro.DadosPessoais;
-                            else
-                                return;
-                            break;
+                    PassoCadastro passo = PassoCadastro.DadosPessoais;
+                    bool cadastroFinalizado = false;
+
+                    while (!cadastroFinalizado)
+                    {
+                        switch (passo)
+                        {
+                            case PassoCadastro.DadosPessoais:
+                                if (frmDadosPessoais.ShowDialog() == DialogResult.OK)
+                                    passo = PassoCadastro.Pesquisa;
+                                else
+                                    return;
+                                break;
+                            case PassoCadastro.Pesquisa:
+                                DialogResult dialogResult = frmPesquisa.ShowDialog();
+
+                                if (dialogResult == DialogResult.OK)
+                                    cadastroFinalizado = true;
+                                else if (dialogResult == DialogResult.Retry)
+                                    passo = PassoCadastro.DadosPessoais;
+                                else
+                                    return;
+                                break;
+                        }
+                    }
+
+                    using (var conn = new Connection())
+                    using (SQLiteTransaction transaction = conn.BeginTransaction())
+                    {
+                        try
+                        {
+                            frmDadosPessoais.SetDadosInModel(cliente);
+                            cliente.Salvar(conn, transaction);
+
+                            Resposta.SalvarRespostas(TipoPergunta.Cliente, cliente.Id, frmPesquisa.Respostas, conn, transaction);
+
+                            transaction.Commit();
+
+                            CarregarClientes();
+                        }
+                        catch (Exception erro)
+                        {
+                            MessageBox.Show("Ocorreu um erro ao salvar o cliente:\n" + erro.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            transaction.Rollback();
+                        }
                     }
                 }
-
-                using (var conn = new Connection())
-                using (SQLiteTransaction transaction = conn.BeginTransaction())
-                {
-                    try
-                    {
-                        frmDadosPessoais.SetDadosInModel(cliente);
-                        cliente.Salvar(conn, transaction);
-
-                        Resposta.SalvarRespostas(TipoPergunta.Cliente, cliente.Id, frmPesquisa.Respostas, conn, transaction);
-
-                        transaction.Commit();
-
-                        CarregarClientes();
-                    }
-                    catch (Exception erro)
-                    {
-                        MessageBox.Show("Ocorreu um erro ao salvar o cliente:\n" + erro.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        transaction.Rollback();
-                    }
-                }
+            } catch (PerguntasNotFoundException erro)
+            {
+                MessageBox.Show(erro.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -354,26 +361,32 @@ namespace ClienteTatoo
                     return;
             }
 
-            using (var frmPesquisa = new FormPesquisa(TipoPergunta.Cliente, PesquisaControl.TipoFonte.Normal, true, clientes[lsvClientes.SelectedIndices[0]].Id))
+            try
             {
-                if (frmPesquisa.ShowDialog() != DialogResult.OK)
-                    return;
-
-                using (var conn = new Connection())
-                using (var transaction = conn.BeginTransaction())
+                using (var frmPesquisa = new FormPesquisa(TipoPergunta.Cliente, PesquisaControl.TipoFonte.Normal, true, clientes[lsvClientes.SelectedIndices[0]].Id))
                 {
-                    try
-                    {
-                        Resposta.SalvarRespostas(TipoPergunta.Cliente, clientes[lsvClientes.SelectedIndices[0]].Id, frmPesquisa.Respostas, conn, transaction);
+                    if (frmPesquisa.ShowDialog() != DialogResult.OK)
+                        return;
 
-                        transaction.Commit();
-                    }
-                    catch (Exception erro)
+                    using (var conn = new Connection())
+                    using (var transaction = conn.BeginTransaction())
                     {
-                        transaction.Rollback();
-                        MessageBox.Show(erro.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        try
+                        {
+                            Resposta.SalvarRespostas(TipoPergunta.Cliente, clientes[lsvClientes.SelectedIndices[0]].Id, frmPesquisa.Respostas, conn, transaction);
+
+                            transaction.Commit();
+                        }
+                        catch (Exception erro)
+                        {
+                            transaction.Rollback();
+                            MessageBox.Show(erro.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
                     }
                 }
+            } catch (PerguntasNotFoundException erro)
+            {
+                MessageBox.Show(erro.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }

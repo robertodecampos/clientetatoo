@@ -1,4 +1,5 @@
 ﻿using ClienteTatoo.Control;
+using ClienteTatoo.Exceptions;
 using ClienteTatoo.Model;
 using ClienteTatoo.Utils;
 using System;
@@ -240,28 +241,35 @@ namespace ClienteTatoo
 
         private void btnAlterarPesquisa_Click(object sender, EventArgs e)
         {
-            using (var frmPesquisa = new FormPesquisa(TipoPergunta.Cliente, PesquisaControl.TipoFonte.Grande, false, IdCliente))
+            try
             {
-                if (frmPesquisa.ShowDialog() != DialogResult.OK)
-                    return;
-
-                using (var conn = new Connection())
-                using (SQLiteTransaction transaction = conn.BeginTransaction())
+                using (var frmPesquisa = new FormPesquisa(TipoPergunta.Cliente, PesquisaControl.TipoFonte.Grande, false, IdCliente))
                 {
-                    try
+                    if (frmPesquisa.ShowDialog() != DialogResult.OK)
+                        return;
+
+                    using (var conn = new Connection())
+                    using (SQLiteTransaction transaction = conn.BeginTransaction())
                     {
-                        Resposta.SalvarRespostas(TipoPergunta.Cliente, Cliente.Id, frmPesquisa.Respostas, conn, transaction);
+                        try
+                        {
+                            Resposta.SalvarRespostas(TipoPergunta.Cliente, Cliente.Id, frmPesquisa.Respostas, conn, transaction);
 
-                        transaction.Commit();
+                            transaction.Commit();
 
-                        MessageBox.Show("Pesquisa alterada com sucesso!", "Informação", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    } catch (Exception erro)
-                    {
-                        transaction.Rollback();
+                            MessageBox.Show("Pesquisa alterada com sucesso!", "Informação", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                        catch (Exception erro)
+                        {
+                            transaction.Rollback();
 
-                        MessageBox.Show(erro.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            MessageBox.Show(erro.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
                     }
                 }
+            } catch (PerguntasNotFoundException erro)
+            {
+                MessageBox.Show(erro.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }

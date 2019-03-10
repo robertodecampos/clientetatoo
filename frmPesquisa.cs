@@ -5,6 +5,7 @@ using System.Windows.Forms;
 using ClienteTatoo.Control;
 using ClienteTatoo.Model;
 using ClienteTatoo.Utils;
+using ClienteTatoo.Exceptions;
 
 namespace ClienteTatoo
 {
@@ -40,6 +41,9 @@ namespace ClienteTatoo
 
             CarregarPerguntas(null);
 
+            if (Perguntas.Count == 0)
+                throw new PerguntasNotFoundException("Não existe nenhuma pergunta cadastrada, todas as perguntas estão desativadas ou as perguntas não possuem alternativas!");
+            
             pesquisaControl = new PesquisaControl(Perguntas, tipoFonte, somenteLeitura);
             pesquisaControl.Width = ClientSize.Width - 16;
             pesquisaControl.Left = 8;
@@ -59,12 +63,7 @@ namespace ClienteTatoo
                 List<Pergunta> perguntas;
 
                 if (idAlternativa == null)
-                {
                     perguntas = Pergunta.GetPrincipaisByTipoPergunta(TipoPergunta, true, conn, null);
-
-                    if (perguntas.Count == 0)
-                        throw new Exception("Não existe nenhuma pergunta cadastrada ou não existe nenhuma ativa");
-                }
                 else
                     perguntas = Pergunta.GetByIdAlternativa((int)idAlternativa, true, conn, null);
 

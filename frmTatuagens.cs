@@ -1,4 +1,5 @@
 ﻿using ClienteTatoo.Control;
+using ClienteTatoo.Exceptions;
 using ClienteTatoo.Model;
 using ClienteTatoo.Utils;
 using System;
@@ -93,74 +94,80 @@ namespace ClienteTatoo
                 }
             }
 
-            using (var frmTermoResponsabilidade = new FormTermoResponsabilidade())
-            using (var frmTatuagem = new FormTatuagem(TipoAcao.Cadastro))
-            using (var frmPesquisa = new FormPesquisa(TipoPergunta.Tatuagem, PesquisaControl.TipoFonte.Grande, false))
+            try
             {
-                frmTatuagem.btnSalvar.Text = "Avançar";
-                frmPesquisa.btnVoltar.Visible = true;
-
-                PassoCadastro passo = PassoCadastro.TermoResponsabilidade;
-
-                bool finalizado = false;
-
-                while (!finalizado)
+                using (var frmTermoResponsabilidade = new FormTermoResponsabilidade())
+                using (var frmTatuagem = new FormTatuagem(TipoAcao.Cadastro))
+                using (var frmPesquisa = new FormPesquisa(TipoPergunta.Tatuagem, PesquisaControl.TipoFonte.Grande, false))
                 {
-                    DialogResult dr;
+                    frmTatuagem.btnSalvar.Text = "Avançar";
+                    frmPesquisa.btnVoltar.Visible = true;
 
-                    switch (passo)
+                    PassoCadastro passo = PassoCadastro.TermoResponsabilidade;
+
+                    bool finalizado = false;
+
+                    while (!finalizado)
                     {
-                        case PassoCadastro.TermoResponsabilidade:
-                            if (frmTermoResponsabilidade.ShowDialog() == DialogResult.OK)
-                                passo = PassoCadastro.Informacoes;
-                            else
-                                return;
-                            break;
-                        case PassoCadastro.Informacoes:
-                            dr = frmTatuagem.ShowDialog();
-                            if (dr == DialogResult.OK)
-                                passo = PassoCadastro.Pesquisa;
-                            else if (dr == DialogResult.Retry)
-                                passo = PassoCadastro.TermoResponsabilidade;
-                            else
-                                return;
-                            break;
-                        case PassoCadastro.Pesquisa:
-                            dr = frmPesquisa.ShowDialog();
-                            if (dr == DialogResult.OK)
-                                finalizado = true;
-                            else if (dr == DialogResult.Retry)
-                                passo = PassoCadastro.Informacoes;
-                            else
-                                return;
-                            break;
+                        DialogResult dr;
+
+                        switch (passo)
+                        {
+                            case PassoCadastro.TermoResponsabilidade:
+                                if (frmTermoResponsabilidade.ShowDialog() == DialogResult.OK)
+                                    passo = PassoCadastro.Informacoes;
+                                else
+                                    return;
+                                break;
+                            case PassoCadastro.Informacoes:
+                                dr = frmTatuagem.ShowDialog();
+                                if (dr == DialogResult.OK)
+                                    passo = PassoCadastro.Pesquisa;
+                                else if (dr == DialogResult.Retry)
+                                    passo = PassoCadastro.TermoResponsabilidade;
+                                else
+                                    return;
+                                break;
+                            case PassoCadastro.Pesquisa:
+                                dr = frmPesquisa.ShowDialog();
+                                if (dr == DialogResult.OK)
+                                    finalizado = true;
+                                else if (dr == DialogResult.Retry)
+                                    passo = PassoCadastro.Informacoes;
+                                else
+                                    return;
+                                break;
+                        }
+                    }
+
+                    using (var conn = new Connection())
+                    using (SQLiteTransaction transaction = conn.BeginTransaction())
+                    using (var tatuagem = new Tatuagem())
+                    {
+                        try
+                        {
+                            tatuagem.IdCliente = IdCliente;
+                            tatuagem.IdTermoResponsabilidade = frmTermoResponsabilidade.IdTermoResponsabilidade;
+                            frmTatuagem.SetDadosInModel(tatuagem);
+                            tatuagem.Salvar(conn, transaction);
+
+                            Resposta.SalvarRespostas(TipoPergunta.Tatuagem, tatuagem.Id, frmPesquisa.Respostas, conn, transaction);
+
+                            transaction.Commit();
+
+                            MessageBox.Show("Tatuagem inserida com sucesso!", "Informação", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            CarregarTatuagens();
+                        }
+                        catch (Exception erro)
+                        {
+                            transaction.Rollback();
+                            MessageBox.Show("Ocorreu um erro ao inserir a tatuagem!\n" + erro.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
                     }
                 }
-
-                using (var conn = new Connection())
-                using (SQLiteTransaction transaction = conn.BeginTransaction())
-                using (var tatuagem = new Tatuagem())
-                {
-                    try
-                    {
-                        tatuagem.IdCliente = IdCliente;
-                        tatuagem.IdTermoResponsabilidade = frmTermoResponsabilidade.IdTermoResponsabilidade;
-                        frmTatuagem.SetDadosInModel(tatuagem);
-                        tatuagem.Salvar(conn, transaction);
-
-                        Resposta.SalvarRespostas(TipoPergunta.Tatuagem, tatuagem.Id, frmPesquisa.Respostas, conn, transaction);
-
-                        transaction.Commit();
-
-                        MessageBox.Show("Tatuagem inserida com sucesso!", "Informação", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        CarregarTatuagens();
-                    }
-                    catch (Exception erro)
-                    {
-                        transaction.Rollback();
-                        MessageBox.Show("Ocorreu um erro ao inserir a tatuagem!\n" + erro.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
-                }
+            } catch (PerguntasNotFoundException erro)
+            {
+                MessageBox.Show(erro.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -256,9 +263,15 @@ namespace ClienteTatoo
                 return;
             }
 
-            using (var frmPesquisa = new FormPesquisa(TipoPergunta.Tatuagem, PesquisaControl.TipoFonte.Normal, true, Tatuagens[lsvTatuagens.SelectedIndices[0]].Id))
+            try
             {
-                frmPesquisa.ShowDialog();
+                using (var frmPesquisa = new FormPesquisa(TipoPergunta.Tatuagem, PesquisaControl.TipoFonte.Normal, true, Tatuagens[lsvTatuagens.SelectedIndices[0]].Id))
+                {
+                    frmPesquisa.ShowDialog();
+                }
+            } catch (PerguntasNotFoundException erro)
+            {
+                MessageBox.Show(erro.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }
