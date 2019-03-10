@@ -147,6 +147,7 @@ namespace ClienteTatoo.DAO
             model.IdCliente = int.Parse(dr["idCliente"].ToString());
             model.Local = dr["local"].ToString();
             model.Desenho = dr["desenho"].ToString();
+            model.IdTermoResponsabilidade = int.Parse(dr["idTermoResponsabilidade"].ToString());
         }
 
         public void Dispose() { }
