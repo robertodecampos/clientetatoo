@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "Cliente Tatoo"
-#define MyAppVersion "1.0.0.0"
+#define MyAppVersion "2.0.0.0"
 #define MyAppExeName "ClienteTatoo.exe"
 
 [Setup]
@@ -31,7 +31,7 @@ Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{
 [Files]
 Source: "..\bin\Release\ClienteTatoo.exe"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\bin\Release\ClienteTatoo.pdb"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\bin\Release\EntityFramework.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\bin\Release\EntityFramework.dll"; DestDir: "{app}"; Flags: ignoreversion;
 Source: "..\bin\Release\EntityFramework.SqlServer.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\bin\Release\Google.Protobuf.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\bin\Release\System.Data.SQLite.dll"; DestDir: "{app}"; Flags: ignoreversion
@@ -43,6 +43,16 @@ Source: "..\bin\Release\x64\SQLite.Interop.dll"; DestDir: "{app}\x64"; Flags: ig
 Source: "..\bin\Release\x86\SQLite.Interop.dll"; DestDir: "{app}\x86"; Flags: ignoreversion
 Source: "sqlite3.exe"; DestDir: "{tmp}"; Flags: ignoreversion;
 Source: "netframework_4_6_1.exe"; DestDir: "{tmp}"; Flags: ignoreversion deleteafterinstall; AfterInstall: InstallNetFramework; Check: NetFrameworkIsNotInstalled
+Source: "..\migrations\*"; DestDir: "{tmp}\scripts_database";  Flags: ignoreversion deleteafterinstall;
+Source: "DataBaseUpdate\bin\Release\DataBaseUpdate.exe"; DestDir: "{tmp}"; Flags: ignoreversion deleteafterinstall;
+Source: "DataBaseUpdate\bin\Release\DataBaseUpdate.pdb"; DestDir: "{tmp}"; Flags: ignoreversion deleteafterinstall;
+Source: "DataBaseUpdate\bin\Release\EntityFramework.dll"; DestDir: "{tmp}"; Flags: ignoreversion deleteafterinstall;
+Source: "DataBaseUpdate\bin\Release\EntityFramework.SqlServer.dll"; DestDir: "{tmp}"; Flags: ignoreversion deleteafterinstall;
+Source: "DataBaseUpdate\bin\Release\System.Data.SQLite.dll"; DestDir: "{tmp}"; Flags: ignoreversion deleteafterinstall;
+Source: "DataBaseUpdate\bin\Release\System.Data.SQLite.EF6.dll"; DestDir: "{tmp}"; Flags: ignoreversion deleteafterinstall;
+Source: "DataBaseUpdate\bin\Release\System.Data.SQLite.Linq.dll"; DestDir: "{tmp}"; Flags: ignoreversion deleteafterinstall;
+Source: "DataBaseUpdate\bin\Release\x64\SQLite.Interop.dll"; DestDir: "{tmp}\x64"; Flags: ignoreversion deleteafterinstall;
+Source: "DataBaseUpdate\bin\Release\x86\SQLite.Interop.dll"; DestDir: "{tmp}\x86"; Flags: ignoreversion deleteafterinstall;
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Icons]
@@ -51,13 +61,19 @@ Name: "{commondesktop}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; Tasks: 
 
 [Run]
 Filename: "{app}\{#MyAppExeName}"; Description: "{cm:LaunchProgram,{#StringChange(MyAppName, '&', '&&')}}"; Flags: runascurrentuser nowait postinstall skipifsilent
-Filename: "{tmp}\sqlite3.exe"; Parameters: """{commonappdata}\Cliente Tatoo\clientetatoo.db"" ""DELETE FROM usuario;INSERT INTO usuario (login, senha) VALUES('{code:GetUsuario}', '{code:GetSenha}')"""; Flags: runascurrentuser runhidden; StatusMsg: "Aplicando usuário e senha..."
+Filename: "{tmp}\sqlite3.exe"; Parameters: """{commonappdata}\Cliente Tatoo\clientetatoo.db"" ""DELETE FROM usuario;INSERT INTO usuario (login, senha) VALUES('{code:GetUsuario}', '{code:GetSenha}')"""; Flags: runascurrentuser runhidden; StatusMsg: "Aplicando usuário e senha..."; Check: GetUserAndPasswordDefined;
+Filename: "{tmp}\DataBaseUpdate.exe"; Flags: runascurrentuser runhidden; StatusMsg: "Aplicando alterações no banco de dados..."; Check: not GetUserAndPasswordDefined;
 
 [Code]
 var
   usuario, senha: String;
   userAndPasswordDefined, successfullyInstalled: Boolean;
   beforePage: Integer;
+
+function GetUserAndPasswordDefined: Boolean;
+begin
+  Result := userAndPasswordDefined;
+end;
 
 function GetUsuario(Param: string): String;
 begin
@@ -67,6 +83,11 @@ end;
 function GetSenha(Param: string): String;
 begin
   Result := GetMD5OfString(senha);
+end;
+
+function DataBaseExists: Boolean;
+begin
+  Result := FileExists(ExpandConstant('{commonappdata}\Cliente Tatoo\clientetatoo.db'));
 end;
 
 procedure buttonOkClick(Sender: TObject);
@@ -113,7 +134,7 @@ var
   editSenha, editConfirmacaoSenha: TPasswordEdit;
   buttonOk: TButton;
 begin
-  if (userAndPasswordDefined) then
+  if (userAndPasswordDefined or DataBaseExists) then
     Exit;
 
   frmConfigUserAndPassword := CreateCustomForm();    
@@ -302,8 +323,8 @@ function PrepareToInstall(var NeedsRestart: Boolean): String;
 begin
   Result := '';
 
-  if not userAndPasswordDefined then
-    Result := 'Não é possível prosseguir com a instalação!';
+  if ((not userAndPasswordDefined) and (not DataBaseExists())) then
+    Result := 'Não é possível prosseguir com a instalação, usuario e senha não definidos!';
 end;
 
 procedure CancelButtonClick(CurPageID: Integer; var Cancel, Confirm: Boolean);
