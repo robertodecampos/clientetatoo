@@ -34,6 +34,7 @@
             this.txtDesenho = new System.Windows.Forms.TextBox();
             this.btnSalvar = new System.Windows.Forms.Button();
             this.btnVoltar = new System.Windows.Forms.Button();
+            this.btnAlterarPesquisa = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -96,11 +97,24 @@
             this.btnVoltar.UseVisualStyleBackColor = true;
             this.btnVoltar.Visible = false;
             // 
+            // btnAlterarPesquisa
+            // 
+            this.btnAlterarPesquisa.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnAlterarPesquisa.Location = new System.Drawing.Point(93, 112);
+            this.btnAlterarPesquisa.Name = "btnAlterarPesquisa";
+            this.btnAlterarPesquisa.Size = new System.Drawing.Size(99, 23);
+            this.btnAlterarPesquisa.TabIndex = 6;
+            this.btnAlterarPesquisa.Text = "Alterar Pesquisa";
+            this.btnAlterarPesquisa.UseVisualStyleBackColor = true;
+            this.btnAlterarPesquisa.Visible = false;
+            this.btnAlterarPesquisa.Click += new System.EventHandler(this.btnAlterarPesquisa_Click);
+            // 
             // FormTatuagem
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(438, 147);
+            this.Controls.Add(this.btnAlterarPesquisa);
             this.Controls.Add(this.btnVoltar);
             this.Controls.Add(this.btnSalvar);
             this.Controls.Add(this.txtDesenho);
@@ -125,5 +139,6 @@
         private System.Windows.Forms.TextBox txtDesenho;
         private System.Windows.Forms.Button btnVoltar;
         public System.Windows.Forms.Button btnSalvar;
+        private System.Windows.Forms.Button btnAlterarPesquisa;
     }
 }
