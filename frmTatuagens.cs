@@ -177,6 +177,7 @@ namespace ClienteTatoo
 
             btnAlterar.Visible = (qtdeSelecionada == 1);
             btnVisualizarRespostas.Visible = (qtdeSelecionada == 1);
+            btnVisualizarTermoResponsabilidade.Visible = (qtdeSelecionada == 1 && (Tatuagens[lsvTatuagens.SelectedIndices[0]].IdTermoResponsabilidade != 0));
             btnSessoes.Visible = (qtdeSelecionada == 1);
         }
 
@@ -272,6 +273,25 @@ namespace ClienteTatoo
             } catch (PerguntasNotFoundException erro)
             {
                 MessageBox.Show(erro.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void btnVisualizarTermoResponsabilidade_Click(object sender, EventArgs e)
+        {
+            if (lsvTatuagens.SelectedIndices.Count == 0)
+            {
+                MessageBox.Show("Selecione uma tatuagem para visualizar o termo de responsabilidade!", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            else if (lsvTatuagens.SelectedIndices.Count > 1)
+            {
+                MessageBox.Show("Selecione somente uma tatuagem para visualizar o termo de responsabilidade!", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            using (var frmTermoResponsabilidade = new FormTermoResponsabilidade(Tatuagens[lsvTatuagens.SelectedIndices[0]].IdTermoResponsabilidade))
+            {
+                frmTermoResponsabilidade.ShowDialog();
             }
         }
     }

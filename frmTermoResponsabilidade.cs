@@ -11,27 +11,28 @@ namespace ClienteTatoo
 
         public int IdTermoResponsabilidade { get; private set; }
 
-        public FormTermoResponsabilidade()
+        public FormTermoResponsabilidade(int? idTermoResponsabilidade = null)
         {
             InitializeComponent();
 
+            if (idTermoResponsabilidade != null)
+            {
+                cbxConcordo.Enabled = false;
+                cbxConcordo.Checked = true;
+                btnAvancar.Text = "Ok";
+            }
+
             using (var conn = new Connection())
             {
-                termoResponsabilidade.SetCurrent(conn, null);
+                if (idTermoResponsabilidade == null)
+                    termoResponsabilidade.SetCurrent(conn, null);
+                else
+                    termoResponsabilidade.SetById((int)idTermoResponsabilidade, conn, null);
                 rtbTermoResponsabilidade.Text = termoResponsabilidade.Termo;
                 IdTermoResponsabilidade = termoResponsabilidade.Id;
             }
         }
 
         private void cbxConcordo_CheckedChanged(object sender, EventArgs e) => btnAvancar.Enabled = cbxConcordo.Checked;
-
-        private void FormTermoResponsabilidade_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            if (!(DialogResult == DialogResult.Cancel))
-                return;
-
-            if (MessageBox.Show("Deseja realmente cancelar o cadastro do cliente?\nAs informações não serão salvas!", "Confirmação", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
-                e.Cancel = true;
-        }
     }
 }

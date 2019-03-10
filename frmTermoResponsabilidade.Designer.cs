@@ -87,7 +87,6 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Termo de Responsabilidade";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormTermoResponsabilidade_FormClosing);
             this.ResumeLayout(false);
             this.PerformLayout();
 

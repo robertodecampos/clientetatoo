@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.ListViewItem listViewItem3 = new System.Windows.Forms.ListViewItem(new string[] {
+            System.Windows.Forms.ListViewItem listViewItem1 = new System.Windows.Forms.ListViewItem(new string[] {
             "",
             "",
             "",
@@ -46,6 +46,7 @@
             this.btnAlterar = new System.Windows.Forms.Button();
             this.btnSessoes = new System.Windows.Forms.Button();
             this.btnVisualizarRespostas = new System.Windows.Forms.Button();
+            this.btnVisualizarTermoResponsabilidade = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // lsvTatuagens
@@ -62,7 +63,7 @@
             this.columnHeader7});
             this.lsvTatuagens.FullRowSelect = true;
             this.lsvTatuagens.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
-            listViewItem3});
+            listViewItem1});
             this.lsvTatuagens.Location = new System.Drawing.Point(12, 12);
             this.lsvTatuagens.MultiSelect = false;
             this.lsvTatuagens.Name = "lsvTatuagens";
@@ -128,7 +129,7 @@
             // btnSessoes
             // 
             this.btnSessoes.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnSessoes.Location = new System.Drawing.Point(214, 359);
+            this.btnSessoes.Location = new System.Drawing.Point(93, 359);
             this.btnSessoes.Name = "btnSessoes";
             this.btnSessoes.Size = new System.Drawing.Size(75, 23);
             this.btnSessoes.TabIndex = 3;
@@ -140,7 +141,7 @@
             // btnVisualizarRespostas
             // 
             this.btnVisualizarRespostas.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnVisualizarRespostas.Location = new System.Drawing.Point(93, 359);
+            this.btnVisualizarRespostas.Location = new System.Drawing.Point(174, 359);
             this.btnVisualizarRespostas.Name = "btnVisualizarRespostas";
             this.btnVisualizarRespostas.Size = new System.Drawing.Size(115, 23);
             this.btnVisualizarRespostas.TabIndex = 4;
@@ -149,11 +150,23 @@
             this.btnVisualizarRespostas.Visible = false;
             this.btnVisualizarRespostas.Click += new System.EventHandler(this.btnVisualizarRespostas_Click);
             // 
+            // btnVisualizarTermoResponsabilidade
+            // 
+            this.btnVisualizarTermoResponsabilidade.Location = new System.Drawing.Point(295, 359);
+            this.btnVisualizarTermoResponsabilidade.Name = "btnVisualizarTermoResponsabilidade";
+            this.btnVisualizarTermoResponsabilidade.Size = new System.Drawing.Size(203, 23);
+            this.btnVisualizarTermoResponsabilidade.TabIndex = 5;
+            this.btnVisualizarTermoResponsabilidade.Text = "Visualizar Termo de Responsabilidade";
+            this.btnVisualizarTermoResponsabilidade.UseVisualStyleBackColor = true;
+            this.btnVisualizarTermoResponsabilidade.Visible = false;
+            this.btnVisualizarTermoResponsabilidade.Click += new System.EventHandler(this.btnVisualizarTermoResponsabilidade_Click);
+            // 
             // FormTatuagens
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(727, 394);
+            this.Controls.Add(this.btnVisualizarTermoResponsabilidade);
             this.Controls.Add(this.btnVisualizarRespostas);
             this.Controls.Add(this.btnSessoes);
             this.Controls.Add(this.btnAlterar);
@@ -183,5 +196,6 @@
         private System.Windows.Forms.Button btnAlterar;
         private System.Windows.Forms.Button btnSessoes;
         private System.Windows.Forms.Button btnVisualizarRespostas;
+        private System.Windows.Forms.Button btnVisualizarTermoResponsabilidade;
     }
 }
