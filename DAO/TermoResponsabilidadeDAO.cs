@@ -73,7 +73,7 @@ namespace ClienteTatoo.DAO
                 PreencherModel(model, dt.Rows[0]);
             }
             else if (dt.Rows.Count == 0)
-                throw new Exception("Não existe nenhum termo de responsabilidade cadastrado!");
+                throw new Exception($"Não existe nenhum termo de responsabilidade cadastrado o id {id}!");
             else
                 throw new Exception($"Existem {dt.Rows.Count} termos de responsabilidade cadastrados com o id {id}!");
         }
