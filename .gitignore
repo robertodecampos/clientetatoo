@@ -35,3 +35,4 @@ msbuild.wrn
 
 #project
 setup/Instalador Cliente Tatoo.exe
+setup/DataBaseUpdate/build
