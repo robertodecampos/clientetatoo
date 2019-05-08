@@ -21,7 +21,7 @@ namespace ClienteTatoo.DAO
             if (model.Id != 0)
                 throw new Exception("Não é possível inserir um registro que já possuí identificador!");
 
-            string sql = "INSERT INTO perguntas (idAlternativa, descricao, alternativaUnica, alternativaDissertativa, obrigatoria, tipo)" +
+            string sql = "INSERT INTO perguntas (idAlternativa, descricao, alternativaUnica, dissertativa, obrigatoria, tipo)" +
                          " VALUES (@idAlternativa, @descricao, @alternativaUnica, @dissertativa, @obrigatoria, @tipo)";
 
             var parameters = GetParameters(model);
