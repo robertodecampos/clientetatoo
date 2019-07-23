@@ -51,12 +51,15 @@
             this.btnRemover = new System.Windows.Forms.Button();
             this.btnTatuagens = new System.Windows.Forms.Button();
             this.btnVisualizarPesquisa = new System.Windows.Forms.Button();
+            this.gerenciarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.usuáriosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.msPricipal.SuspendLayout();
             this.SuspendLayout();
             // 
             // msPricipal
             // 
             this.msPricipal.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.gerenciarToolStripMenuItem,
             this.configurarToolStripMenuItem,
             this.informaçõesToolStripMenuItem});
             this.msPricipal.Location = new System.Drawing.Point(0, 0);
@@ -265,6 +268,21 @@
             this.btnVisualizarPesquisa.Visible = false;
             this.btnVisualizarPesquisa.Click += new System.EventHandler(this.btnVisualizarPesquisa_Click);
             // 
+            // gerenciarToolStripMenuItem
+            // 
+            this.gerenciarToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.usuáriosToolStripMenuItem});
+            this.gerenciarToolStripMenuItem.Name = "gerenciarToolStripMenuItem";
+            this.gerenciarToolStripMenuItem.Size = new System.Drawing.Size(69, 20);
+            this.gerenciarToolStripMenuItem.Text = "Gerenciar";
+            // 
+            // usuáriosToolStripMenuItem
+            // 
+            this.usuáriosToolStripMenuItem.Name = "usuáriosToolStripMenuItem";
+            this.usuáriosToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.usuáriosToolStripMenuItem.Text = "Usuários";
+            this.usuáriosToolStripMenuItem.Click += new System.EventHandler(this.usuáriosToolStripMenuItem_Click);
+            // 
             // FormClientes
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -318,6 +336,8 @@
         private System.Windows.Forms.ToolStripMenuItem clientesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem tatuagensToolStripMenuItem;
         private System.Windows.Forms.Button btnVisualizarPesquisa;
+        private System.Windows.Forms.ToolStripMenuItem gerenciarToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem usuáriosToolStripMenuItem;
     }
 }
 

@@ -116,6 +116,12 @@
     <Compile Include="DAO\TipoLogradouroDAO.cs" />
     <Compile Include="DAO\UsuarioDAO.cs" />
     <Compile Include="Exceptions\PerguntasNotFoundException.cs" />
+    <Compile Include="frmModificarUsuario.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmModificarUsuario.Designer.cs">
+      <DependentUpon>frmModificarUsuario.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmPesquisa.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -206,6 +212,18 @@
     <Compile Include="frmDadosPessoaisCliente.Designer.cs">
       <DependentUpon>frmDadosPessoaisCliente.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmAdicionarUsuario.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmAdicionarUsuario.Designer.cs">
+      <DependentUpon>frmAdicionarUsuario.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmUsuarios.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmUsuarios.Designer.cs">
+      <DependentUpon>frmUsuarios.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmVersao.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -236,6 +254,9 @@
     <Compile Include="Utils\Validation.cs" />
     <EmbeddedResource Include="Control\PesquisaControl.resx">
       <DependentUpon>PesquisaControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmModificarUsuario.resx">
+      <DependentUpon>frmModificarUsuario.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmPergunta.resx">
       <DependentUpon>frmPergunta.cs</DependentUpon>
@@ -281,6 +302,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmDadosPessoaisCliente.resx">
       <DependentUpon>frmDadosPessoaisCliente.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmAdicionarUsuario.resx">
+      <DependentUpon>frmAdicionarUsuario.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmUsuarios.resx">
+      <DependentUpon>frmUsuarios.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmVersao.resx">
       <DependentUpon>frmVersao.cs</DependentUpon>

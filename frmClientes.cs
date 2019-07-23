@@ -389,5 +389,20 @@ namespace ClienteTatoo
                 MessageBox.Show(erro.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+        private void usuáriosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            using (var frmLogin = new FormLogin())
+            {
+                frmLogin.ShowDialog();
+                if (!frmLogin.Logado)
+                    return;
+            }
+
+            using (var frmUsuarios = new frmUsuarios())
+            {
+                frmUsuarios.ShowDialog();
+            }
+        }
     }
 }

@@ -20,7 +20,7 @@ namespace ClienteTatoo
             {
                 using (var conn = new Connection())
                 {
-                    if (!Usuario.Login(txtLogin.Text, txtSenha.Text, conn, null))
+                    if (!Usuario.Logar(txtLogin.Text, txtSenha.Text, conn, null))
                     {
                         MessageBox.Show("Usuário e/ou senha inválido(s)!", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         return;

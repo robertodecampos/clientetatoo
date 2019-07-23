@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "Cliente Tatoo"
-#define MyAppVersion "2.0.0.0"
+#define MyAppVersion "2.0.1.0"
 #define MyAppExeName "ClienteTatoo.exe"
 
 [Setup]
@@ -61,18 +61,23 @@ Name: "{commondesktop}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; Tasks: 
 
 [Run]
 Filename: "{app}\{#MyAppExeName}"; Description: "{cm:LaunchProgram,{#StringChange(MyAppName, '&', '&&')}}"; Flags: runascurrentuser nowait postinstall skipifsilent
-Filename: "{tmp}\sqlite3.exe"; Parameters: """{commonappdata}\Cliente Tatoo\clientetatoo.db"" ""DELETE FROM usuario;INSERT INTO usuario (login, senha) VALUES('{code:GetUsuario}', '{code:GetSenha}')"""; Flags: runascurrentuser runhidden; StatusMsg: "Aplicando usuário e senha..."; Check: GetUserAndPasswordDefined;
+Filename: "{tmp}\sqlite3.exe"; Parameters: """{commonappdata}\Cliente Tatoo\clientetatoo.db"" ""DELETE FROM usuario;INSERT INTO usuario (nome, login, senha, ativo) VALUES('{code:GetNome}', '{code:GetUsuario}', '{code:GetSenha}', 1)"""; Flags: runascurrentuser runhidden; StatusMsg: "Aplicando usuário e senha..."; Check: GetUserAndPasswordDefined;
 Filename: "{tmp}\DataBaseUpdate.exe"; Flags: runascurrentuser runhidden; StatusMsg: "Aplicando alterações no banco de dados..."; Check: not GetUserAndPasswordDefined;
 
 [Code]
 var
-  usuario, senha: String;
+  nome, usuario, senha: String;
   userAndPasswordDefined, successfullyInstalled: Boolean;
   beforePage: Integer;
 
 function GetUserAndPasswordDefined: Boolean;
 begin
   Result := userAndPasswordDefined;
+end;
+
+function GetNome(Param: string): String;
+begin
+  Result := nome;
 end;
 
 function GetUsuario(Param: string): String;
@@ -93,32 +98,40 @@ end;
 procedure buttonOkClick(Sender: TObject);
 var
   frmConfigUserAndPassword: TSetupForm;
-  editUsuario: TEdit;
+  editNome, editUsuario: TEdit;
   editSenha, editConfirmacaoSenha: TPasswordEdit;
 begin
   frmConfigUserAndPassword := TSetupForm(TButton(Sender).Parent);
+  editNome := TEdit(frmConfigUserAndPassword.FindComponent('edtNome'));
   editUsuario := TEdit(frmConfigUserAndPassword.FindComponent('edtUsuario'));
   editSenha := TPasswordEdit(frmConfigUserAndPassword.FindComponent('edtSenha'));
   editConfirmacaoSenha := TPasswordEdit(frmConfigUserAndPassword.FindComponent('edtConfirmacaoSenha'));
 
+  if (Trim(editNome.Text) = '') then
+  begin
+    SuppressibleMsgBox('Informe o nome!', mbError, MB_OK, MB_OK);
+    Exit;
+  end;
+
   if (Trim(editUsuario.Text) = '') then
-    begin
-      SuppressibleMsgBox('Informe o usuário!', mbError, MB_OK, MB_OK);
-      Exit;
-    end;
+  begin
+    SuppressibleMsgBox('Informe o usuário!', mbError, MB_OK, MB_OK);
+    Exit;
+  end;
 
   if (Trim(editSenha.Text) = '') then
-    begin
-      SuppressibleMsgBox('Informe a senha!', mbError, MB_OK, MB_OK);
-      Exit;
-    end;
+  begin
+    SuppressibleMsgBox('Informe a senha!', mbError, MB_OK, MB_OK);
+    Exit;
+  end;
 
   if (Trim(editConfirmacaoSenha.Text) <> Trim(editSenha.Text)) then
-    begin
-      SuppressibleMsgBox('As senhas não coincidem!', mbError, MB_OK, MB_OK);
-      Exit;
-    end;
+  begin
+    SuppressibleMsgBox('As senhas não coincidem!', mbError, MB_OK, MB_OK);
+    Exit;
+  end;
 
+  nome := editNome.Text;
   usuario := editUsuario.Text;
   senha := editSenha.Text;
 
@@ -129,8 +142,8 @@ end;
 procedure ShowConfigUserAndPassword();
 var
   frmConfigUserAndPassword: TSetupForm;
-  labelDescricao, labelUsuario, labelSenha, labelConfirmacaoSenha: TLabel;
-  editUsuario: TEdit;
+  labelDescricao, labelNome, labelUsuario, labelSenha, labelConfirmacaoSenha: TLabel;
+  editNome, editUsuario: TEdit;
   editSenha, editConfirmacaoSenha: TPasswordEdit;
   buttonOk: TButton;
 begin
@@ -138,8 +151,8 @@ begin
     Exit;
 
   frmConfigUserAndPassword := CreateCustomForm();    
-  frmConfigUserAndPassword.Caption := 'Usuário e Senha';
-  frmConfigUserAndPassword.Height := 270;
+  frmConfigUserAndPassword.Caption := 'Usuário';
+  frmConfigUserAndPassword.Height := 300;
   frmConfigUserAndPassword.Center();
 
   labelDescricao := TLabel.Create(frmConfigUserAndPassword);
@@ -152,9 +165,23 @@ begin
   labelDescricao.WordWrap := True;
   labelDescricao.Caption := 'Informe o usuário e senha, essas informações serão utilizadas posteriormente para realizar configurações do sistema!';
 
+  labelNome := TLabel.Create(frmConfigUserAndPassword);
+  labelNome.Parent := frmConfigUserAndPassword;
+  labelNome.Top := labelDescricao.Top + labelDescricao.Height + 8;
+  labelNome.Left := 8;
+  labelNome.Caption := 'Nome';
+
+  editNome := TEdit.Create(frmConfigUserAndPassword);
+  editNome.Parent := frmConfigUserAndPassword;
+  editNome.Name := 'edtNome';
+  editNome.Top := labelNome.Top + labelNome.Height + 4;
+  editNome.Left := 8;
+  editNome.Width := frmConfigUserAndPassword.ClientWidth - 16;
+  editNome.Clear();
+
   labelUsuario := TLabel.Create(frmConfigUserAndPassword);
   labelUsuario.Parent := frmConfigUserAndPassword;
-  labelUsuario.Top := labelDescricao.Top + labelDescricao.Height + 8;
+  labelUsuario.Top := editNome.Top + editNome.Height + 8;
   labelUsuario.Left := 8;
   labelUsuario.Caption := 'Usuário';
 
