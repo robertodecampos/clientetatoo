@@ -116,6 +116,12 @@
     <Compile Include="DAO\TipoLogradouroDAO.cs" />
     <Compile Include="DAO\UsuarioDAO.cs" />
     <Compile Include="Exceptions\PerguntasNotFoundException.cs" />
+    <Compile Include="frmImportacaoSelecionarArquivo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmImportacaoSelecionarArquivo.Designer.cs">
+      <DependentUpon>frmImportacaoSelecionarArquivo.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmModificarUsuario.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -254,6 +260,9 @@
     <Compile Include="Utils\Validation.cs" />
     <EmbeddedResource Include="Control\PesquisaControl.resx">
       <DependentUpon>PesquisaControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmImportacaoSelecionarArquivo.resx">
+      <DependentUpon>frmImportacaoSelecionarArquivo.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmModificarUsuario.resx">
       <DependentUpon>frmModificarUsuario.cs</DependentUpon>

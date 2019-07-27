@@ -29,6 +29,8 @@
         private void InitializeComponent()
         {
             this.msPricipal = new System.Windows.Forms.MenuStrip();
+            this.gerenciarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.usuáriosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.configurarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.termoDeResponsabilidadeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.perguntasEAlternativasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -51,8 +53,7 @@
             this.btnRemover = new System.Windows.Forms.Button();
             this.btnTatuagens = new System.Windows.Forms.Button();
             this.btnVisualizarPesquisa = new System.Windows.Forms.Button();
-            this.gerenciarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.usuáriosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.importarClientesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.msPricipal.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -67,6 +68,22 @@
             this.msPricipal.Size = new System.Drawing.Size(807, 24);
             this.msPricipal.TabIndex = 0;
             this.msPricipal.Text = "menuStrip1";
+            // 
+            // gerenciarToolStripMenuItem
+            // 
+            this.gerenciarToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.usuáriosToolStripMenuItem,
+            this.importarClientesToolStripMenuItem});
+            this.gerenciarToolStripMenuItem.Name = "gerenciarToolStripMenuItem";
+            this.gerenciarToolStripMenuItem.Size = new System.Drawing.Size(69, 20);
+            this.gerenciarToolStripMenuItem.Text = "Gerenciar";
+            // 
+            // usuáriosToolStripMenuItem
+            // 
+            this.usuáriosToolStripMenuItem.Name = "usuáriosToolStripMenuItem";
+            this.usuáriosToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.usuáriosToolStripMenuItem.Text = "Usuários";
+            this.usuáriosToolStripMenuItem.Click += new System.EventHandler(this.usuáriosToolStripMenuItem_Click);
             // 
             // configurarToolStripMenuItem
             // 
@@ -268,20 +285,12 @@
             this.btnVisualizarPesquisa.Visible = false;
             this.btnVisualizarPesquisa.Click += new System.EventHandler(this.btnVisualizarPesquisa_Click);
             // 
-            // gerenciarToolStripMenuItem
+            // importarClientesToolStripMenuItem
             // 
-            this.gerenciarToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.usuáriosToolStripMenuItem});
-            this.gerenciarToolStripMenuItem.Name = "gerenciarToolStripMenuItem";
-            this.gerenciarToolStripMenuItem.Size = new System.Drawing.Size(69, 20);
-            this.gerenciarToolStripMenuItem.Text = "Gerenciar";
-            // 
-            // usuáriosToolStripMenuItem
-            // 
-            this.usuáriosToolStripMenuItem.Name = "usuáriosToolStripMenuItem";
-            this.usuáriosToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.usuáriosToolStripMenuItem.Text = "Usuários";
-            this.usuáriosToolStripMenuItem.Click += new System.EventHandler(this.usuáriosToolStripMenuItem_Click);
+            this.importarClientesToolStripMenuItem.Name = "importarClientesToolStripMenuItem";
+            this.importarClientesToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.importarClientesToolStripMenuItem.Text = "Importar Clientes";
+            this.importarClientesToolStripMenuItem.Click += new System.EventHandler(this.importarClientesToolStripMenuItem_Click);
             // 
             // FormClientes
             // 
@@ -338,6 +347,7 @@
         private System.Windows.Forms.Button btnVisualizarPesquisa;
         private System.Windows.Forms.ToolStripMenuItem gerenciarToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem usuáriosToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem importarClientesToolStripMenuItem;
     }
 }
 

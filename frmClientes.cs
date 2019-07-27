@@ -404,5 +404,13 @@ namespace ClienteTatoo
                 frmUsuarios.ShowDialog();
             }
         }
+
+        private void importarClientesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            using (var frmImportacaoSelecionarArquivo = new frmImportacaoSelecionarArquivo())
+            {
+                frmImportacaoSelecionarArquivo.ShowDialog();
+            }
+        }
     }
 }
