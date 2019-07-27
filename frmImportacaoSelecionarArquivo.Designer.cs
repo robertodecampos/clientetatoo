@@ -34,6 +34,7 @@
             this.btnImportar = new System.Windows.Forms.Button();
             this.lblClientesCarregados = new System.Windows.Forms.Label();
             this.lblQtdeClientesCarregados = new System.Windows.Forms.Label();
+            this.ofdArquivo = new System.Windows.Forms.OpenFileDialog();
             this.SuspendLayout();
             // 
             // label1
@@ -64,6 +65,7 @@
             this.btnProcurarArquivo.TabIndex = 2;
             this.btnProcurarArquivo.Text = "...";
             this.btnProcurarArquivo.UseVisualStyleBackColor = true;
+            this.btnProcurarArquivo.Click += new System.EventHandler(this.btnProcurarArquivo_Click);
             // 
             // btnImportar
             // 
@@ -94,6 +96,10 @@
             this.lblQtdeClientesCarregados.TabIndex = 5;
             this.lblQtdeClientesCarregados.Text = "0";
             this.lblQtdeClientesCarregados.Visible = false;
+            // 
+            // ofdArquivo
+            // 
+            this.ofdArquivo.Filter = "Excel|*.xls;*.xlsx";
             // 
             // frmImportacaoSelecionarArquivo
             // 
@@ -127,5 +133,6 @@
         private System.Windows.Forms.Button btnImportar;
         private System.Windows.Forms.Label lblClientesCarregados;
         private System.Windows.Forms.Label lblQtdeClientesCarregados;
+        private System.Windows.Forms.OpenFileDialog ofdArquivo;
     }
 }

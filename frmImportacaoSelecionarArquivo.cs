@@ -16,5 +16,13 @@ namespace ClienteTatoo
         {
             InitializeComponent();
         }
+
+        private void btnProcurarArquivo_Click(object sender, EventArgs e)
+        {
+            if (ofdArquivo.ShowDialog() != DialogResult.OK)
+                return;
+
+            edtArquivo.Text = ofdArquivo.FileName;
+        }
     }
 }
