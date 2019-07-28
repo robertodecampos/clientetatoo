@@ -16,26 +16,20 @@ namespace ClienteTatoo.DAO
             _connection = connection;
         }
 
-        public int Insert(Cidade model, SQLiteTransaction transaction)
-        {
-            throw new NotImplementedException();
-        }
+        public int Insert(Cidade model, SQLiteTransaction transaction) => throw new NotImplementedException();
 
-        public int Remove(Cidade model, SQLiteTransaction transaction)
-        {
-            throw new NotImplementedException();
-        }
+        public int Remove(Cidade model, SQLiteTransaction transaction) => throw new NotImplementedException();
 
-        public int Update(Cidade model, SQLiteTransaction transaction)
-        {
-            throw new NotImplementedException();
-        }
+        public int Update(Cidade model, SQLiteTransaction transaction) => throw new NotImplementedException();
 
         public bool GetById(Cidade model, int id, SQLiteTransaction transaction = null)
         {
-            string sql = "SELECT a.`loc_nu_sequencial` idCidade, a.`loc_no` cidade" +
-                         " FROM `log_localidade` a" +
-                         " WHERE a.`loc_nu_sequencial` = @id";
+            string sql =
+                " SELECT                                              " +
+                "   a.`loc_nu_sequencial` idCidade, a.`loc_no` cidade " +
+                " FROM `log_localidade` a                             " +
+                " WHERE                                               " +
+                "   a.`loc_nu_sequencial` = @id                       ";
 
             var parameters = new List<SQLiteParameter>();
             parameters.Add(new SQLiteParameter("@id", DbType.Int32) { Value = id });
@@ -44,6 +38,34 @@ namespace ClienteTatoo.DAO
 
             if ((dt.Rows.Count == 0) || (dt.Rows.Count > 1))
                 return false;
+
+            DistributeData(model, dt.Rows[0]);
+
+            return true;
+        }
+
+        public bool GetByCidadeAndUf(Cidade model, string cidade, string uf, SQLiteTransaction transaction = null)
+        {
+            string sql =
+                " SELECT                                              " +
+                "   a.`loc_nu_sequencial` idCidade, a.`loc_no` cidade " +
+                " FROM log_localidade a                               " +
+                " WHERE                                               " +
+                "  @cidade IN (a.loc_no, a.loc_nosub)                 " +
+                "  AND a.ufe_sg = @uf                                 ";
+
+            var parameters = new List<SQLiteParameter>()
+            {
+                new SQLiteParameter("@cidade", DbType.String) { Value = cidade },
+                new SQLiteParameter("@uf", DbType.String) { Value = uf }
+            };
+
+            DataTable dt = _connection.ExecuteReader(sql, parameters, transaction);
+
+            if (dt.Rows.Count == 0)
+                return false;
+            else if (dt.Rows.Count != 1)
+                throw new Exception($"Existem {dt.Rows.Count} cidades com nome '{cidade}' e o estado '{uf}'!");
 
             DistributeData(model, dt.Rows[0]);
 

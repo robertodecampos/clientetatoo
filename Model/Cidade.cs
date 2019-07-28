@@ -20,6 +20,15 @@ namespace ClienteTatoo.Model
             }
         }
 
+        public bool GetByCidadeAndUf(string cidade, string uf, SQLiteTransaction transaction = null)
+        {
+            using (var conn = new Connection(Database.Endereco))
+            using (var dao = new CidadeDAO(conn))
+            {
+                return dao.GetByCidadeAndUf(this, cidade, uf, transaction);
+            }
+        }
+
         public static List<Cidade> GetAll(SQLiteTransaction transaction = null)
         {
             using (var conn = new Connection(Database.Endereco))
