@@ -1,13 +1,6 @@
 ﻿using ClienteTatoo.Model;
 using ClienteTatoo.Utils;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace ClienteTatoo
@@ -36,6 +29,7 @@ namespace ClienteTatoo
             Pergunta.IdAlternativa = pergunta.IdAlternativa;
 
             txtDescricao.Text = pergunta.Descricao;
+            txtCodigoImportacao.Text = pergunta.CodigoImportacao;
             if (pergunta.Dissertativa)
                 rbDissertativa.Checked = true;
             else if (pergunta.AlternativaUnica)
@@ -69,6 +63,7 @@ namespace ClienteTatoo
             try
             {
                 Pergunta.Descricao = txtDescricao.Text;
+                Pergunta.CodigoImportacao = txtCodigoImportacao.Text;
                 Pergunta.Dissertativa = rbDissertativa.Checked;
                 Pergunta.AlternativaUnica = rbSelecaoUnica.Checked;
                 Pergunta.Obrigatoria = cbxAlternativaObrigatoria.Checked;

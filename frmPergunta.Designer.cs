@@ -36,6 +36,8 @@
             this.rbDissertativa = new System.Windows.Forms.RadioButton();
             this.cbxAlternativaObrigatoria = new System.Windows.Forms.CheckBox();
             this.btnSalvar = new System.Windows.Forms.Button();
+            this.label2 = new System.Windows.Forms.Label();
+            this.txtCodigoImportacao = new System.Windows.Forms.TextBox();
             this.gbxTipoAlternativa.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -64,10 +66,10 @@
             this.gbxTipoAlternativa.Controls.Add(this.rbSelecaoUnica);
             this.gbxTipoAlternativa.Controls.Add(this.rbMultiplaSelecao);
             this.gbxTipoAlternativa.Controls.Add(this.rbDissertativa);
-            this.gbxTipoAlternativa.Location = new System.Drawing.Point(12, 51);
+            this.gbxTipoAlternativa.Location = new System.Drawing.Point(12, 102);
             this.gbxTipoAlternativa.Name = "gbxTipoAlternativa";
             this.gbxTipoAlternativa.Size = new System.Drawing.Size(311, 90);
-            this.gbxTipoAlternativa.TabIndex = 2;
+            this.gbxTipoAlternativa.TabIndex = 3;
             this.gbxTipoAlternativa.TabStop = false;
             this.gbxTipoAlternativa.Text = "Tipo de Reposta";
             // 
@@ -107,10 +109,10 @@
             // cbxAlternativaObrigatoria
             // 
             this.cbxAlternativaObrigatoria.AutoSize = true;
-            this.cbxAlternativaObrigatoria.Location = new System.Drawing.Point(12, 147);
+            this.cbxAlternativaObrigatoria.Location = new System.Drawing.Point(12, 198);
             this.cbxAlternativaObrigatoria.Name = "cbxAlternativaObrigatoria";
             this.cbxAlternativaObrigatoria.Size = new System.Drawing.Size(123, 17);
-            this.cbxAlternativaObrigatoria.TabIndex = 3;
+            this.cbxAlternativaObrigatoria.TabIndex = 4;
             this.cbxAlternativaObrigatoria.Text = "Pergunta Obrigatória";
             this.cbxAlternativaObrigatoria.UseVisualStyleBackColor = true;
             // 
@@ -118,19 +120,37 @@
             // 
             this.btnSalvar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnSalvar.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.btnSalvar.Location = new System.Drawing.Point(248, 193);
+            this.btnSalvar.Location = new System.Drawing.Point(248, 226);
             this.btnSalvar.Name = "btnSalvar";
             this.btnSalvar.Size = new System.Drawing.Size(75, 23);
-            this.btnSalvar.TabIndex = 4;
+            this.btnSalvar.TabIndex = 5;
             this.btnSalvar.Text = "Salvar";
             this.btnSalvar.UseVisualStyleBackColor = true;
             this.btnSalvar.Click += new System.EventHandler(this.btnSalvar_Click);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(9, 57);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(111, 13);
+            this.label2.TabIndex = 5;
+            this.label2.Text = "Código de Importação";
+            // 
+            // txtCodigoImportacao
+            // 
+            this.txtCodigoImportacao.Location = new System.Drawing.Point(12, 73);
+            this.txtCodigoImportacao.Name = "txtCodigoImportacao";
+            this.txtCodigoImportacao.Size = new System.Drawing.Size(311, 20);
+            this.txtCodigoImportacao.TabIndex = 2;
             // 
             // FormPergunta
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(335, 228);
+            this.ClientSize = new System.Drawing.Size(335, 261);
+            this.Controls.Add(this.txtCodigoImportacao);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.btnSalvar);
             this.Controls.Add(this.cbxAlternativaObrigatoria);
             this.Controls.Add(this.gbxTipoAlternativa);
@@ -160,5 +180,7 @@
         private System.Windows.Forms.RadioButton rbDissertativa;
         private System.Windows.Forms.CheckBox cbxAlternativaObrigatoria;
         private System.Windows.Forms.Button btnSalvar;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.TextBox txtCodigoImportacao;
     }
 }

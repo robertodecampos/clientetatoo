@@ -4,9 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SQLite;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ClienteTatoo.DAO
 {
@@ -21,8 +18,8 @@ namespace ClienteTatoo.DAO
             if (model.Id != 0)
                 throw new Exception("Não é possível inserir um registro que já possuí identificador!");
 
-            string sql = "INSERT INTO perguntas (idAlternativa, descricao, alternativaUnica, dissertativa, obrigatoria, tipo)" +
-                         " VALUES (@idAlternativa, @descricao, @alternativaUnica, @dissertativa, @obrigatoria, @tipo)";
+            string sql = "INSERT INTO perguntas (idAlternativa, descricao, codigoImportacao, alternativaUnica, dissertativa, obrigatoria, tipo)" +
+                         " VALUES (@idAlternativa, @descricao, @codigoImportacao, @alternativaUnica, @dissertativa, @obrigatoria, @tipo)";
 
             var parameters = GetParameters(model);
 
@@ -60,8 +57,8 @@ namespace ClienteTatoo.DAO
                 throw new Exception("Existem informações inconsistentes!");
 
             string sql = "UPDATE perguntas SET" +
-                         " idAlternativa = @idAlternativa, descricao = @descricao, alternativaUnica = @alternativaUnica, tipo = @tipo," +
-                         " dissertativa = @dissertativa, obrigatoria = @obrigatoria, ativada = @ativada" +
+                         " idAlternativa = @idAlternativa, descricao = @descricao, codigoImportacao = @codigoImportacao, alternativaUnica = @alternativaUnica," +
+                         " tipo = @tipo, dissertativa = @dissertativa, obrigatoria = @obrigatoria, ativada = @ativada" +
                          " WHERE id = @id";
 
             List<SQLiteParameter> parameters = GetParameters(model);
@@ -211,6 +208,7 @@ namespace ClienteTatoo.DAO
             var parameters = new List<SQLiteParameter>();
             parameters.Add(new SQLiteParameter("@idAlternativa", DbType.Int32) { Value = model.IdAlternativa });
             parameters.Add(new SQLiteParameter("@descricao", DbType.String) { Value = model.Descricao });
+            parameters.Add(new SQLiteParameter("@codigoImportacao", DbType.String) { Value = model.CodigoImportacao });
             parameters.Add(new SQLiteParameter("@alternativaUnica", DbType.Int16) { Value = model.AlternativaUnica });
             parameters.Add(new SQLiteParameter("@dissertativa", DbType.Int16) { Value = model.Dissertativa });
             parameters.Add(new SQLiteParameter("@obrigatoria", DbType.Int16) { Value = model.Obrigatoria });
@@ -240,6 +238,7 @@ namespace ClienteTatoo.DAO
             else
                 model.IdAlternativa = int.Parse(dr["idAlternativa"].ToString());
             model.Descricao = dr["descricao"].ToString();
+            model.CodigoImportacao = dr["codigoImportacao"].ToString();
             model.AlternativaUnica = (int.Parse(dr["alternativaUnica"].ToString()) == 1);
             model.Dissertativa = (int.Parse(dr["dissertativa"].ToString()) == 1);
             model.Obrigatoria = (int.Parse(dr["obrigatoria"].ToString()) == 1);

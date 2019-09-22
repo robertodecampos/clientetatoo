@@ -3,9 +3,6 @@ using ClienteTatoo.Utils;
 using System;
 using System.Collections.Generic;
 using System.Data.SQLite;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ClienteTatoo.Model
 {
@@ -16,6 +13,7 @@ namespace ClienteTatoo.Model
         public int Id { get; set; }
         public int? IdAlternativa { get; set; } = null;
         public string Descricao { get; set; }
+        public string CodigoImportacao { get; set; }
         public bool AlternativaUnica { get; set; }
         public bool Dissertativa { get; set; }
         public bool Obrigatoria { get; set; }
