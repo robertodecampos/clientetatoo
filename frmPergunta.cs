@@ -43,10 +43,13 @@ namespace ClienteTatoo
         {
             string mensagem;
 
-            if (Pergunta.IsValid(out mensagem))
+            using (var conn = new Connection(Database.Local))
             {
-                if (!rbDissertativa.Checked && !rbMultiplaSelecao.Checked && !rbSelecaoUnica.Checked)
-                    mensagem = "Selecione o tipo de alternativa para essa pergunta!";
+                if (Pergunta.IsValid(out mensagem, conn, null))
+                {
+                    if (!rbDissertativa.Checked && !rbMultiplaSelecao.Checked && !rbSelecaoUnica.Checked)
+                        mensagem = "Selecione o tipo de alternativa para essa pergunta!";
+                }
             }
 
             if (mensagem == string.Empty)

@@ -53,7 +53,7 @@ namespace ClienteTatoo.DAO
             if (model.Id == 0)
                 throw new Exception("Não é possível alterar um registro que não possuí identificador");
 
-            if (!model.IsValid())
+            if (!model.IsValid(_conn, transaction))
                 throw new Exception("Existem informações inconsistentes!");
 
             string sql = "UPDATE perguntas SET" +
@@ -87,6 +87,25 @@ namespace ClienteTatoo.DAO
             PreencherModel(model, dt.Rows[0]);
 
             return true;
+        }
+
+        public bool ExistsByCodigoImportacao(string codigoImportacao, int id, SQLiteTransaction transaction)
+        {
+            string sql = " SELECT *                                 " +
+                         " FROM perguntas a                         " +
+                         " WHERE                                    " +
+                         " a.`codigoImportacao` = @codigoImportacao " +
+                         " AND a.`id` <> @id                        " +
+                         " AND NOT a.`removida` AND a.`ativada`     ";
+
+            var parameters = new List<SQLiteParameter>() {
+                new SQLiteParameter("@codigoImportacao", DbType.String){ Value = codigoImportacao },
+                new SQLiteParameter("@id", DbType.Int32){ Value = id },
+            };
+
+            DataTable dt = _conn.ExecuteReader(sql, parameters, transaction);
+
+            return (dt.Rows.Count > 0);
         }
 
         public List<Pergunta> GetPrincipaisByTipoPergunta(TipoPergunta tipoPergunta, SQLiteTransaction transaction)

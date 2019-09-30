@@ -20,7 +20,7 @@ namespace ClienteTatoo.Model
         public bool Ativada { get; set; } = true;
         public TipoPergunta Tipo { get; set; }
 
-        public bool IsValid(out string mensagem)
+        public bool IsValid(out string mensagem, Connection conn, SQLiteTransaction transaction)
         {
             mensagem = "";
 
@@ -30,13 +30,28 @@ namespace ClienteTatoo.Model
                 return false;
             }
 
+            if (string.IsNullOrEmpty(CodigoImportacao))
+            {
+                mensagem = "O campo `Código de Importação` é obrigatório!";
+                return false;
+            }
+
+            using (var dao = new PerguntaDAO(conn))
+            {
+                if (dao.ExistsByCodigoImportacao(CodigoImportacao, Id, transaction))
+                {
+                    mensagem = "Já existe uma pergunta cadastrada com este Código de Importação!";
+                    return false;
+                }
+            }
+
             return true;
         }
 
-        public bool IsValid()
+        public bool IsValid(Connection conn, SQLiteTransaction transaction)
         {
             string mensagem;
-            return IsValid(out mensagem);
+            return IsValid(out mensagem, conn, transaction);
         }
 
         public void Salvar(Connection conn, SQLiteTransaction transaction)
