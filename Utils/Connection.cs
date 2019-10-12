@@ -2,6 +2,7 @@
 using System.Data;
 using System.Data.SQLite;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace ClienteTatoo.Utils
 {
@@ -79,6 +80,43 @@ namespace ClienteTatoo.Utils
                     return dt;
                 }
             }
+        }
+
+        public static string ReplaceCaractersToGlob(string value)
+        {
+            char[] acentuacaoA = { 'a', 'á', 'à', 'â', 'ã', 'ä', 'A', 'Á', 'À', 'Â', 'Ã', 'Ä' };
+            char[] acentuacaoE = { 'e', 'é', 'è', 'ê', 'ë', 'E', 'É', 'È', 'Ê', 'Ë' };
+            char[] acentuacaoI = { 'i', 'í', 'ì', 'î', 'ï', 'I', 'Í', 'Ì', 'Î', 'Ï' };
+            char[] acentuacaoO = { 'o', 'ó', 'ò', 'ô', 'õ', 'ö', 'O', 'Ó', 'Ò', 'Ô', 'Õ', 'Ö' };
+            char[] acentuacaoU = { 'u', 'ú', 'ù', 'û', 'ü', 'U', 'Ú', 'Ù', 'Û', 'Ü' };
+
+            var posicoesReplace = new List<KeyValuePair<int, string>>();
+
+            int i = 0;
+            foreach (char caracter in value )
+            {
+                if (acentuacaoA.Contains(caracter))
+                    posicoesReplace.Add(new KeyValuePair<int, string>(i, "[aáàâãäAÁÀÂÃÄ]"));
+                else if (acentuacaoE.Contains(caracter))
+                    posicoesReplace.Add(new KeyValuePair<int, string>(i, "[eéèêëEÉÈÊË]"));
+                else if (acentuacaoI.Contains(caracter))
+                    posicoesReplace.Add(new KeyValuePair<int, string>(i, "[iíìîïIÍÌÎÏ]"));
+                else if (acentuacaoO.Contains(caracter))
+                    posicoesReplace.Add(new KeyValuePair<int, string>(i, "[oóòôõöOÓÒÔÕÖ]"));
+                else if (acentuacaoU.Contains(caracter))
+                    posicoesReplace.Add(new KeyValuePair<int, string>(i, "[uúùûüUÚÙÛÜ]"));
+
+                i++;
+            }
+
+            for (i = posicoesReplace.Count - 1; i >= 0; i--)
+            {
+                KeyValuePair<int, string> posicao = posicoesReplace[i];
+
+                value = value.Substring(0, posicao.Key) + value.Substring(posicao.Key + 1, value.Length - posicao.Key);
+            }
+
+            return value;
         }
 
         public int UltimoIdInserido() => (int)_conn.LastInsertRowId;
