@@ -1,5 +1,4 @@
-﻿using ClienteTatoo.DAO;
-using ClienteTatoo.Utils;
+﻿using ClienteTatoo.Utils;
 using System;
 using System.Collections.Generic;
 using System.Data.SQLite;
@@ -16,7 +15,7 @@ namespace ClienteTatoo.Model
         public string Descricao { get; set; }
         public bool Ativada { get; set; } = true;
 
-        public bool IsValid(out string mensagem)
+        public bool IsValid(out string mensagem, Connection conn, SQLiteTransaction transaction)
         {
             mensagem = "";
 
@@ -26,13 +25,19 @@ namespace ClienteTatoo.Model
                 return false;
             }
 
+            if (Alternativa.ExistsByIdPerguntaAndDescricao(Id, IdPergunta, Descricao.Trim(), conn, transaction))
+            {
+                mensagem = "Já existe uma resposta ativa com essa descrição para essa pergunta!";
+                return false;
+            }
+
             return true;
         }
 
-        public bool IsValid()
+        public bool IsValid(Connection conn, SQLiteTransaction transaction)
         {
             string mensagem;
-            return IsValid(out mensagem);
+            return IsValid(out mensagem, conn, transaction);
         }
 
         public void Salvar(Connection conn, SQLiteTransaction transaction)
@@ -78,6 +83,14 @@ namespace ClienteTatoo.Model
             using (var dao = new AlternativaDAO(conn))
             {
                 return dao.GetAtivaByIdPerguntaAndDescricao(idPergunta, descricao, transaction);
+            }
+        }
+
+        public static bool ExistsByIdPerguntaAndDescricao(int idAlternativa, int idPergunta, string descricao, Connection conn, SQLiteTransaction transaction)
+        {
+            using (var dao = new AlternativaDAO(conn))
+            {
+                return dao.ExistsByIdPerguntaAndDescricao(idAlternativa, idPergunta, descricao, transaction);
             }
         }
 

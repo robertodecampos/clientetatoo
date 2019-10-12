@@ -162,12 +162,31 @@ namespace ClienteTatoo.DAO
             return alternativa;
         }
 
+        public bool ExistsByIdPerguntaAndDescricao(int idAlternativa, int idPergunta, string descricao, SQLiteTransaction transaction)
+        {
+            string sql = "SELECT *" +
+                         " FROM alternativas a" +
+                         " WHERE a.`idPergunta` = @idPergunta" +
+                         " AND a.`id` <> @idAlternativa" +
+                         " AND a.`descricao` GLOB @descricao" +
+                         " AND NOT a.`removida` AND a.`ativada`";
+
+            var parameters = new List<SQLiteParameter>();
+            parameters.Add(new SQLiteParameter("@idPergunta", DbType.Int32) { Value = idPergunta });
+            parameters.Add(new SQLiteParameter("@idAlternativa", DbType.Int32) { Value = idAlternativa });
+            parameters.Add(new SQLiteParameter("@descricao", DbType.String) { Value = $"*{Connection.ReplaceCaractersToGlob(descricao)}*" });
+
+            DataTable dt = _conn.ExecuteReader(sql, parameters, transaction);
+
+            return (dt.Rows.Count > 0);
+        }
+
         private List<SQLiteParameter> GetParameters(Alternativa model)
         {
             var parameters = new List<SQLiteParameter>();
 
             parameters.Add(new SQLiteParameter("@idPergunta", DbType.Int32) { Value = model.IdPergunta });
-            parameters.Add(new SQLiteParameter("@descricao", DbType.String) { Value = model.Descricao });
+            parameters.Add(new SQLiteParameter("@descricao", DbType.String) { Value = model.Descricao.Trim() });
 
             return parameters;
         }
