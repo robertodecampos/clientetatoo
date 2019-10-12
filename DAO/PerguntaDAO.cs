@@ -222,6 +222,29 @@ namespace ClienteTatoo.DAO
             return perguntas;
         }
 
+        public Pergunta GetAtivaByCodigoImportacao(string codigoImportacao, SQLiteTransaction transaction)
+        {
+            string sql = "SELECT *" +
+                         " FROM perguntas a" +
+                         " WHERE a.`codigoImportacao` = @codigoImportacao" +
+                         " AND NOT a.`removida` AND a.`ativada`";
+
+            var parameters = new List<SQLiteParameter>();
+            parameters.Add(new SQLiteParameter("@codigoImportacao", DbType.String) { Value = codigoImportacao });
+
+            DataTable dt = _conn.ExecuteReader(sql, parameters, transaction);
+
+            var perguntas = new List<Pergunta>(dt.Rows.Count);
+
+            if (dt.Rows.Count != 1)
+                return null;
+
+            var pergunta = new Pergunta();
+            PreencherModel(pergunta, dt.Rows[0]);
+
+            return pergunta;
+        }
+
         private List<SQLiteParameter> GetParameters(Pergunta model)
         {
             var parameters = new List<SQLiteParameter>();

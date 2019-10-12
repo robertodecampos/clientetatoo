@@ -36,13 +36,10 @@ namespace ClienteTatoo.Model
                 return false;
             }
 
-            using (var dao = new PerguntaDAO(conn))
+            if (ExistsByCodigoImportacao(CodigoImportacao, Id, conn, transaction))
             {
-                if (dao.ExistsByCodigoImportacao(CodigoImportacao, Id, transaction))
-                {
-                    mensagem = "Já existe uma pergunta cadastrada com este Código de Importação!";
-                    return false;
-                }
+                mensagem = "Já existe uma pergunta cadastrada com este Código de Importação!";
+                return false;
             }
 
             return true;
@@ -100,6 +97,22 @@ namespace ClienteTatoo.Model
                     return dao.GetAtivasByIdAlternativa(idAlternativa, transaction);
                 else
                     return dao.GetByIdAlternativa(idAlternativa, transaction);
+            }
+        }
+
+        public static Pergunta GetAtivaByCodigoImportacao(string codigoImportacao, Connection conn, SQLiteTransaction transaction)
+        {
+            using (var dao = new PerguntaDAO(conn))
+            {
+                return dao.GetAtivaByCodigoImportacao(codigoImportacao, transaction);
+            }
+        }
+
+        public static bool ExistsByCodigoImportacao(string codigoImportacao, int id, Connection conn, SQLiteTransaction transaction)
+        {
+            using (var dao = new PerguntaDAO(conn))
+            {
+                return dao.ExistsByCodigoImportacao(codigoImportacao, id, transaction);
             }
         }
 
