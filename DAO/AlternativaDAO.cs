@@ -139,6 +139,29 @@ namespace ClienteTatoo.DAO
             return alternativas;
         }
 
+        public Alternativa GetAtivaByIdPerguntaAndDescricao(int idPergunta, string descricao, SQLiteTransaction transaction)
+        {
+            string sql = "SELECT *" +
+                         " FROM alternativas a" +
+                         " WHERE a.`idPergunta` = @idPergunta" +
+                         " AND a.`descricao` GLOB @descricao" +
+                         " AND NOT a.`removida` AND a.`ativada`";
+
+            var parameters = new List<SQLiteParameter>();
+            parameters.Add(new SQLiteParameter("@idPergunta", DbType.Int32) { Value = idPergunta });
+            parameters.Add(new SQLiteParameter("@descricao", DbType.String) { Value = $"*{Connection.ReplaceCaractersToGlob(descricao)}*" });
+
+            DataTable dt = _conn.ExecuteReader(sql, parameters, transaction);
+
+            if (dt.Rows.Count != 1)
+                return null;
+
+            var alternativa = new Alternativa();
+            PreencherModel(alternativa, dt.Rows[0]);
+
+            return alternativa;
+        }
+
         private List<SQLiteParameter> GetParameters(Alternativa model)
         {
             var parameters = new List<SQLiteParameter>();

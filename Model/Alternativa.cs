@@ -73,6 +73,14 @@ namespace ClienteTatoo.Model
             }
         }
 
+        public static Alternativa GetAtivaByIdPerguntaAndDescricao(int idPergunta, string descricao, Connection conn, SQLiteTransaction transaction)
+        {
+            using (var dao = new AlternativaDAO(conn))
+            {
+                return dao.GetAtivaByIdPerguntaAndDescricao(idPergunta, descricao, transaction);
+            }
+        }
+
         public void Dispose() {}
     }
 }
