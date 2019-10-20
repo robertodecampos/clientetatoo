@@ -10,6 +10,7 @@ namespace ClienteTatoo.Model
     {
         public int Id { get; set; }
         public string Nome { get; set; }
+        public string Uf { get; set; }
 
         public bool GetById(int id, SQLiteTransaction transaction = null)
         {
