@@ -108,6 +108,26 @@ namespace ClienteTatoo.DAO
             return (dt.Rows.Count > 0);
         }
 
+        public List<Pergunta> GetAllAtivas(SQLiteTransaction transaction)
+        {
+            string sql = "SELECT *" +
+                         " FROM perguntas a" +
+                         " WHERE NOT a.`removida`";
+
+            DataTable dt = _conn.ExecuteReader(sql, null, transaction);
+
+            var perguntas = new List<Pergunta>(dt.Rows.Count);
+
+            foreach (DataRow dr in dt.Rows)
+            {
+                var pergunta = new Pergunta();
+                PreencherModel(pergunta, dr);
+                perguntas.Add(pergunta);
+            }
+
+            return perguntas;
+        }
+
         public List<Pergunta> GetPrincipaisByTipoPergunta(TipoPergunta tipoPergunta, SQLiteTransaction transaction)
         {
             string tipo = "";
