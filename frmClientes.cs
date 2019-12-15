@@ -407,6 +407,13 @@ namespace ClienteTatoo
 
         private void importarClientesToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            using (var frmLogin = new FormLogin())
+            {
+                frmLogin.ShowDialog();
+                if (!frmLogin.Logado)
+                    return;
+            }
+
             using (var frmImportacaoSelecionarArquivo = new frmImportacaoSelecionarArquivo())
             {
                 frmImportacaoSelecionarArquivo.ShowDialog();
