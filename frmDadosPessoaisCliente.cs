@@ -231,7 +231,7 @@ namespace ClienteTatoo
             string mensagem = null;
             using (var conn = new Connection())
             {
-                if (!Cliente.IsValid(conn, null, out mensagem))
+                if (!Cliente.IsValid(false, conn, null, out mensagem))
                 {
                     MessageBox.Show(mensagem, "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     DialogResult = DialogResult.None;

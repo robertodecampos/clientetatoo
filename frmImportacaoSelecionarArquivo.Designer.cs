@@ -76,6 +76,7 @@
             this.btnImportar.TabIndex = 3;
             this.btnImportar.Text = "Importar";
             this.btnImportar.UseVisualStyleBackColor = true;
+            this.btnImportar.Click += new System.EventHandler(this.btnImportar_Click);
             // 
             // lblClientesCarregados
             // 
@@ -99,7 +100,7 @@
             // 
             // ofdArquivo
             // 
-            this.ofdArquivo.Filter = "Excel|*.xls;*.xlsx";
+            this.ofdArquivo.Filter = "Arquivo Excel|*.xlsx";
             // 
             // frmImportacaoSelecionarArquivo
             // 

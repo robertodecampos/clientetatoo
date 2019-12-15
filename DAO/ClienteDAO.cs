@@ -15,13 +15,17 @@ namespace ClienteTatoo.DAO
 
         public ClienteDAO(Connection conn) => _conn = conn;
 
-        public int Insert(Cliente model, SQLiteTransaction transaction)
+        public int Insert(Cliente model, SQLiteTransaction transaction) => throw new NotImplementedException();
+
+        public int Insert(Cliente model, bool isImportacao, SQLiteTransaction transaction)
         {
             if (model.Id != 0)
                 throw new Exception("Não é possível inserir um registro que já possuí identificador");
 
-            if (!model.IsValid(_conn, transaction))
-                throw new Exception("Existem informações inconsistentes!");
+            string mensagem;
+
+            if (!model.IsValid(isImportacao, _conn, transaction, out mensagem))
+                throw new Exception("Existem informações inconsistentes: " + mensagem);
 
             string sql = "INSERT INTO clientes (" +
                          "nome, cpf, dataNascimento, cep, tipoLogradouro, logradouro, numero, bairro, complemento, idCidade, uf, telefone, celular, email" +
@@ -56,13 +60,17 @@ namespace ClienteTatoo.DAO
             return _conn.Execute(sql, parameters, transaction);
         }
 
-        public int Update(Cliente model, SQLiteTransaction transaction)
+        public int Update(Cliente model, SQLiteTransaction transaction) => throw new NotImplementedException();
+
+        public int Update(Cliente model, bool isImportacao, SQLiteTransaction transaction)
         {
             if (model.Id == 0)
                 throw new Exception("Não é possível alterar um registro que não possuí identificador");
 
-            if (!model.IsValid(_conn, transaction))
-                throw new Exception("Existem informações inconsistentes!");
+            string mensagem;
+
+            if (!model.IsValid(isImportacao, _conn, transaction, out mensagem))
+                throw new Exception("Existem informações inconsistentes: " + mensagem);
 
             string sql = "UPDATE clientes SET" +
                          " nome = @nome, cpf = @cpf, dataNascimento = @dataNascimento, cep = @cep, tipoLogradouro = @tipoLogradouro," +
@@ -123,6 +131,21 @@ namespace ClienteTatoo.DAO
             return clientes;
         }
 
+        public bool ExistsByCelular(string celular, int id, SQLiteTransaction transaction)
+        {
+            string sql = "SELECT COUNT(a.`id`) qtde" +
+                         " FROM `clientes` a" +
+                         " WHERE a.`id` <> @id AND a.`celular` = @celular AND a.`removido` = 0";
+
+            var parameters = new List<SQLiteParameter>();
+            parameters.Add(new SQLiteParameter("@celular", DbType.String) { Value = celular });
+            parameters.Add(new SQLiteParameter("@id", DbType.Int32) { Value = id });
+
+            DataTable dt = _conn.ExecuteReader(sql, parameters, transaction);
+
+            return int.Parse(dt.Rows[0]["qtde"].ToString()) > 0;
+        }
+
         public bool ExistsByCpf(string cpf, int id, SQLiteTransaction transaction)
         {
             string sql = "SELECT COUNT(a.`id`) qtde" +
@@ -131,6 +154,36 @@ namespace ClienteTatoo.DAO
 
             var parameters = new List<SQLiteParameter>();
             parameters.Add(new SQLiteParameter("@cpf", DbType.String) { Value = cpf });
+            parameters.Add(new SQLiteParameter("@id", DbType.Int32) { Value = id });
+
+            DataTable dt = _conn.ExecuteReader(sql, parameters, transaction);
+
+            return int.Parse(dt.Rows[0]["qtde"].ToString()) > 0;
+        }
+
+        public bool ExistsByEmail(string email, int id, SQLiteTransaction transaction)
+        {
+            string sql = "SELECT COUNT(a.`id`) qtde" +
+                         " FROM `clientes` a" +
+                         " WHERE a.`id` <> @id AND a.`email` = @email AND a.`removido` = 0";
+
+            var parameters = new List<SQLiteParameter>();
+            parameters.Add(new SQLiteParameter("@email", DbType.String) { Value = email });
+            parameters.Add(new SQLiteParameter("@id", DbType.Int32) { Value = id });
+
+            DataTable dt = _conn.ExecuteReader(sql, parameters, transaction);
+
+            return int.Parse(dt.Rows[0]["qtde"].ToString()) > 0;
+        }
+
+        public bool ExistsByNome(string nome, int id, SQLiteTransaction transaction)
+        {
+            string sql = "SELECT COUNT(a.`id`) qtde" +
+                         " FROM `clientes` a" +
+                         " WHERE a.`id` <> @id AND a.`nome` = @nome AND a.`removido` = 0";
+
+            var parameters = new List<SQLiteParameter>();
+            parameters.Add(new SQLiteParameter("@nome", DbType.String) { Value = nome });
             parameters.Add(new SQLiteParameter("@id", DbType.Int32) { Value = id });
 
             DataTable dt = _conn.ExecuteReader(sql, parameters, transaction);

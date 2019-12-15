@@ -125,7 +125,7 @@ namespace ClienteTatoo
                         try
                         {
                             frmDadosPessoais.SetDadosInModel(cliente);
-                            cliente.Salvar(conn, transaction);
+                            cliente.Salvar(false, conn, transaction);
 
                             Resposta.SalvarRespostas(TipoPergunta.Cliente, cliente.Id, frmPesquisa.Respostas, conn, transaction);
 
@@ -342,7 +342,7 @@ namespace ClienteTatoo
 
                 using (var conn = new Connection())
                 {
-                    cliente.Salvar(conn, null);
+                    cliente.Salvar(false, conn, null);
                     MessageBox.Show("Informações do cliente salva com sucesso!", "Informação", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     CarregarClientes();
                 }
