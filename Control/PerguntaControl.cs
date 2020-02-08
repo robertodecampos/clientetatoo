@@ -49,32 +49,10 @@ namespace ClienteTatoo.Control
             lblDescricao.Font = new Font(lblDescricao.Font.Name, lblDescricao.Font.Size, FontStyle.Bold, lblDescricao.Font.Unit);
             lblDescricao.Left = 0;
             lblDescricao.Top = 0;
-            lblDescricao.Width = ClientSize.Width;
             lblDescricao.Anchor = (AnchorStyles.Left | AnchorStyles.Top | AnchorStyles.Right);
             lblDescricao.Text = Pergunta.Descricao;
 
-            using (Graphics graphics = lblDescricao.CreateGraphics())
-            {
-                lblDescricao.Height = (int)Math.Ceiling(graphics.MeasureString(lblDescricao.Text, lblDescricao.Font, lblDescricao.Width).Height);
-            }
-
-            int topComponent = lblDescricao.Height + 8;
-
-            for (int i = 0; i < Alternativas.Count; i++)
-            {
-                AlternativaControl alternativa = Alternativas[i];
-                alternativa.Top = topComponent;
-                alternativa.Left = 0;
-                alternativa.Width = ClientSize.Width;
-                alternativa.Anchor = (AnchorStyles.Left | AnchorStyles.Top | AnchorStyles.Right);
-                alternativa.CheckedChanged += Alternativa_CheckedChanged;
-
-                Controls.Add(alternativa);
-
-                topComponent += alternativa.Height + 4;
-            }
-
-            Height = topComponent + 4;
+            PosicionarComponentes();
         }
 
         public bool IsValid(out string mensagem)
@@ -153,6 +131,13 @@ namespace ClienteTatoo.Control
 
         protected override void OnPaint(PaintEventArgs pe) => base.OnPaint(pe);
 
+        protected override void OnResize(EventArgs eventargs)
+        {
+            base.OnResize(eventargs);
+
+            PosicionarComponentes();
+        }
+
         private void Alternativa_CheckedChanged(int idAlternativa, bool marcada)
         {
             if ((!Pergunta.AlternativaUnica) || (!marcada))
@@ -163,6 +148,34 @@ namespace ClienteTatoo.Control
                 if ((alternativa.Alternativa.Id != idAlternativa) && (alternativa.Checked))
                     alternativa.Checked = false;
             }
+        }
+
+        private void PosicionarComponentes()
+        {
+            lblDescricao.Width = ClientSize.Width;
+
+            using (Graphics graphics = lblDescricao.CreateGraphics())
+            {
+                lblDescricao.Height = (int)Math.Ceiling(graphics.MeasureString(lblDescricao.Text, lblDescricao.Font, lblDescricao.Width).Height);
+            }
+
+            int topComponent = lblDescricao.Height + 8;
+
+            for (int i = 0; i < Alternativas.Count; i++)
+            {
+                AlternativaControl alternativa = Alternativas[i];
+                alternativa.Top = topComponent;
+                alternativa.Left = 0;
+                alternativa.Width = ClientSize.Width;
+                alternativa.Anchor = (AnchorStyles.Left | AnchorStyles.Top | AnchorStyles.Right);
+                alternativa.CheckedChanged += Alternativa_CheckedChanged;
+
+                Controls.Add(alternativa);
+
+                topComponent += alternativa.Height + 4;
+            }
+
+            Height = topComponent + 4;
         }
     }
 }
