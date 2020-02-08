@@ -98,9 +98,9 @@ namespace ClienteTatoo.DAO
 
         public List<Cidade> GetByUf(string uf, SQLiteTransaction transaction = null)
         {
-            string sql = "SELECT a.`loc_nu_sequencial` idCidade, a.`loc_no` cidade" +
-                         " FROM `log_localidade` a" +
-                         " WHERE a.`ufe_sg` = @uf";
+            string sql = "SELECT a.`loc_nu_sequencial` idCidade, a.`loc_no` cidade, a.`ufe_sg` uf " +
+                         " FROM `log_localidade` a                                                " +
+                         " WHERE a.`ufe_sg` = @uf                                                 ";
 
             var parameters = new List<SQLiteParameter>();
             parameters.Add(new SQLiteParameter("@uf", DbType.String) { Value = uf });
