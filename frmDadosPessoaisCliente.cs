@@ -272,5 +272,61 @@ namespace ClienteTatoo
                 MessageBox.Show(erro.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+        private void PosicionarCursorMaskedTextBox(MaskedTextBox maskedTextBox)
+        {
+            maskedTextBox.SelectionStart = maskedTextBox.MaskedTextProvider.LastAssignedPosition + 1;
+            maskedTextBox.SelectionLength = 0;
+        }
+
+        private void txtDataNascimento_Enter(object sender, EventArgs e)
+        {
+            PosicionarCursorMaskedTextBox((MaskedTextBox)sender);
+        }
+
+        private void txtDataNascimento_Click(object sender, EventArgs e)
+        {
+            PosicionarCursorMaskedTextBox((MaskedTextBox)sender);
+        }
+
+        private void txtCpf_Click(object sender, EventArgs e)
+        {
+            PosicionarCursorMaskedTextBox((MaskedTextBox)sender);
+        }
+
+        private void txtCpf_Enter(object sender, EventArgs e)
+        {
+            PosicionarCursorMaskedTextBox((MaskedTextBox)sender);
+        }
+
+        private void txtTelefone_Click(object sender, EventArgs e)
+        {
+            PosicionarCursorMaskedTextBox((MaskedTextBox)sender);
+        }
+
+        private void txtTelefone_Enter(object sender, EventArgs e)
+        {
+            PosicionarCursorMaskedTextBox((MaskedTextBox)sender);
+        }
+
+        private void txtCelular_Click(object sender, EventArgs e)
+        {
+            PosicionarCursorMaskedTextBox((MaskedTextBox)sender);
+        }
+
+        private void txtCelular_Enter(object sender, EventArgs e)
+        {
+            PosicionarCursorMaskedTextBox((MaskedTextBox)sender);
+        }
+
+        private void txtCep_Click(object sender, EventArgs e)
+        {
+            PosicionarCursorMaskedTextBox((MaskedTextBox)sender);
+        }
+
+        private void txtCep_Enter(object sender, EventArgs e)
+        {
+            PosicionarCursorMaskedTextBox((MaskedTextBox)sender);
+        }
     }
 }

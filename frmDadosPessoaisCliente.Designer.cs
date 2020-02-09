@@ -97,6 +97,8 @@
             this.txtCpf.Size = new System.Drawing.Size(120, 26);
             this.txtCpf.TabIndex = 2;
             this.txtCpf.Text = "99999999999";
+            this.txtCpf.Click += new System.EventHandler(this.txtCpf_Click);
+            this.txtCpf.Enter += new System.EventHandler(this.txtCpf_Enter);
             // 
             // label3
             // 
@@ -127,6 +129,8 @@
             this.txtTelefone.PromptChar = ' ';
             this.txtTelefone.Size = new System.Drawing.Size(131, 26);
             this.txtTelefone.TabIndex = 4;
+            this.txtTelefone.Click += new System.EventHandler(this.txtTelefone_Click);
+            this.txtTelefone.Enter += new System.EventHandler(this.txtTelefone_Enter);
             // 
             // txtCelular
             // 
@@ -138,6 +142,8 @@
             this.txtCelular.Size = new System.Drawing.Size(131, 26);
             this.txtCelular.TabIndex = 5;
             this.txtCelular.Text = "99999999999";
+            this.txtCelular.Click += new System.EventHandler(this.txtCelular_Click);
+            this.txtCelular.Enter += new System.EventHandler(this.txtCelular_Enter);
             // 
             // label5
             // 
@@ -185,7 +191,9 @@
             this.txtCep.Size = new System.Drawing.Size(84, 26);
             this.txtCep.TabIndex = 6;
             this.txtCep.Text = "99999999";
+            this.txtCep.Click += new System.EventHandler(this.txtCep_Click);
             this.txtCep.TextChanged += new System.EventHandler(this.txtCep_TextChanged);
+            this.txtCep.Enter += new System.EventHandler(this.txtCep_Enter);
             // 
             // label8
             // 
@@ -224,9 +232,8 @@
             // 
             // label10
             // 
-            this.label10.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(508, 262);
+            this.label10.Location = new System.Drawing.Point(8, 261);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(65, 20);
             this.label10.TabIndex = 18;
@@ -234,16 +241,15 @@
             // 
             // txtNumero
             // 
-            this.txtNumero.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtNumero.Location = new System.Drawing.Point(512, 285);
+            this.txtNumero.Location = new System.Drawing.Point(12, 284);
             this.txtNumero.Name = "txtNumero";
             this.txtNumero.Size = new System.Drawing.Size(100, 26);
-            this.txtNumero.TabIndex = 13;
+            this.txtNumero.TabIndex = 11;
             // 
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(8, 262);
+            this.label11.Location = new System.Drawing.Point(114, 261);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(108, 20);
             this.label11.TabIndex = 20;
@@ -251,15 +257,15 @@
             // 
             // txtComplemento
             // 
-            this.txtComplemento.Location = new System.Drawing.Point(12, 285);
+            this.txtComplemento.Location = new System.Drawing.Point(118, 284);
             this.txtComplemento.Name = "txtComplemento";
             this.txtComplemento.Size = new System.Drawing.Size(173, 26);
-            this.txtComplemento.TabIndex = 11;
+            this.txtComplemento.TabIndex = 12;
             // 
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(187, 262);
+            this.label12.Location = new System.Drawing.Point(293, 261);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(51, 20);
             this.label12.TabIndex = 22;
@@ -269,10 +275,10 @@
             // 
             this.txtBairro.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtBairro.Location = new System.Drawing.Point(191, 285);
+            this.txtBairro.Location = new System.Drawing.Point(297, 284);
             this.txtBairro.Name = "txtBairro";
             this.txtBairro.Size = new System.Drawing.Size(315, 26);
-            this.txtBairro.TabIndex = 12;
+            this.txtBairro.TabIndex = 13;
             // 
             // label13
             // 
@@ -315,9 +321,9 @@
             // 
             // btnOk
             // 
-            this.btnOk.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnOk.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.btnOk.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.btnOk.Location = new System.Drawing.Point(537, 345);
+            this.btnOk.Location = new System.Drawing.Point(275, 345);
             this.btnOk.Name = "btnOk";
             this.btnOk.Size = new System.Drawing.Size(75, 35);
             this.btnOk.TabIndex = 14;
@@ -333,6 +339,8 @@
             this.txtDataNascimento.Name = "txtDataNascimento";
             this.txtDataNascimento.Size = new System.Drawing.Size(150, 26);
             this.txtDataNascimento.TabIndex = 1;
+            this.txtDataNascimento.Click += new System.EventHandler(this.txtDataNascimento_Click);
+            this.txtDataNascimento.Enter += new System.EventHandler(this.txtDataNascimento_Enter);
             // 
             // btnAlterarPesquisa
             // 
@@ -340,7 +348,7 @@
             this.btnAlterarPesquisa.Location = new System.Drawing.Point(12, 345);
             this.btnAlterarPesquisa.Name = "btnAlterarPesquisa";
             this.btnAlterarPesquisa.Size = new System.Drawing.Size(135, 35);
-            this.btnAlterarPesquisa.TabIndex = 27;
+            this.btnAlterarPesquisa.TabIndex = 15;
             this.btnAlterarPesquisa.Text = "Alterar Pesquisa";
             this.btnAlterarPesquisa.UseVisualStyleBackColor = true;
             this.btnAlterarPesquisa.Visible = false;
