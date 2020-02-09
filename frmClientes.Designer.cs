@@ -31,6 +31,7 @@
             this.msPricipal = new System.Windows.Forms.MenuStrip();
             this.gerenciarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.usuáriosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.importarClientesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.configurarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.termoDeResponsabilidadeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.perguntasEAlternativasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -53,7 +54,6 @@
             this.btnRemover = new System.Windows.Forms.Button();
             this.btnTatuagens = new System.Windows.Forms.Button();
             this.btnVisualizarPesquisa = new System.Windows.Forms.Button();
-            this.importarClientesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.msPricipal.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -81,9 +81,16 @@
             // usuáriosToolStripMenuItem
             // 
             this.usuáriosToolStripMenuItem.Name = "usuáriosToolStripMenuItem";
-            this.usuáriosToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.usuáriosToolStripMenuItem.Size = new System.Drawing.Size(165, 22);
             this.usuáriosToolStripMenuItem.Text = "Usuários";
             this.usuáriosToolStripMenuItem.Click += new System.EventHandler(this.usuáriosToolStripMenuItem_Click);
+            // 
+            // importarClientesToolStripMenuItem
+            // 
+            this.importarClientesToolStripMenuItem.Name = "importarClientesToolStripMenuItem";
+            this.importarClientesToolStripMenuItem.Size = new System.Drawing.Size(165, 22);
+            this.importarClientesToolStripMenuItem.Text = "Importar Clientes";
+            this.importarClientesToolStripMenuItem.Click += new System.EventHandler(this.importarClientesToolStripMenuItem_Click);
             // 
             // configurarToolStripMenuItem
             // 
@@ -97,7 +104,7 @@
             // termoDeResponsabilidadeToolStripMenuItem
             // 
             this.termoDeResponsabilidadeToolStripMenuItem.Name = "termoDeResponsabilidadeToolStripMenuItem";
-            this.termoDeResponsabilidadeToolStripMenuItem.Size = new System.Drawing.Size(219, 22);
+            this.termoDeResponsabilidadeToolStripMenuItem.Size = new System.Drawing.Size(218, 22);
             this.termoDeResponsabilidadeToolStripMenuItem.Text = "Termo de Responsabilidade";
             this.termoDeResponsabilidadeToolStripMenuItem.Click += new System.EventHandler(this.termoDeResponsabilidadeToolStripMenuItem_Click);
             // 
@@ -107,20 +114,20 @@
             this.clientesToolStripMenuItem,
             this.tatuagensToolStripMenuItem});
             this.perguntasEAlternativasToolStripMenuItem.Name = "perguntasEAlternativasToolStripMenuItem";
-            this.perguntasEAlternativasToolStripMenuItem.Size = new System.Drawing.Size(219, 22);
+            this.perguntasEAlternativasToolStripMenuItem.Size = new System.Drawing.Size(218, 22);
             this.perguntasEAlternativasToolStripMenuItem.Text = "Perguntas e Alternativas";
             // 
             // clientesToolStripMenuItem
             // 
             this.clientesToolStripMenuItem.Name = "clientesToolStripMenuItem";
-            this.clientesToolStripMenuItem.Size = new System.Drawing.Size(128, 22);
+            this.clientesToolStripMenuItem.Size = new System.Drawing.Size(127, 22);
             this.clientesToolStripMenuItem.Text = "Clientes";
             this.clientesToolStripMenuItem.Click += new System.EventHandler(this.clientesToolStripMenuItem_Click);
             // 
             // tatuagensToolStripMenuItem
             // 
             this.tatuagensToolStripMenuItem.Name = "tatuagensToolStripMenuItem";
-            this.tatuagensToolStripMenuItem.Size = new System.Drawing.Size(128, 22);
+            this.tatuagensToolStripMenuItem.Size = new System.Drawing.Size(127, 22);
             this.tatuagensToolStripMenuItem.Text = "Tatuagens";
             this.tatuagensToolStripMenuItem.Click += new System.EventHandler(this.tatuagensToolStripMenuItem_Click);
             // 
@@ -142,9 +149,10 @@
             // btnCadastrar
             // 
             this.btnCadastrar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnCadastrar.Location = new System.Drawing.Point(693, 423);
+            this.btnCadastrar.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCadastrar.Location = new System.Drawing.Point(648, 411);
             this.btnCadastrar.Name = "btnCadastrar";
-            this.btnCadastrar.Size = new System.Drawing.Size(102, 23);
+            this.btnCadastrar.Size = new System.Drawing.Size(147, 35);
             this.btnCadastrar.TabIndex = 1;
             this.btnCadastrar.Text = "Cadastrar Cliente";
             this.btnCadastrar.UseVisualStyleBackColor = true;
@@ -163,9 +171,10 @@
             this.columnHeader5,
             this.columnHeader6});
             this.lsvClientes.FullRowSelect = true;
+            this.lsvClientes.HideSelection = false;
             this.lsvClientes.Location = new System.Drawing.Point(12, 56);
             this.lsvClientes.Name = "lsvClientes";
-            this.lsvClientes.Size = new System.Drawing.Size(783, 361);
+            this.lsvClientes.Size = new System.Drawing.Size(783, 348);
             this.lsvClientes.TabIndex = 2;
             this.lsvClientes.UseCompatibleStateImageBehavior = false;
             this.lsvClientes.View = System.Windows.Forms.View.Details;
@@ -240,9 +249,10 @@
             // btnAlterar
             // 
             this.btnAlterar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnAlterar.Location = new System.Drawing.Point(93, 423);
+            this.btnAlterar.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAlterar.Location = new System.Drawing.Point(105, 410);
             this.btnAlterar.Name = "btnAlterar";
-            this.btnAlterar.Size = new System.Drawing.Size(68, 23);
+            this.btnAlterar.Size = new System.Drawing.Size(68, 35);
             this.btnAlterar.TabIndex = 6;
             this.btnAlterar.Text = "Alterar";
             this.btnAlterar.UseVisualStyleBackColor = true;
@@ -252,9 +262,10 @@
             // btnRemover
             // 
             this.btnRemover.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnRemover.Location = new System.Drawing.Point(12, 423);
+            this.btnRemover.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnRemover.Location = new System.Drawing.Point(12, 411);
             this.btnRemover.Name = "btnRemover";
-            this.btnRemover.Size = new System.Drawing.Size(75, 23);
+            this.btnRemover.Size = new System.Drawing.Size(87, 35);
             this.btnRemover.TabIndex = 7;
             this.btnRemover.Text = "Remover";
             this.btnRemover.UseVisualStyleBackColor = true;
@@ -264,9 +275,10 @@
             // btnTatuagens
             // 
             this.btnTatuagens.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnTatuagens.Location = new System.Drawing.Point(281, 423);
+            this.btnTatuagens.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnTatuagens.Location = new System.Drawing.Point(347, 410);
             this.btnTatuagens.Name = "btnTatuagens";
-            this.btnTatuagens.Size = new System.Drawing.Size(75, 23);
+            this.btnTatuagens.Size = new System.Drawing.Size(98, 35);
             this.btnTatuagens.TabIndex = 8;
             this.btnTatuagens.Text = "Tatuagens";
             this.btnTatuagens.UseVisualStyleBackColor = true;
@@ -276,21 +288,15 @@
             // btnVisualizarPesquisa
             // 
             this.btnVisualizarPesquisa.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnVisualizarPesquisa.Location = new System.Drawing.Point(167, 423);
+            this.btnVisualizarPesquisa.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnVisualizarPesquisa.Location = new System.Drawing.Point(179, 410);
             this.btnVisualizarPesquisa.Name = "btnVisualizarPesquisa";
-            this.btnVisualizarPesquisa.Size = new System.Drawing.Size(108, 23);
+            this.btnVisualizarPesquisa.Size = new System.Drawing.Size(162, 35);
             this.btnVisualizarPesquisa.TabIndex = 10;
             this.btnVisualizarPesquisa.Text = "Visualizar Pesquisa";
             this.btnVisualizarPesquisa.UseVisualStyleBackColor = true;
             this.btnVisualizarPesquisa.Visible = false;
             this.btnVisualizarPesquisa.Click += new System.EventHandler(this.btnVisualizarPesquisa_Click);
-            // 
-            // importarClientesToolStripMenuItem
-            // 
-            this.importarClientesToolStripMenuItem.Name = "importarClientesToolStripMenuItem";
-            this.importarClientesToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.importarClientesToolStripMenuItem.Text = "Importar Clientes";
-            this.importarClientesToolStripMenuItem.Click += new System.EventHandler(this.importarClientesToolStripMenuItem_Click);
             // 
             // FormClientes
             // 
