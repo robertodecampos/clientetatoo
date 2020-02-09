@@ -120,6 +120,9 @@ namespace ClienteTatoo.Control
         private void PosicionarPerguntas()
         {
             int posY = 8;
+            int posScroll = VerticalScroll.Value;
+
+            VerticalScroll.Value = VerticalScroll.Minimum;
 
             for (int i = 0; i < Perguntas.Count; i++)
             {
@@ -131,6 +134,8 @@ namespace ClienteTatoo.Control
                     posY += Perguntas[i].Height + 8;
                 }
             }
+
+            VerticalScroll.Value = posScroll;
         }
 
         private void Alternativa_CheckedChanged(int idAlternativa, bool marcada)
