@@ -46,7 +46,7 @@ namespace ClienteTatoo.Control
 
             foreach (PerguntaControl pergunta in Perguntas)
             {
-                if (!pergunta.IsValid(out mensagem))
+                if (pergunta.Visible && !pergunta.IsValid(out mensagem))
                     return false;
             }
 
