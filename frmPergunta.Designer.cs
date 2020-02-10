@@ -38,7 +38,10 @@
             this.btnSalvar = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.txtCodigoImportacao = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.numColunasAlternativas = new System.Windows.Forms.NumericUpDown();
             this.gbxTipoAlternativa.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numColunasAlternativas)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -83,6 +86,7 @@
             this.rbSelecaoUnica.TabStop = true;
             this.rbSelecaoUnica.Text = "Seleção ùnica";
             this.rbSelecaoUnica.UseVisualStyleBackColor = true;
+            this.rbSelecaoUnica.CheckedChanged += new System.EventHandler(this.rbSelecaoUnica_CheckedChanged);
             // 
             // rbMultiplaSelecao
             // 
@@ -94,6 +98,7 @@
             this.rbMultiplaSelecao.TabStop = true;
             this.rbMultiplaSelecao.Text = "Múltipla Seleção";
             this.rbMultiplaSelecao.UseVisualStyleBackColor = true;
+            this.rbMultiplaSelecao.CheckedChanged += new System.EventHandler(this.rbMultiplaSelecao_CheckedChanged);
             // 
             // rbDissertativa
             // 
@@ -105,11 +110,12 @@
             this.rbDissertativa.TabStop = true;
             this.rbDissertativa.Text = "Dissertativa";
             this.rbDissertativa.UseVisualStyleBackColor = true;
+            this.rbDissertativa.CheckedChanged += new System.EventHandler(this.rbDissertativa_CheckedChanged);
             // 
             // cbxAlternativaObrigatoria
             // 
             this.cbxAlternativaObrigatoria.AutoSize = true;
-            this.cbxAlternativaObrigatoria.Location = new System.Drawing.Point(12, 198);
+            this.cbxAlternativaObrigatoria.Location = new System.Drawing.Point(200, 222);
             this.cbxAlternativaObrigatoria.Name = "cbxAlternativaObrigatoria";
             this.cbxAlternativaObrigatoria.Size = new System.Drawing.Size(123, 17);
             this.cbxAlternativaObrigatoria.TabIndex = 4;
@@ -120,7 +126,7 @@
             // 
             this.btnSalvar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnSalvar.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.btnSalvar.Location = new System.Drawing.Point(248, 226);
+            this.btnSalvar.Location = new System.Drawing.Point(248, 264);
             this.btnSalvar.Name = "btnSalvar";
             this.btnSalvar.Size = new System.Drawing.Size(75, 23);
             this.btnSalvar.TabIndex = 5;
@@ -144,11 +150,44 @@
             this.txtCodigoImportacao.Size = new System.Drawing.Size(311, 20);
             this.txtCodigoImportacao.TabIndex = 2;
             // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(9, 205);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(127, 13);
+            this.label3.TabIndex = 6;
+            this.label3.Text = "Colunas para Alternativas";
+            // 
+            // numColunasAlternativas
+            // 
+            this.numColunasAlternativas.Location = new System.Drawing.Point(12, 221);
+            this.numColunasAlternativas.Maximum = new decimal(new int[] {
+            1410065407,
+            2,
+            0,
+            0});
+            this.numColunasAlternativas.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numColunasAlternativas.Name = "numColunasAlternativas";
+            this.numColunasAlternativas.Size = new System.Drawing.Size(120, 20);
+            this.numColunasAlternativas.TabIndex = 7;
+            this.numColunasAlternativas.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
             // FormPergunta
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(335, 261);
+            this.ClientSize = new System.Drawing.Size(335, 299);
+            this.Controls.Add(this.numColunasAlternativas);
+            this.Controls.Add(this.label3);
             this.Controls.Add(this.txtCodigoImportacao);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.btnSalvar);
@@ -165,6 +204,7 @@
             this.Text = "Pergunta";
             this.gbxTipoAlternativa.ResumeLayout(false);
             this.gbxTipoAlternativa.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numColunasAlternativas)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -182,5 +222,7 @@
         private System.Windows.Forms.Button btnSalvar;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox txtCodigoImportacao;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.NumericUpDown numColunasAlternativas;
     }
 }

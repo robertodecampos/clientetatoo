@@ -18,6 +18,7 @@ namespace ClienteTatoo.Model
         public bool Dissertativa { get; set; }
         public bool Obrigatoria { get; set; }
         public bool Ativada { get; set; } = true;
+        public int ColunasAlternativas { get; set; }
         public TipoPergunta Tipo { get; set; }
 
         public bool IsValid(out string mensagem, Connection conn, SQLiteTransaction transaction)
@@ -39,6 +40,12 @@ namespace ClienteTatoo.Model
             if (ExistsByCodigoImportacao(CodigoImportacao, Id, conn, transaction))
             {
                 mensagem = "Já existe uma pergunta cadastrada com este Código de Importação!";
+                return false;
+            }
+
+            if ((AlternativaUnica || !Dissertativa) && (ColunasAlternativas <= 0))
+            {
+                mensagem = "É necessário ter ao menos 1 coluna para perguntas com alternativas!";
                 return false;
             }
 

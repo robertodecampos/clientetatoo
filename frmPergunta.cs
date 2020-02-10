@@ -16,6 +16,8 @@ namespace ClienteTatoo
             Pergunta = new Pergunta();
 
             Pergunta.Tipo = tipoPergunta;
+
+            AlterarCampoColunasAlternativas();
         }
 
         public FormPergunta(int idAlternativa, TipoPergunta tipoPergunta) : this(tipoPergunta)
@@ -37,6 +39,9 @@ namespace ClienteTatoo
             else
                 rbMultiplaSelecao.Checked = true;
             cbxAlternativaObrigatoria.Checked = pergunta.Obrigatoria;
+            numColunasAlternativas.Value = pergunta.ColunasAlternativas;
+
+            AlterarCampoColunasAlternativas();
         }
 
         private bool IsValid()
@@ -61,6 +66,11 @@ namespace ClienteTatoo
             }
         }
 
+        private void AlterarCampoColunasAlternativas()
+        {
+            numColunasAlternativas.Enabled = (rbMultiplaSelecao.Checked || rbSelecaoUnica.Checked);
+        }
+
         private void btnSalvar_Click(object sender, EventArgs e)
         {
             try
@@ -70,6 +80,7 @@ namespace ClienteTatoo
                 Pergunta.Dissertativa = rbDissertativa.Checked;
                 Pergunta.AlternativaUnica = rbSelecaoUnica.Checked;
                 Pergunta.Obrigatoria = cbxAlternativaObrigatoria.Checked;
+                Pergunta.ColunasAlternativas = (int)numColunasAlternativas.Value;
 
                 if (!IsValid())
                 {
@@ -87,6 +98,21 @@ namespace ClienteTatoo
                 MessageBox.Show("Ocorreu um erro ao salvar a pergunta:\n\n" + erro.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 DialogResult = DialogResult.None;
             }
+        }
+
+        private void rbDissertativa_CheckedChanged(object sender, EventArgs e)
+        {
+            AlterarCampoColunasAlternativas();
+        }
+
+        private void rbMultiplaSelecao_CheckedChanged(object sender, EventArgs e)
+        {
+            AlterarCampoColunasAlternativas();
+        }
+
+        private void rbSelecaoUnica_CheckedChanged(object sender, EventArgs e)
+        {
+            AlterarCampoColunasAlternativas();
         }
     }
 }

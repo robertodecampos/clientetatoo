@@ -18,8 +18,8 @@ namespace ClienteTatoo.DAO
             if (model.Id != 0)
                 throw new Exception("Não é possível inserir um registro que já possuí identificador!");
 
-            string sql = "INSERT INTO perguntas (idAlternativa, descricao, codigoImportacao, alternativaUnica, dissertativa, obrigatoria, tipo)" +
-                         " VALUES (@idAlternativa, @descricao, @codigoImportacao, @alternativaUnica, @dissertativa, @obrigatoria, @tipo)";
+            string sql = "INSERT INTO perguntas (idAlternativa, descricao, codigoImportacao, alternativaUnica, dissertativa, obrigatoria, colunasAlternativas, tipo)" +
+                         " VALUES (@idAlternativa, @descricao, @codigoImportacao, @alternativaUnica, @dissertativa, @obrigatoria, @colunasAlternativas, @tipo)";
 
             var parameters = GetParameters(model);
 
@@ -58,7 +58,7 @@ namespace ClienteTatoo.DAO
 
             string sql = "UPDATE perguntas SET" +
                          " idAlternativa = @idAlternativa, descricao = @descricao, codigoImportacao = @codigoImportacao, alternativaUnica = @alternativaUnica," +
-                         " tipo = @tipo, dissertativa = @dissertativa, obrigatoria = @obrigatoria, ativada = @ativada" +
+                         " tipo = @tipo, dissertativa = @dissertativa, obrigatoria = @obrigatoria, colunasAlternativas = @colunasAlternativas, ativada = @ativada" +
                          " WHERE id = @id";
 
             List<SQLiteParameter> parameters = GetParameters(model);
@@ -274,6 +274,7 @@ namespace ClienteTatoo.DAO
             parameters.Add(new SQLiteParameter("@alternativaUnica", DbType.Int16) { Value = model.AlternativaUnica });
             parameters.Add(new SQLiteParameter("@dissertativa", DbType.Int16) { Value = model.Dissertativa });
             parameters.Add(new SQLiteParameter("@obrigatoria", DbType.Int16) { Value = model.Obrigatoria });
+            parameters.Add(new SQLiteParameter("@colunasAlternativas", DbType.Int32) { Value = model.ColunasAlternativas });
 
             string tipo = null;
 
@@ -305,6 +306,7 @@ namespace ClienteTatoo.DAO
             model.Dissertativa = (int.Parse(dr["dissertativa"].ToString()) == 1);
             model.Obrigatoria = (int.Parse(dr["obrigatoria"].ToString()) == 1);
             model.Ativada = (int.Parse(dr["ativada"].ToString()) == 1);
+            model.ColunasAlternativas = int.Parse(dr["colunasAlternativas"].ToString());
 
             switch (dr["tipo"].ToString())
             {

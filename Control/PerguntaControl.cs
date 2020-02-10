@@ -160,19 +160,33 @@ namespace ClienteTatoo.Control
             }
 
             int topComponent = lblDescricao.Height + 8;
+            int leftComponent = 0;
+            int colunasAlternativas = (Pergunta.ColunasAlternativas <= 0 ? 1 : Pergunta.ColunasAlternativas);
+            int widthAlternativa = (int)(ClientSize.Width / colunasAlternativas);
+            int maiorAlturaAlternativaLinha = 0;
 
             for (int i = 0; i < Alternativas.Count; i++)
             {
                 AlternativaControl alternativa = Alternativas[i];
                 alternativa.Top = topComponent;
-                alternativa.Left = 0;
-                alternativa.Width = ClientSize.Width;
+                alternativa.Left = leftComponent;
+                alternativa.Width = widthAlternativa;
                 alternativa.Anchor = (AnchorStyles.Left | AnchorStyles.Top | AnchorStyles.Right);
                 alternativa.CheckedChanged += Alternativa_CheckedChanged;
 
                 Controls.Add(alternativa);
 
-                topComponent += alternativa.Height + 4;
+                leftComponent += alternativa.Width;
+
+                if (alternativa.Height > maiorAlturaAlternativaLinha)
+                    maiorAlturaAlternativaLinha = alternativa.Height;
+
+                if ((leftComponent + widthAlternativa) > ClientSize.Width)
+                {
+                    topComponent += maiorAlturaAlternativaLinha + 4;
+                    leftComponent = 0;
+                    maiorAlturaAlternativaLinha = 0;
+                }
             }
 
             Height = topComponent + 4;
