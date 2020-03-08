@@ -1,13 +1,13 @@
-﻿using System;
-using System.Data.SQLite;
-using System.Collections.Generic;
-using System.Windows.Forms;
+﻿using ClienteTatoo.Control;
+using ClienteTatoo.Exceptions;
 using ClienteTatoo.Model;
 using ClienteTatoo.Model.Filter;
 using ClienteTatoo.Model.Ordenation;
 using ClienteTatoo.Utils;
-using ClienteTatoo.Control;
-using ClienteTatoo.Exceptions;
+using System;
+using System.Collections.Generic;
+using System.Data.SQLite;
+using System.Windows.Forms;
 
 namespace ClienteTatoo
 {

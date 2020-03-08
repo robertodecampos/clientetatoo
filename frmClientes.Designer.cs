@@ -54,6 +54,7 @@
             this.btnRemover = new System.Windows.Forms.Button();
             this.btnTatuagens = new System.Windows.Forms.Button();
             this.btnVisualizarPesquisa = new System.Windows.Forms.Button();
+            this.exportarClientesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.msPricipal.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -73,7 +74,8 @@
             // 
             this.gerenciarToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.usuáriosToolStripMenuItem,
-            this.importarClientesToolStripMenuItem});
+            this.importarClientesToolStripMenuItem,
+            this.exportarClientesToolStripMenuItem});
             this.gerenciarToolStripMenuItem.Name = "gerenciarToolStripMenuItem";
             this.gerenciarToolStripMenuItem.Size = new System.Drawing.Size(69, 20);
             this.gerenciarToolStripMenuItem.Text = "Gerenciar";
@@ -81,14 +83,14 @@
             // usuáriosToolStripMenuItem
             // 
             this.usuáriosToolStripMenuItem.Name = "usuáriosToolStripMenuItem";
-            this.usuáriosToolStripMenuItem.Size = new System.Drawing.Size(165, 22);
+            this.usuáriosToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.usuáriosToolStripMenuItem.Text = "Usuários";
             this.usuáriosToolStripMenuItem.Click += new System.EventHandler(this.usuáriosToolStripMenuItem_Click);
             // 
             // importarClientesToolStripMenuItem
             // 
             this.importarClientesToolStripMenuItem.Name = "importarClientesToolStripMenuItem";
-            this.importarClientesToolStripMenuItem.Size = new System.Drawing.Size(165, 22);
+            this.importarClientesToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.importarClientesToolStripMenuItem.Text = "Importar Clientes";
             this.importarClientesToolStripMenuItem.Click += new System.EventHandler(this.importarClientesToolStripMenuItem_Click);
             // 
@@ -298,6 +300,12 @@
             this.btnVisualizarPesquisa.Visible = false;
             this.btnVisualizarPesquisa.Click += new System.EventHandler(this.btnVisualizarPesquisa_Click);
             // 
+            // exportarClientesToolStripMenuItem
+            // 
+            this.exportarClientesToolStripMenuItem.Name = "exportarClientesToolStripMenuItem";
+            this.exportarClientesToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.exportarClientesToolStripMenuItem.Text = "Exportar Clientes";
+            // 
             // FormClientes
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -354,6 +362,7 @@
         private System.Windows.Forms.ToolStripMenuItem gerenciarToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem usuáriosToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem importarClientesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem exportarClientesToolStripMenuItem;
     }
 }
 
