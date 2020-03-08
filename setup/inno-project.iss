@@ -153,7 +153,7 @@ begin
   frmConfigUserAndPassword := CreateCustomForm();    
   frmConfigUserAndPassword.Caption := 'Usuário';
   frmConfigUserAndPassword.Height := 300;
-  frmConfigUserAndPassword.Center();
+  frmConfigUserAndPassword.Position := poScreenCenter;
 
   labelDescricao := TLabel.Create(frmConfigUserAndPassword);
   labelDescricao.Parent := frmConfigUserAndPassword;
