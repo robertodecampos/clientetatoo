@@ -35,6 +35,7 @@
             this.lblClientesCarregados = new System.Windows.Forms.Label();
             this.lblQtdeClientesCarregados = new System.Windows.Forms.Label();
             this.ofdArquivo = new System.Windows.Forms.OpenFileDialog();
+            this.btnModeloImportacao = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -102,11 +103,22 @@
             // 
             this.ofdArquivo.Filter = "Arquivo Excel|*.xlsx";
             // 
+            // btnModeloImportacao
+            // 
+            this.btnModeloImportacao.Location = new System.Drawing.Point(15, 103);
+            this.btnModeloImportacao.Name = "btnModeloImportacao";
+            this.btnModeloImportacao.Size = new System.Drawing.Size(128, 23);
+            this.btnModeloImportacao.TabIndex = 6;
+            this.btnModeloImportacao.Text = "Modelo de importação";
+            this.btnModeloImportacao.UseVisualStyleBackColor = true;
+            this.btnModeloImportacao.Click += new System.EventHandler(this.btnModeloImportacao_Click);
+            // 
             // frmImportacaoSelecionarArquivo
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(493, 138);
+            this.Controls.Add(this.btnModeloImportacao);
             this.Controls.Add(this.lblQtdeClientesCarregados);
             this.Controls.Add(this.lblClientesCarregados);
             this.Controls.Add(this.btnImportar);
@@ -135,5 +147,6 @@
         private System.Windows.Forms.Label lblClientesCarregados;
         private System.Windows.Forms.Label lblQtdeClientesCarregados;
         private System.Windows.Forms.OpenFileDialog ofdArquivo;
+        private System.Windows.Forms.Button btnModeloImportacao;
     }
 }
