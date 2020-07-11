@@ -1,6 +1,8 @@
 ﻿@model TatooReport.Models.ViewModels.Management.BranchNetwork.BranchNetworkDetails
 @{
+    Layout = "_LayoutBranchNetwork";
     ViewData["Title"] = "Detalhes";
+
     string urlViewAllUsers = @Url.Link("management", new { area = "Management", controller = "BranchNetwork", action = "Users", branchNetworkId = Model.Id });
     string urlViewAllBranches = @Url.Link("management", new { area = "Management", controller = "BranchNetwork", action = "Branches", branchNetworkId = Model.Id });
 }

@@ -1,0 +1,17 @@
+﻿@{
+    Layout = "_Layout";
+}
+
+@section Menu{
+    <li class="nav-item">
+        <a class="nav-link" href="@Url.Link("management", new { area = "Management", controller = "BranchNetwork", action = "Index" })">Redes</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="@Url.Link("management", new { area = "Management", controller = "BranchNetwork", action = "Branches", branchNetworkId = Context.Request.Query["branchNetworkId"] })">Filiais</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="@Url.Link("management", new { area = "Management", controller = "BranchNetwork", action = "Users", branchNetworkId = Context.Request.Query["branchNetworkId"] })">Usuários</a>
+    </li>
+}
+
+@RenderBody()
