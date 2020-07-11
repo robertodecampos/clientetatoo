@@ -1,0 +1,75 @@
+﻿@model List<BranchNetworkLine>
+@{
+    ViewData["Title"] = "Redes";
+}
+
+<h1>Redes</h1>
+
+<br />
+
+@if (ViewBag.Message != null)
+{
+    <div class="alert alert-info">
+        @ViewBag.Message
+    </div>
+}
+
+@if (Model != null)
+{
+    <div class="row">
+        <div class="col-sm-6 text-left">
+            <div class="btn-toolbar" role="toolbar">
+                <div class="btn-group">
+                    <button id="btnFiltrar" class="btn btn-primary">
+                        <span class="icon glyphicon glyphicon-filter"></span> Filtrar
+                    </button>
+                </div>
+                <div class="btn-group">
+                    <button id="btnRemoverUsuarios" class="btn btn-danger" style="display: none;">
+                        <span class="icon glyphicon glyphicon-trash"></span> Remover
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 text-right">
+            <a id="btnCadastrarUsuario" class="btn btn-success" href="@Url.Link("management", new { area = "Management", controller = "BranchNetwork", action = "Create" })">
+                <span class="icon glyphicon glyphicon-plus"></span> Cadastrar
+            </a>
+        </div>
+    </div>
+
+    <br />
+
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th class="ordination">
+                        Nome
+                    </th>
+                    <th class="ordination">
+                        Filiais
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (BranchNetworkLine branchNetworkLine in Model)
+                {
+                    <tr>
+                        <td class="text-center">
+                            <div class="checkbox checkbox-inline">
+                                <input id="@("cbxEditar" + branchNetworkLine.Id)" type="checkbox" name="branchNetworkLines" value="@branchNetworkLine.Id">
+                                <label for="@("cbxEditar" + branchNetworkLine.Id)"></label>
+                            </div>
+                        </td>
+                        <td>
+                            <a href="@Url.Link("management", new { area = "Management", controller = "BranchNetwork", action = "Details", branchNetworkId = branchNetworkLine.Id })">@branchNetworkLine.Name</a>
+                        </td>
+                        <td>@branchNetworkLine.NumberBranches</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}

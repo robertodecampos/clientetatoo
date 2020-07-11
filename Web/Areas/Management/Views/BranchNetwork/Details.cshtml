@@ -1,0 +1,17 @@
+﻿@model TatooReport.Models.ViewModels.Management.BranchNetwork.BranchNetworkDetails
+@{
+    ViewData["Title"] = "Detalhes";
+    string urlViewAllUsers = @Url.Link("management", new { area = "Management", controller = "BranchNetwork", action = "Users", branchNetworkId = Model.Id });
+    string urlViewAllBranches = @Url.Link("management", new { area = "Management", controller = "BranchNetwork", action = "Branches", branchNetworkId = Model.Id });
+}
+
+<h1>@Model.Name</h1>
+
+<div class="row">
+    <div class="col-md-6">
+        <partial name="PartialView/User/_UsersCardListview" model="Model.Users" view-data="@( new ViewDataDictionary(ViewData) { { "linkViewAll", urlViewAllUsers } } )" />
+    </div>
+    <div class="col-md-6">
+        <partial name="PartialView/Branch/_BranchesCardListview" model="Model.Branches" view-data="@( new ViewDataDictionary(ViewData) { { "linkViewAll", urlViewAllBranches } } )" />
+    </div>
+</div>

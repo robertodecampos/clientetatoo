@@ -1,0 +1,67 @@
+﻿@model List<Branch>
+@{
+    ViewData["Title"] = "Usuários";
+}
+
+<h1>Filiais</h1>
+
+<div class="table-responsive">
+    <table class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Código</th>
+                <th class="ordination">
+                    Nome
+                </th>
+                <th class="ordination">
+                    CEP
+                </th>
+                <th class="ordination">
+                    Tipo do endereço
+                </th>
+                <th class="ordination">
+                    Endereço
+                </th>
+                <th class="ordination">
+                    Número
+                </th>
+                <th class="ordination">
+                    Complemento
+                </th>
+                <th class="ordination">
+                    Bairro
+                </th>
+                <th class="ordination">
+                    Cidade
+                </th>
+                <th class="ordination">
+                    Estado
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (Branch branch in Model)
+            {
+            <tr>
+                <td class="text-center">
+                    <div class="checkbox checkbox-inline">
+                        <input id="@("cbxEditar" + branch.Id)" type="checkbox" name="branchNetworkLines" value="@branch.Id">
+                        <label for="@("cbxEditar" + branch.Id)"></label>
+                    </div>
+                </td>
+                <td>@branch.Id</td>
+                <td>@branch.Name</td>
+                <td>@branch.Address.PostalCode</td>
+                <td>@branch.Address.StreetType</td>
+                <td>@branch.Address.Street</td>
+                <td>@branch.Address.Number</td>
+                <td>@branch.Address.Complement</td>
+                <td>@branch.Address.District</td>
+                <td>@branch.Address.City</td>
+                <td>@branch.Address.State</td>
+            </tr>
+            }
+        </tbody>
+    </table>
+</div>

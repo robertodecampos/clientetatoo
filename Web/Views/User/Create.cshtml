@@ -1,0 +1,50 @@
+﻿
+@{
+    ViewData["Title"] = "Criar conta";
+}
+
+<h1>Criar conta</h1>
+
+<form method="post">
+    <div class="form-row">
+        <div class="form-group col-md-4">
+            <label for="inputNome">Nome</label>
+            <input type="text" id="inputNome" name="Nome" class="form-control" required>
+        </div>
+        <div class="form-group col-md-4">
+            <label for="inputSobrenome">Sobrenome</label>
+            <input type="text" id="inputSobrenome" name="Sobrenome" class="form-control" required>
+        </div>
+        <div class="form-group col-md-4">
+            <label for="inputCpf">CPF</label>
+            <input type="text" id="inputCpf" name="Cpf" class="form-control" required>
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-4">
+            <label for="inputEmail">E-mail</label>
+            <input type="email" id="inputEmail" name="Email" class="form-control" required>
+        </div>
+        <div class="form-group col-md-4">
+            <label for="inputTelefone">Telefone</label>
+            <input type="text" id="inputTelefone" name="Telefone" class="form-control">
+        </div>
+        <div class="form-group col-md-4">
+            <label for="inputCelular">Celular</label>
+            <input type="text" id="inputCelular" name="Celular" class="form-control">
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <label for="inputSenha">Senha</label>
+            <input type="password" id="inputSenha" name="Senha" class="form-control" required>
+        </div>
+        <div class="form-group col-md-6">
+            <label for="inputConfirmacaoSenha">Confirmação de Senha</label>
+            <input type="password" id="inputConfirmacaoSenha" name="ConfirmacaoSenha" class="form-control" required>
+        </div>
+    </div>
+    <div class="text-right">
+        <button type="submit" class="btn btn-success">Criar</button>
+    </div>
+</form>

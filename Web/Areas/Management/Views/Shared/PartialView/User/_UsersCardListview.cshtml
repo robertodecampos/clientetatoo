@@ -1,0 +1,41 @@
+﻿@model List<User>
+@{
+    Layout = "PartialView/_CardListview";
+}
+
+@section Title{
+    Usuários (@Model.Count())
+}
+
+@section Header{
+    <th class="ordination">
+        Código
+    </th>
+    <th class="ordination">
+        Nome
+    </th>
+    <th class="ordination">
+        E-mail
+    </th>
+}
+
+@section Items{
+    @foreach (User user in Model)
+    {
+        <tr>
+            <td>
+                @user.Id
+            </td>
+            <td>
+                @($"{user.Nome} {user.Sobrenome}")
+            </td>
+            <td>@user.Email</td>
+        </tr>
+    }
+}
+
+@section Footer{ 
+    <div class="text-muted text-right">
+        <a href="@this.ViewData["linkViewAll"].ToString()">visualizar todos...</a>
+    </div>
+}

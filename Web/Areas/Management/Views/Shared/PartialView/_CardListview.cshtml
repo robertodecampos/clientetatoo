@@ -1,0 +1,22 @@
+﻿<div class="card">
+    <div class="card-header font-weight-bold">
+        @RenderSection("Title", required: true)
+    </div>
+    <div class="card-body" style="padding: 0px;">
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover" style="margin: 0px">
+                <thead>
+                    <tr>
+                        @RenderSection("Header", required: true)
+                    </tr>
+                </thead>
+                <tbody>
+                    @RenderSection("Items", required: true)
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="card-footer">
+        @RenderSection("Footer", required: false)
+    </div>
+</div>

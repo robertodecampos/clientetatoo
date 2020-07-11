@@ -1,0 +1,33 @@
+﻿@model List<Branch>
+@{
+    Layout = "PartialView/_CardListview";
+}
+
+@section Title{
+    Filiais (@Model.Count())
+}
+
+@section Header{
+    <th class="ordination">
+        Código
+    </th>
+    <th class="ordination">
+        Nome
+    </th>
+}
+
+@section Items{
+    @foreach (Branch branch in Model)
+    {
+        <tr>
+            <td>@branch.Id</td>
+            <td>@branch.Name</td>
+        </tr>
+    }
+}
+
+@section Footer{ 
+    <div class="text-muted text-right">
+        <a href="@this.ViewData["linkViewAll"].ToString()">visualizar todos...</a>
+    </div>
+}

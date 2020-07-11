@@ -1,0 +1,47 @@
+﻿@model List<User>
+@{
+    ViewData["Title"] = "Usuários";
+}
+
+<h1>Usuários</h1>
+
+<div class="table-responsive">
+    <table class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Código</th>
+                <th class="ordination">
+                    Nome
+                </th>
+                <th class="ordination">
+                    CPF
+                </th>
+                <th class="ordination">
+                    Telefone
+                </th>
+                <th class="ordination">
+                    E-mail
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (User user in Model)
+            {
+            <tr>
+                <td class="text-center">
+                    <div class="checkbox checkbox-inline">
+                        <input id="@("cbxEditar" + user.Id)" type="checkbox" name="branchNetworkLines" value="@user.Id">
+                        <label for="@("cbxEditar" + user.Id)"></label>
+                    </div>
+                </td>
+                <td>@user.Id</td>
+                <td>@(user.Nome + " " + user.Sobrenome)</td>
+                <td>@user.Cpf </td>
+                <td>@user.Telefone</td>
+                <td>@user.Email</td>
+            </tr>
+            }
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,44 @@
+﻿@model TatooReport.Models.ViewModels.User.Login
+
+@{
+    ViewData["Title"] = "Entrar";
+}
+
+<h1>Entrar</h1>
+
+<form method="post">
+
+    @if (ViewBag.Mensagem != null)
+    {
+        <div class="alert alert-danger alert-dismissible">
+            @ViewBag.Mensagem
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    }
+
+    <div class="form-row">
+        <div class="form-group col-md-12">
+            <label for="inputEmail">E-mail</label>
+            <input type="email" id="inputEmail" name="Email" class="form-control" asp-for="Email" required>
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-12">
+            <label for="inputSenha">Senha</label>
+            <input type="password" id="inputSenha" name="Senha" class="form-control" asp-for="Senha" required>
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="col-md-6 text-left">
+            <input type="checkbox" id="inputLembrar" name="Lembrar" asp-for="Lembrar">
+            <label for="inputLembrar">Lembrar-me</label>
+        </div>
+        <div class="form-group col-md-6">
+            <div class="text-right">
+                <button type="submit" class="btn btn-success">Entrar</button>
+            </div>
+        </div>
+    </div>
+</form>
